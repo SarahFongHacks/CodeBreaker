@@ -9,6 +9,9 @@ mini clone of the very successful product hotel.com.
 ## Goal
 Get High Grade
 
+## Please use Prettier for formatting
+https://prettier.io/docs/en/editors.html
+
 ## How to run
 
 uses Node 18.9
