@@ -14,6 +14,8 @@ https://prettier.io/docs/en/editors.html
 
 ## How to run
 
+If you use fish this is a nice nvm manager https://github.com/jorgebucaran/nvm.fish
+
 uses Node 18.9
 
 ``` npm install ```
