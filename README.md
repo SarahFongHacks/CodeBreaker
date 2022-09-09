@@ -10,4 +10,5 @@ mini clone of the very successful product hotel.com.
 Get High Grade
 
 ## How to run
+``` npm install ```
 ``` npm start ```
