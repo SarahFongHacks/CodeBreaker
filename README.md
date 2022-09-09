@@ -10,6 +10,9 @@ mini clone of the very successful product hotel.com.
 Get High Grade
 
 ## How to run
+
+uses Node 18.9
+
 ``` npm install ```
 
 ``` npm start ```
