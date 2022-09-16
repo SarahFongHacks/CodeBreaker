@@ -6,6 +6,14 @@ import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { collection, addDoc, getDocs } from "firebase/firestore";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  Auth,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+
+import {signIn, register} from "./auth/auth"
 
 // TODO: Add SDKs for Firebase products that you want to use
 
@@ -38,6 +46,7 @@ async function writeToFireBase(db: any) {
   }
 }
 
+
 function App() {
   // Initialize Firebase
 
@@ -45,13 +54,15 @@ function App() {
   const analytics = getAnalytics(app);
   const db = getFirestore(app);
 
-  writeToFireBase(db);
+  //writeToFireBase(db);
 
+  const auth = getAuth();
 
-  const querySnapshot = await getDocs(collection(db, "users"));
-	querySnapshot.forEach((doc) => {
-  	console.log(`${doc.id} => ${doc.data()}`);
-	});
+  const email = "jugad.khajuria@sjsu.edu";
+  const passwd = "Covid Sucks I want a refund";
+
+//  register(auth, email, passwd);
+  signIn(auth, email, passwd);
 
   return (
     <div className="App">

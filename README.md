@@ -22,6 +22,12 @@ uses Node 18.9
 
 ``` npm start ```
 
+## Notes and Quirks to organize later
+
+React has a werid property called strict mode you can read about here https://reactjs.org/docs/strict-mode.html
+but one thing to understand is that in the dev build this means component code is run twice, so if some api call is being
+called twice it is most likely due too strict mode
+
 ## Credits 
 - Sarah Fong (Team Lead / Back End) (@SarahFongHacks)
 - Jugad Khajuria (Back End / General Tech Lead) (@JugadK)
