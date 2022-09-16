@@ -48,11 +48,11 @@ function App() {
   writeToFireBase(db);
 
 
-  const querySnapshot = await getDocs(collection(db, "users"));
+/*  const querySnapshot = await getDocs(collection(db, "users"));
 	querySnapshot.forEach((doc) => {
   	console.log(`${doc.id} => ${doc.data()}`);
 	});
-
+ */
   return (
     <div className="App">
       <header className="App-header">
