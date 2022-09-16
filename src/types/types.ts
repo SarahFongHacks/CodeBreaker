@@ -14,7 +14,6 @@ export type HotelRoom = {
 	price : number 
 	numberOfBeds : number  
 	numberOfBathrooms : number
-	isReserved : boolean
 	reservations : Reservation[]
 	capacity : number
 	hotel : string 
