@@ -19,7 +19,7 @@ If you use fish this is a nice nvm manager https://github.com/jorgebucaran/nvm.f
 uses Node 18.9
 
 ``` npm install ```
-
+``` npm run build ```
 ``` npm start ```
 
 ## Credits 
