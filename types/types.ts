@@ -5,7 +5,7 @@
 // Hotel Room
 
 export type HotelRoom = {
-	id : number
+	id : string
 	roomNumber : number
 	price : number 
 	numberOfBeds : number  
@@ -16,16 +16,17 @@ export type HotelRoom = {
 }
 
 export type Reservation = {
-	id : number
-	user : User
-	startDate : Date
-	endDate : Date
-	hotelRoom : HotelRoom
+	readonly id : string;
+	readonly userId : string
+	readonly startDate : Date
+	readonly endDate : Date
+	readonly hotelRoomId : string 
 }
 
 export type User = {
 
 	name : string
+	userId : string
 	currentBooking : Reservation[] 	
 }
 
