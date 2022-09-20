@@ -1,7 +1,41 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBlMEnkyHKOUNZncSmOjXB3v1BEb_HJTY4",
+  authDomain: "codebreaker-505ec.firebaseapp.com",
+  projectId: "codebreaker-505ec",
+  storageBucket: "codebreaker-505ec.appspot.com",
+  messagingSenderId: "739772167053",
+  appId: "1:739772167053:web:177c6ffcb1cc76f95583c4",
+  measurementId: "G-8LRW0DG85C",
+};
+
+// Write to Database Example
+async function writeToFireBase(db: any) {
+  try {
+    const docRef = await addDoc(collection(db, "users"), {
+      first: "Ada",
+      last: "Lovelace",
+      born: 1815,
+    });
+
+    console.log("Document written with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding document: ", e);
+  }
+}
+
 const Home: NextPage = () => {
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  //writeToFireBase(db);
+
   return (
     <div>
       <Head>
@@ -10,7 +44,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex flex-col items-center justify-center">
-        <h1 className="">Test Test 123</h1>
+        <h1 className="">Test Test Test 123</h1>
       </div>
     </div>
   );
