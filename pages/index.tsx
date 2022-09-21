@@ -2,9 +2,11 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Register from "../components/Register";
 
+import {signIn, register} from "../auth/auth"
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { collection, addDoc, getDocs } from "firebase/firestore";
+import {getAuth} from "firebase/auth"
 
 const firebaseConfig = {
   apiKey: "AIzaSyBlMEnkyHKOUNZncSmOjXB3v1BEb_HJTY4",
@@ -36,6 +38,7 @@ const Home: NextPage = () => {
   const db = getFirestore(app);
 
   //writeToFireBase(db);
+  let auth = getAuth();
 
   return (
     <div>
