@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -23,10 +24,15 @@ const Register = () => {
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         ></input>
-        <div className="cursor-pointer rounded-md w-full bg-black text-white p-2 flex items-center justify-center">
+        <div className="hover:bg-white hover:ring-1 hover:ring-black hover:text-black transition ease-linear duration-200 cursor-pointer rounded-md w-full bg-black text-white p-2 flex items-center justify-center">
           Register
         </div>
       </form>
+      <Link href="/login">
+        <div className="underline cursor-pointer">
+          Already have an account? Login
+        </div>
+      </Link>
     </div>
   );
 };

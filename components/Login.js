@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -6,7 +7,7 @@ const Login = () => {
 
   return (
     <div className="w-full h-screen flex-col flex items-center justify-center space-y-4">
-      <h1 className="text-2xl">Register</h1>
+      <h1 className="text-2xl">Log in</h1>
       <form className="flex flex-col space-y-4 w-64">
         <input
           id="username"
@@ -23,10 +24,13 @@ const Login = () => {
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         ></input>
+        <div className="cursor-pointer hover:bg-white hover:ring-1 hover:ring-black hover:text-black transition ease-linear duration-200 rounded-md w-full bg-black text-white p-2 flex items-center justify-center">
+          Login
+        </div>
       </form>
-      <div className="cursor-pointer rounded-md w-full bg-black text-white p-2 flex items-center justify-center">
-        Login
-      </div>
+      <Link href="/">
+        <div className=" underline cursor-pointer">Back to homepage</div>
+      </Link>
     </div>
   );
 };
