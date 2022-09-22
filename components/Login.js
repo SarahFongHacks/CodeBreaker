@@ -28,9 +28,12 @@ const Login = () => {
           Login
         </div>
       </form>
-      <Link href="/">
-        <div className=" underline cursor-pointer">Back to homepage</div>
-      </Link>
+      <div className="whitespace-nowrap">
+        Don't have an account?{" "}
+        <Link href="/register">
+          <span className="text-blue-500  cursor-pointer">Sign up</span>
+        </Link>
+      </div>
     </div>
   );
 };

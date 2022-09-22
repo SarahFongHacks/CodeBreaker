@@ -28,10 +28,8 @@ const Register = () => {
           Register
         </div>
       </form>
-      <Link href="/login">
-        <div className="underline cursor-pointer">
-          Already have an account? Login
-        </div>
+      <Link href="/">
+        <div className=" underline cursor-pointer">Back to homepage</div>
       </Link>
     </div>
   );

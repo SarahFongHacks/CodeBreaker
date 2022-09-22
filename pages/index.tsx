@@ -55,9 +55,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="w-full h-screen flex items-center justify-center">
-        <Link href="/register">
+        <Link href="/login">
           <div className="cursor-pointer rounded-md w-64 bg-black text-white p-2 flex items-center justify-center hover:bg-white hover:ring-1 hover:ring-black hover:text-black transition ease-linear duration-200">
-            Click to register
+            Login
           </div>
         </Link>
       </div>
