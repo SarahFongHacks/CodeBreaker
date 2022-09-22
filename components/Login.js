@@ -13,14 +13,14 @@ const Login = () => {
           id="username"
           type="text"
           autoComplete="off"
-          className=" rounded-md px-2 py-2 placeholder-gray-400 focus:outline-none border-2 border-black"
+          className=" rounded-md px-2 py-2 placeholder-gray-400 focus:outline-none border-[1px] border-black"
           placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
         ></input>
         <input
           id="password"
           type="password"
-          className=" rounded-md px-2 py-2 placeholder-gray-400 focus:outline-none border-2 border-black"
+          className=" rounded-md px-2 py-2 placeholder-gray-400 focus:outline-none border-[1px] border-black"
           placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         ></input>
