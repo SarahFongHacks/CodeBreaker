@@ -3,7 +3,7 @@
 ## Description
 LikeHome is our main project for CMPE165 @ SJSU. It is is a web / mobile application which shares catalog of ideas.  LikeHome is a
 mini clone of the very successful website hotel.com. Using LikeHome, users will have the opportunity to create an account and sear>
-of their choosing. Their search can be filtered and sorted using various criteria, such as (_____). They will also be able to canc>
+of their choosing. Their search can be filtered and sorted using price and distance. They will also be able to cancel and 
 gather reward points to use for free reservations.
 
 ## Goal
