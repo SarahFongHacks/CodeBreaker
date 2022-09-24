@@ -51,7 +51,7 @@ uses Node 18.9
 - Kuang Chi Chang (Front End) (@PercyChang18)
 - Kate Dinh (Front End / UI UX / Marketing) (@kqteDinh )
 - Albert Le (Front End / UI UX) (@treblale)
-- Hetal Helani (Front End / Testing) (@hetalhalani)
+- Hetal Halani (Front End / Testing) (@hetalhalani)
 - Theresa Nguyen (Testing / Documentation) (@thutheresanguyen)
 - Eric Pham (Testing / Documentation) (@Xainax)
 - Justin Yamamoto (Documentation) (@JusitnYSJSU)
