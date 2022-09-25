@@ -7,8 +7,11 @@ const Register = () => {
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-start">
-      <div className="w-full h-44 mb-16 overflow-hidden">
-        <img src="/assets/header.jpeg" className="object-cover w-full" />
+      <div className="w-full h-44 mb-16 overflow-hidden relative">
+        <img
+          src="/assets/header.jpeg"
+          className="object-cover w-full absolute bottom-0"
+        />
       </div>
       <div className=" flex-col flex items-center justify-center space-y-4 w-96">
         <div className="bg-primary text-white p-4 px-8 rounded-lg ">
@@ -30,7 +33,7 @@ const Register = () => {
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           ></input>
-          <div className="cursor-pointer hover:bg-white hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md w-full bg-tertiary text-white p-2 flex items-center justify-center">
+          <div className="cursor-pointer hover:bg-white hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md w-full bg-tertiary text-white p-2 flex items-center justify-center shadow-md">
             Register
           </div>
         </form>
