@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { signIn } from "../auth/auth";
+import { auth } from "../pages";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   return (
@@ -19,12 +21,12 @@ const Login = () => {
         </div>
         <form className="flex flex-col space-y-4 w-full">
           <input
-            id="username"
+            id="email"
             type="text"
             autoComplete="off"
             className=" rounded-md px-3 py-2 placeholder-black focus:outline-none bg-secondary"
             placeholder="Email"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
           ></input>
           <input
             id="password"
@@ -33,7 +35,10 @@ const Login = () => {
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           ></input>
-          <div className="shadow-md cursor-pointer hover:bg-white hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md w-full bg-tertiary text-white p-2 flex items-center justify-center">
+          <div
+            className="shadow-md cursor-pointer hover:bg-white hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md w-full bg-tertiary text-white p-2 flex items-center justify-center"
+            onClick={() => signIn(auth, email, password)}
+          >
             Login
           </div>
         </form>
