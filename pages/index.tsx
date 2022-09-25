@@ -56,7 +56,7 @@ const Home: NextPage = () => {
       </Head>
       <div className="w-full h-screen flex items-center justify-center">
         <Link href="/login">
-          <div className="cursor-pointer rounded-md w-64 bg-black text-white p-2 flex items-center justify-center hover:bg-white hover:ring-1 hover:ring-black hover:text-black transition ease-linear duration-200">
+          <div className="cursor-pointer hover:bg-white hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md bg-tertiary text-white p-2 flex items-center justify-center w-64">
             Login
           </div>
         </Link>

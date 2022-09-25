@@ -8,7 +8,7 @@ const Login = () => {
   return (
     <div className="w-full h-screen flex flex-col items-center justify-start">
       <div className="w-full h-44 mb-16 overflow-hidden">
-        <img src="/assets/header.jpg" className="object-cover w-full" />
+        <img src="/assets/header.jpeg" className="object-cover w-full" />
       </div>
       <div className=" flex-col flex items-center justify-center space-y-4 w-96">
         <div className="bg-primary text-white p-4 px-8 rounded-lg">
