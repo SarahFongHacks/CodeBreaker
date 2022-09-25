@@ -18,6 +18,12 @@ const firebaseConfig = {
   measurementId: "G-8LRW0DG85C",
 };
 
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+//writeToFireBase(db);
+export const auth = getAuth(app);
+
 // Write to Database Example
 async function writeToFireBase(db: any) {
   try {
@@ -34,12 +40,6 @@ async function writeToFireBase(db: any) {
 }
 
 const Home: NextPage = () => {
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  //writeToFireBase(db);
-  let auth = getAuth();
-
   return (
     <div>
       <Head>
