@@ -6,6 +6,17 @@ import { auth } from "../pages";
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [userCred, setUserCred] = useState("");
+
+  const registerHandler = (auth, email, password) => {
+    register(auth, email, password).then((res) => {
+      //console.log(res.error);
+      console.log(res.error.errorMessage);
+      res.error && setError(res.error.errorMessage);
+      res.userCred && setUserCred(res.userCred);
+    });
+  };
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-start">
@@ -37,11 +48,12 @@ const Register = () => {
           ></input>
           <div
             className="cursor-pointer hover:bg-white hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md w-full bg-tertiary text-white p-2 flex items-center justify-center shadow-md"
-            onClick={() => register(auth, email, password)}
+            onClick={() => registerHandler(auth, email, password)}
           >
             Register
           </div>
         </form>
+        {error && <div className="text-red-500">{error}</div>}
         <Link href="/">
           <div className="whitespace-nowrap underline cursor-pointer">
             Back to homepage
