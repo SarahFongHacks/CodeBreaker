@@ -11,7 +11,7 @@ const Register = () => {
 
   const registerHandler = (auth, email, password) => {
     register(auth, email, password).then((res) => {
-      //console.log(res.error);
+      console.log(res.error);
       console.log(res.error.errorMessage);
       res.error && setError(res.error.errorMessage);
       res.userCred && setUserCred(res.userCred);
