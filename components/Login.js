@@ -19,30 +19,30 @@ const Login = () => {
         <div className="bg-primary text-white p-4 px-8 rounded-lg">
           <h1 className="text-2xl">Welcome to Bookers Paradise!</h1>
         </div>
-        <form className="flex flex-col space-y-4 w-full">
+        <form className="flex flex-col space-y-4 w-full items-center">
           <input
             id="email"
             type="text"
             autoComplete="off"
-            className=" rounded-md px-3 py-2 placeholder-black focus:outline-none bg-secondary"
+            className="w-full rounded-md px-3 py-2 placeholder-black focus:outline-none bg-secondary"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
           ></input>
           <input
             id="password"
             type="password"
-            className=" rounded-md px-3 py-2 placeholder-black focus:outline-none bg-secondary"
+            className="w-full rounded-md px-3 py-2 placeholder-black focus:outline-none bg-secondary"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           ></input>
           <div
-            className="shadow-md cursor-pointer hover:bg-white hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md w-full bg-tertiary text-white p-2 flex items-center justify-center"
+            className="shadow-md cursor-pointer hover:bg-white w-52  hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md bg-tertiary text-white p-2 flex items-center justify-center"
             onClick={() => signIn(auth, email, password)}
           >
             Login
           </div>
         </form>
-        <div className="whitespace-nowrap">
+        <div className="whitespace-nowrap ">
           Don't have an account?{" "}
           <Link href="/register">
             <span className="text-tertiary  cursor-pointer">Sign up</span>

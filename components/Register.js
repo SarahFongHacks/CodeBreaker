@@ -53,18 +53,23 @@ const Register = () => {
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           ></input>
-          <div
-            className="cursor-pointer hover:bg-white hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md w-full bg-tertiary text-white p-2 flex items-center justify-center shadow-md"
-            onClick={() => registerHandler(auth, email, password)}
-          >
-            Register
+          <div className="w-full flex space-x-2 items-center justify-center">
+            <Link href="/">
+              <div
+                className="cursor-pointer hover:bg-tertiary hover:ring-1 hover:ring-tertiary hover:text-white transition ease-linear ring-1 duration-200 rounded-md w-full bg-white text-tertiary ring-tertiary p-2 flex items-center justify-center shadow-md"
+                onClick={() => registerHandler(auth, email, password)}
+              >
+                Back
+              </div>
+            </Link>
+            <div
+              className="cursor-pointer hover:bg-white hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md w-full bg-tertiary text-white p-2 flex items-center justify-center shadow-md"
+              onClick={() => registerHandler(auth, email, password)}
+            >
+              Register
+            </div>
           </div>
         </form>
-        <Link href="/">
-          <div className="whitespace-nowrap underline cursor-pointer">
-            Back to homepage
-          </div>
-        </Link>
       </div>
     </div>
   );
