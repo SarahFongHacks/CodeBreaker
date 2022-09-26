@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { register } from "../auth/auth";
 import { auth } from "../pages";
+import { BiErrorCircle } from "react-icons/bi";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -30,6 +31,12 @@ const Register = () => {
         <div className="bg-primary text-white p-4 px-8 rounded-lg ">
           <h1 className="text-2xl">Register</h1>
         </div>
+        {error && (
+          <div className="bg-red-300 px-2 py-2 rounded-md text-sm flex items-center">
+            <BiErrorCircle className="mx-2 w-8 square flex items-center justify-center text-lg" />
+            <p className="mr-4">{error}</p>
+          </div>
+        )}
         <form className="flex flex-col space-y-4 w-full">
           <input
             id="email"
@@ -53,7 +60,6 @@ const Register = () => {
             Register
           </div>
         </form>
-        {error && <div className="text-red-500">{error}</div>}
         <Link href="/">
           <div className="whitespace-nowrap underline cursor-pointer">
             Back to homepage
