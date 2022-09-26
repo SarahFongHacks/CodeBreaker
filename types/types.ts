@@ -29,3 +29,16 @@ export type User = {
 	currentBooking : Reservation[] 	
 }
 
+export type FireBaseError = {
+  
+  error : boolean 
+  errorCode : string 
+  errorMessage : string
+}
+
+export type UserLoginCred = {
+  
+  userCred : any
+  error : FireBaseError
+
+} 
