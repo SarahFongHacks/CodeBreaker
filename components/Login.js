@@ -1,11 +1,29 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { signIn } from "../auth/auth";
 import { auth } from "../pages";
+import { useRouter } from "next/router";
+import { LoginContext } from "../context";
+import { BiErrorCircle } from "react-icons/bi";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const { userCred, setUserCred } = useContext(LoginContext);
+  const router = useRouter();
+
+  const signInHandler = (auth, email, password) => {
+    signIn(auth, email, password).then((res) => {
+      res.error && setError(res.error.errorMessage);
+      res.userCred && setUserCred(res.userCred);
+    });
+  };
+
+  useEffect(() => {
+    Object.keys(userCred).length !== 0 && router.push("/");
+  }, [userCred]);
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-start">
@@ -19,6 +37,12 @@ const Login = () => {
         <div className="bg-primary text-white p-4 px-8 rounded-lg">
           <h1 className="text-2xl">Welcome to Bookers Paradise!</h1>
         </div>
+        {error && (
+          <div className="bg-red-300 px-2 py-2 rounded-md text-sm flex items-center">
+            <BiErrorCircle className="mx-2 w-8 square flex items-center justify-center text-lg" />
+            <p className="mr-4">{error}</p>
+          </div>
+        )}
         <form className="flex flex-col space-y-4 w-full items-center">
           <input
             id="email"
@@ -37,7 +61,7 @@ const Login = () => {
           ></input>
           <div
             className="shadow-md cursor-pointer hover:bg-white w-52  hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md bg-tertiary text-white p-2 flex items-center justify-center"
-            onClick={() => signIn(auth, email, password)}
+            onClick={() => signInHandler(auth, email, password)}
           >
             Login
           </div>

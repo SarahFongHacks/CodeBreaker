@@ -1,23 +1,29 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { register } from "../auth/auth";
 import { auth } from "../pages";
 import { BiErrorCircle } from "react-icons/bi";
+import { useRouter } from "next/router";
+import { LoginContext, useAppContext } from "../context";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [userCred, setUserCred] = useState("");
+
+  const { userCred, setUserCred } = useContext(LoginContext);
+  const router = useRouter();
 
   const registerHandler = (auth, email, password) => {
     register(auth, email, password).then((res) => {
-      console.log(res.error);
-      console.log(res.error.errorMessage);
       res.error && setError(res.error.errorMessage);
       res.userCred && setUserCred(res.userCred);
     });
   };
+
+  useEffect(() => {
+    Object.keys(userCred).length !== 0 && router.push("/");
+  }, [userCred]);
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-start">
@@ -55,10 +61,7 @@ const Register = () => {
           ></input>
           <div className="w-full flex space-x-2 items-center justify-center">
             <Link href="/">
-              <div
-                className="cursor-pointer hover:bg-tertiary hover:ring-1 hover:ring-tertiary hover:text-white transition ease-linear ring-1 duration-200 rounded-md w-full bg-white text-tertiary ring-tertiary p-2 flex items-center justify-center shadow-md"
-                onClick={() => registerHandler(auth, email, password)}
-              >
+              <div className="cursor-pointer hover:bg-tertiary hover:ring-1 hover:ring-tertiary hover:text-white transition ease-linear ring-1 duration-200 rounded-md w-full bg-white text-tertiary ring-tertiary p-2 flex items-center justify-center shadow-md">
                 Back
               </div>
             </Link>
