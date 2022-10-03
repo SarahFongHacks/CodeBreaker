@@ -46,7 +46,7 @@ const Register = () => {
         <form className="flex flex-col space-y-4 w-full">
           <input
             id="email"
-            type="text"
+            type="email"
             autoComplete="off"
             className=" rounded-md px-3 py-2 placeholder-black focus:outline-none bg-secondary"
             placeholder="Email"
