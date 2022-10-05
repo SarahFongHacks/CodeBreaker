@@ -5,8 +5,17 @@ import Main from "../components/Main";
 import { signIn, register } from "../auth/auth";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import {
+  setDoc,
+  doc,
+  getDoc,
+  collection,
+  addDoc,
+  getDocs,
+} from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { HotelRoom, Reservation, User } from "../types/types";
+import { dbConvertor } from "../db_conversion/db_convertor";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBlMEnkyHKOUNZncSmOjXB3v1BEb_HJTY4",
@@ -21,27 +30,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-//writeToFireBase(db);
 export const auth = getAuth(app);
-
-// Write to Database Example
-async function writeToFireBase(db: any) {
-  try {
-    const docRef = await addDoc(collection(db, "users"), {
-      first: "Ada",
-      last: "Lovelace",
-      born: 1815,
-    });
-
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
-  }
-}
-
-type User = {
-  email: string;
-};
 
 const Home: NextPage = () => {
   return (

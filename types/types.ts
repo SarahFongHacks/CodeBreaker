@@ -12,7 +12,8 @@ export type HotelRoom = {
 	numberOfBathrooms : number
 	reservations : Reservation[]
 	capacity : number
-	hotel : string 
+	hotel : string
+ imageURL : string
 }
 
 export type Reservation = {
