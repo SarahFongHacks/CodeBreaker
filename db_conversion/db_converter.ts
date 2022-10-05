@@ -1,9 +1,10 @@
-import { HotelRoom } from "../types/types";
+import { HotelRoom, Reservation } from "../types/types";
+import { DocumentReference } from "firebase/firestore";
 
 export const dbConverter = {
-  jsonToHotelRoom(json: any): HotelRoom {
+  jsonToHotelRoom(json: any, ref: DocumentReference): HotelRoom {
     const hotelRoom: HotelRoom = {
-      id: json.id,
+      id: ref.id,
       roomNumber: json.roomNumber,
       price: json.price,
       numberOfBeds: json.numberOfBeds,
@@ -28,6 +29,27 @@ export const dbConverter = {
       capacity: hotelRoom.capacity,
       hotel: hotelRoom.hotel,
       imageURL: hotelRoom.imageURL,
+    };
+  },
+
+  jsonToReservation(json: any, ref: DocumentReference): Reservation {
+    const reservation: Reservation = {
+      id: ref.id,
+      endDate: json.endDate,
+      hotelRoomId: json.hotelRoomId,
+      startDate: json.startDate,
+      userId: json.userId,
+    };
+    return reservation;
+  },
+
+  reservationToJson(reservation: Reservation) {
+    return {
+      id: reservation.id,
+      endDate: reservation.endDate,
+      hotelRoomId: reservation.hotelRoomId,
+      startDate: reservation.startDate,
+      userId: reservation.userId,
     };
   },
 };
