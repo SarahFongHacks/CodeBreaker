@@ -1,15 +1,15 @@
 import { HotelRoom, Reservation } from "../types/types";
-import { DocumentReference } from "firebase/firestore";
+import { DocumentReference, getDoc } from "firebase/firestore";
 
 export const dbConverter = {
-  jsonToHotelRoom(json: any, ref: DocumentReference): HotelRoom {
+  async jsonToHotelRoom(json: any, ref: DocumentReference): Promise<HotelRoom> {
     const hotelRoom: HotelRoom = {
       id: ref.id,
       roomNumber: json.roomNumber,
       price: json.price,
       numberOfBeds: json.numberOfBeds,
       numberOfBathrooms: json.numberOfBathrooms,
-      reservations: [],
+      reservations: await reservationRefsToArray(json.reservations),
       capacity: json.capacity,
       hotel: json.hotel,
       imageURL: json.imageURL,
@@ -18,14 +18,14 @@ export const dbConverter = {
     return hotelRoom;
   },
 
-  hotelRoomToJson(hotelRoom: HotelRoom) {
+  async hotelRoomToJson(hotelRoom: HotelRoom) {
     return {
       id: hotelRoom.id,
       roomNumber: hotelRoom.roomNumber,
       price: hotelRoom.price,
       numberOfBeds: hotelRoom.numberOfBeds,
       numberOfBathrooms: hotelRoom.numberOfBathrooms,
-      reservations: hotelRoom.reservations,
+      reservations: reservationsToRefsArray(hotelRoom.reservations),
       capacity: hotelRoom.capacity,
       hotel: hotelRoom.hotel,
       imageURL: hotelRoom.imageURL,
@@ -35,6 +35,7 @@ export const dbConverter = {
   jsonToReservation(json: any, ref: DocumentReference): Reservation {
     const reservation: Reservation = {
       id: ref.id,
+			docRef : ref,
       endDate: json.endDate,
       hotelRoomId: json.hotelRoomId,
       startDate: json.startDate,
@@ -53,3 +54,17 @@ export const dbConverter = {
     };
   },
 };
+
+async function reservationRefsToArray(
+  array: DocumentReference[]
+): Promise<Reservation[]> {
+  const reservations = array.map(async (el) => {
+    return dbConverter.jsonToReservation((await getDoc(el)).data(), el);
+  });
+
+  return Promise.all(reservations);
+}
+
+function reservationsToRefsArray(array : Reservation[]) {
+	return array.map(el => el.docRef)
+}

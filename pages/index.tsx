@@ -32,7 +32,24 @@ const db = getFirestore(app);
 
 export const auth = getAuth(app);
 
+async function testing() {
+  const docRef = doc(db, "HotelRoom", "OKj8Mu4bT6oo5paI96jU");
+  const docSnap = await getDoc(docRef);
+
+  if (docSnap.exists()) {
+  
+		const hotelRoom = await dbConverter.jsonToHotelRoom(docSnap.data(), docRef)
+		console.log(dbConverter.hotelRoomToJson(hotelRoom))
+} else {
+    // doc.data() will be undefined in this case
+    console.log("No such document!");
+  }
+}
+
 const Home: NextPage = () => {
+
+	testing()
+
   return (
     <div>
       <Head>

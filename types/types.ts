@@ -1,5 +1,7 @@
 // Hotel
 
+import { DocumentReference } from "firebase/firestore";
+
 // User
 
 // Hotel Room
@@ -18,7 +20,8 @@ export type HotelRoom = {
 
 export type Reservation = {
   readonly id: string;
-  readonly endDate : number
+	readonly docRef: DocumentReference
+	readonly endDate : number
   readonly hotelRoomId : string 
   readonly startDate : number
   readonly userId : string 
