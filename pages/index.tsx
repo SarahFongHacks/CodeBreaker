@@ -15,7 +15,7 @@ import {
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { HotelRoom, Reservation, User } from "../types/types";
-import { dbConvertor } from "../db_conversion/db_convertor";
+import { dbConverter } from "../db_conversion/db_converter";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBlMEnkyHKOUNZncSmOjXB3v1BEb_HJTY4",
