@@ -1,10 +1,4 @@
-// Hotel
-
 import { DocumentReference } from "firebase/firestore";
-
-// User
-
-// Hotel Room
 
 export type HotelRoom = {
   id: string;
@@ -28,7 +22,8 @@ export type Reservation = {
 };
 
 export type User = {
-  name: string;
+  id : string
+	email : string
   currentBooking: Reservation[];
 };
 
@@ -41,4 +36,5 @@ export type FireBaseError = {
 export type UserLoginCred = {
   userCred: any;
   error: FireBaseError;
+	user : User;
 };

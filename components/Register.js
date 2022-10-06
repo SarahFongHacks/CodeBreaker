@@ -5,6 +5,7 @@ import { auth } from "../pages";
 import { BiErrorCircle } from "react-icons/bi";
 import { useRouter } from "next/router";
 import { LoginContext, useAppContext } from "../context";
+import {db} from "../pages" 
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ const Register = () => {
   const router = useRouter();
 
   const registerHandler = (auth, email, password) => {
-    register(auth, email, password).then((res) => {
+    register(auth, email, password, db).then((res) => {
       res.error && setError(res.error.errorMessage);
       res.userCred && setUserCred(res.userCred);
     });

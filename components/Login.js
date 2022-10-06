@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { signIn } from "../auth/auth";
-import { auth } from "../pages";
+import { db, auth } from "../pages";
 import { useRouter } from "next/router";
 import { LoginContext } from "../context";
 import { BiErrorCircle } from "react-icons/bi";

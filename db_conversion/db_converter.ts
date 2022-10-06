@@ -1,4 +1,4 @@
-import { HotelRoom, Reservation } from "../types/types";
+import { HotelRoom, Reservation, User } from "../types/types";
 import { DocumentReference, getDoc } from "firebase/firestore";
 
 export const dbConverter = {
@@ -25,7 +25,7 @@ export const dbConverter = {
       price: hotelRoom.price,
       numberOfBeds: hotelRoom.numberOfBeds,
       numberOfBathrooms: hotelRoom.numberOfBathrooms,
-      reservations: reservationsToRefsArray(hotelRoom.reservations),
+      reservations: arrayToRefsArray(hotelRoom.reservations),
       capacity: hotelRoom.capacity,
       hotel: hotelRoom.hotel,
       imageURL: hotelRoom.imageURL,
@@ -35,7 +35,7 @@ export const dbConverter = {
   jsonToReservation(json: any, ref: DocumentReference): Reservation {
     const reservation: Reservation = {
       id: ref.id,
-			docRef : ref,
+      docRef: ref,
       endDate: json.endDate,
       hotelRoomId: json.hotelRoomId,
       startDate: json.startDate,
@@ -53,18 +53,35 @@ export const dbConverter = {
       userId: reservation.userId,
     };
   },
+
+  async jsonToUser(json: any, ref: DocumentReference): Promise<User> {
+    const user: User = {
+      email: json.email,
+      id: ref.id,
+      currentBooking: await reservationRefsToArray(json.currentBooking),
+    };
+    return user;
+  },
+
+  async userToJson(user: User) {
+    return {
+      email: user.email,
+      id: user.id,
+      currentBooking: arrayToRefsArray(user.currentBooking),
+    };
+  },
 };
 
 async function reservationRefsToArray(
-  array: DocumentReference[]
+  refs: DocumentReference[]
 ): Promise<Reservation[]> {
-  const reservations = array.map(async (el) => {
+  const res = refs.map(async (el) => {
     return dbConverter.jsonToReservation((await getDoc(el)).data(), el);
   });
 
-  return Promise.all(reservations);
+  return Promise.all(res);
 }
 
-function reservationsToRefsArray(array : Reservation[]) {
-	return array.map(el => el.docRef)
+function arrayToRefsArray(array: any) {
+  return array.map((el) => el.docRef);
 }

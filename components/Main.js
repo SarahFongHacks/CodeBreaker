@@ -5,7 +5,7 @@ import { BsArrowDownCircle } from "react-icons/bs";
 import { LoginContext } from "../context";
 
 const Main = () => {
-  const { userCred } = useContext(LoginContext);
+  const { userCred } = useContext(LoginContext); 
 
   return (
     <div className="w-full h-screen bg-primary fixed placeholder:absolute">
