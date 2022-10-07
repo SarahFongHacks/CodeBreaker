@@ -16,6 +16,7 @@ import {
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { HotelRoom, Reservation, User } from "../types/types";
 import { dbConverter } from "../db_conversion/db_converter";
+import useHotels from "../hooks/useHotels";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBlMEnkyHKOUNZncSmOjXB3v1BEb_HJTY4",
@@ -28,21 +29,21 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app)
+export const db = getFirestore(app);
 export const auth = getAuth(app);
 
-/*async function testing() {
-  const docRef = doc(db, "HotelRoom", "OKj8Mu4bT6oo5paI96jU");
-  const docSnap = await getDoc(docRef);
+// async function testing() {
+//   const docRef = doc(db, "HotelRoom", "OKj8Mu4bT6oo5paI96jU");
+//   const docSnap = await getDoc(docRef);
 
-  if (docSnap.exists()) {
-    const hotelRoom = await dbConverter.jsonToHotelRoom(docSnap.data(), docRef);
-    console.log(dbConverter.hotelRoomToJson(hotelRoom));
-  } else {
-    // doc.data() will be undefined in this case
-    console.log("No such document!");
-  }
-} */
+//   if (docSnap.exists()) {
+//     const hotelRoom = await dbConverter.jsonToHotelRoom(docSnap.data(), docRef);
+//     console.log(dbConverter.hotelRoomToJson(hotelRoom));
+//   } else {
+//     // doc.data() will be undefined in this case
+//     console.log("No such document!");
+//   }
+// }
 
 const Home: NextPage = () => {
   return (
