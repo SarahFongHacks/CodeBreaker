@@ -25,6 +25,11 @@ const Main = () => {
             <BsArrowDownCircle className="cursor-pointer text-5xl hover:scale-110 transition duration-200 ease-linear" />
           </Link>
         </div>
+        <Link href="/hotels">
+          <div className="shadow-md cursor-pointer ring-white w-52 ring-1 transition ease-linear duration-200 rounded-md text-white p-2 flex items-center justify-center mt-16">
+            View Hotels
+          </div>
+        </Link>
         <div className="w-full h-16 bg-gradient-to-r from-secondary to-secondary absolute bottom-0 blur-[100px] opacity-100 z-50" />
       </div>
       {/* <Link href="/login">

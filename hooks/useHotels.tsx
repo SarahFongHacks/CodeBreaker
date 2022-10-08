@@ -9,17 +9,20 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { db } from "../pages";
+import { HotelRoom } from "../types/types";
 
-const useHotels = () => {
+const useHotels = (): HotelRoom[] => {
   const [hotels, setHotels] = useState([]);
 
   useEffect(() => {
     async function getAllHotels() {
       const docSnap = await getDocs(collection(db, "HotelRoom"));
+      const allHotels = [];
       docSnap.forEach((doc) => {
-        dbConverter.jsonToHotelRoom(doc.data(), doc.ref).then((hotel) => {
-          dbConverter.hotelRoomToJson(hotel).then((hotel) => {
-            setHotels([...hotels, hotel]);
+        dbConverter.jsonToHotelRoom(doc.data(), doc.ref).then((res) => {
+          dbConverter.hotelRoomToJson(res).then((hotel) => {
+            allHotels.push(hotel);
+            setHotels(allHotels);
           });
         });
       });
