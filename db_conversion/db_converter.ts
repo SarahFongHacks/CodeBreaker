@@ -13,6 +13,7 @@ export const dbConverter = {
       capacity: json.capacity,
       hotel: json.hotel,
       imageURL: json.imageURL,
+      location: json.location,
     };
 
     return hotelRoom;
@@ -29,6 +30,7 @@ export const dbConverter = {
       capacity: hotelRoom.capacity,
       hotel: hotelRoom.hotel,
       imageURL: hotelRoom.imageURL,
+      location: hotelRoom.location,
     };
   },
 
