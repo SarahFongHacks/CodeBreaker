@@ -20,10 +20,8 @@ const useHotels = (): HotelRoom[] => {
       const allHotels = [];
       docSnap.forEach((doc) => {
         dbConverter.jsonToHotelRoom(doc.data(), doc.ref).then((res) => {
-          dbConverter.hotelRoomToJson(res).then((hotel) => {
-            allHotels.push(hotel);
-            setHotels(allHotels);
-          });
+          allHotels.push(res);
+          setHotels(allHotels);
         });
       });
     }
