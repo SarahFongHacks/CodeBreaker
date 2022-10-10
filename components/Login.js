@@ -26,16 +26,16 @@ const Login = () => {
   }, [userCred]);
 
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-start">
-      <div className="w-full h-44 mb-16 overflow-hidden relative">
+    <div className="w-full h-screen flex flex-col items-center justify-center">
+      {/* <div className="w-full h-44 mb-16 overflow-hidden relative">
         <img
           src="/assets/header.jpeg"
           className="object-cover w-full absolute bottom-0"
         />
-      </div>
-      <div className=" flex-col flex items-center justify-center space-y-4 w-96">
-        <div className="bg-primary text-white p-4 px-8 rounded-lg">
-          <h1 className="text-2xl">Welcome to Bookers Paradise!</h1>
+      </div> */}
+      <div className=" flex-col flex items-center justify-center space-y-4 ">
+        <div className="bg-primary text-white p-4 px-8 rounded-lg text-center">
+          <h1 className="text-2xl">Welcome to Bookers Paradise</h1>
         </div>
         {error && (
           <div className="bg-red-300 px-2 py-2 rounded-md text-sm flex items-center">
@@ -48,14 +48,14 @@ const Login = () => {
             id="email"
             type="text"
             autoComplete="off"
-            className="w-full rounded-md px-3 py-2 placeholder-black focus:outline-none bg-secondary"
+            className="w-full rounded-md px-3 py-2 placeholder-black focus:outline-none ring-1 ring-black focus:ring-tertiary focus:text-tertiary focus:placeholder-tertiary"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
           ></input>
           <input
             id="password"
             type="password"
-            className="w-full rounded-md px-3 py-2 placeholder-black focus:outline-none bg-secondary"
+            className="w-full rounded-md px-3 py-2 placeholder-black focus:outline-none ring-1 ring-black focus:ring-tertiary focus:text-tertiary focus:placeholder-tertiary"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           ></input>

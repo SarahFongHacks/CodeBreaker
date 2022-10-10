@@ -5,7 +5,7 @@ import { auth } from "../pages";
 import { BiErrorCircle } from "react-icons/bi";
 import { useRouter } from "next/router";
 import { LoginContext, useAppContext } from "../context";
-import {db} from "../pages" 
+import { db } from "../pages";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -27,13 +27,13 @@ const Register = () => {
   }, [userCred]);
 
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-start">
-      <div className="w-full h-44 mb-16 overflow-hidden relative">
+    <div className="w-full h-screen flex flex-col items-center justify-center">
+      {/* <div className="w-full h-44 mb-16 overflow-hidden relative">
         <img
           src="/assets/header.jpeg"
           className="object-cover w-full absolute bottom-0"
         />
-      </div>
+      </div> */}
       <div className=" flex-col flex items-center justify-center space-y-4 w-96">
         <div className="bg-primary text-white p-4 px-8 rounded-lg ">
           <h1 className="text-2xl">Register</h1>
@@ -49,14 +49,14 @@ const Register = () => {
             id="email"
             type="email"
             autoComplete="off"
-            className=" rounded-md px-3 py-2 placeholder-black focus:outline-none bg-secondary"
+            className=" rounded-md px-3 py-2 placeholder-black focus:outline-none focus:ring-tertiary focus:text-tertiary focus:placeholder-tertiary ring-1 ring-black"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
           ></input>
           <input
             id="password"
             type="password"
-            className=" rounded-md px-3 py-2 placeholder-black focus:outline-none bg-secondary"
+            className=" rounded-md px-3 py-2 placeholder-black focus:outline-none focus:ring-tertiary focus:text-tertiary focus:placeholder-tertiary ring-1 ring-black"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           ></input>

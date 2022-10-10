@@ -29,7 +29,7 @@ const Hotels = () => {
                   <p className="text-gray-800 mt-2">Price: ${hotel.price}</p>
                   <p className="text-gray-800">Location: {hotel.location}</p>
                 </div>
-                <div className="shadow-md cursor-pointer ring-secondary text-secondary  py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center group-hover:bg-secondary group-hover:text-white group-hover:ring-secondary">
+                <div className="shadow-md cursor-pointer ring-tertiary text-tertiary  py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center group-hover:bg-tertiary group-hover:text-white group-hover:ring-tertiary">
                   Book Now
                 </div>
               </div>
