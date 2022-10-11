@@ -14,12 +14,12 @@ export type HotelRoom = {
 };
 
 export type Reservation = {
-  readonly id: string;
-  readonly docRef: DocumentReference;
-  readonly endDate: number;
-  readonly hotelRoomId: string;
-  readonly startDate: number;
-  readonly userId: string;
+  id: string;
+  docRef: DocumentReference;
+  endDate: number;
+  hotelRoomId: string;
+  startDate: number;
+  userId: string;
 };
 
 export type User = {
