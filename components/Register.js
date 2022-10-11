@@ -49,18 +49,18 @@ const Register = () => {
             id="email"
             type="email"
             autoComplete="off"
-            className=" rounded-md px-3 py-2 placeholder-black focus:outline-none focus:ring-tertiary focus:text-tertiary focus:placeholder-tertiary ring-1 ring-black"
+            className="w-full rounded-md px-3 py-2 placeholder-black/60 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
           ></input>
           <input
             id="password"
             type="password"
-            className=" rounded-md px-3 py-2 placeholder-black focus:outline-none focus:ring-tertiary focus:text-tertiary focus:placeholder-tertiary ring-1 ring-black"
+            className="w-full rounded-md px-3 py-2 placeholder-black/60 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           ></input>
-          <div className="w-full flex space-x-2 items-center justify-center">
+          <div className="w-full flex space-x-2 items-center justify-center ">
             <Link href="/">
               <div className="cursor-pointer hover:bg-tertiary hover:ring-1 hover:ring-tertiary hover:text-white transition ease-linear ring-1 duration-200 rounded-md w-full bg-white text-tertiary ring-tertiary p-2 flex items-center justify-center shadow-md">
                 Back

@@ -26,7 +26,7 @@ const Login = () => {
   }, [userCred]);
 
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-center">
+    <div className="w-full h-screen flex flex-col items-center justify-center relative">
       {/* <div className="w-full h-44 mb-16 overflow-hidden relative">
         <img
           src="/assets/header.jpeg"
@@ -48,14 +48,14 @@ const Login = () => {
             id="email"
             type="text"
             autoComplete="off"
-            className="w-full rounded-md px-3 py-2 placeholder-black focus:outline-none ring-1 ring-black focus:ring-tertiary focus:text-tertiary focus:placeholder-tertiary"
+            className="w-full rounded-md px-3 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
           ></input>
           <input
             id="password"
             type="password"
-            className="w-full rounded-md px-3 py-2 placeholder-black focus:outline-none ring-1 ring-black focus:ring-tertiary focus:text-tertiary focus:placeholder-tertiary"
+            className="w-full rounded-md px-3 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           ></input>
@@ -73,6 +73,7 @@ const Login = () => {
           </Link>
         </div>
       </div>
+      {/* <div className="w-full h-16 bg-gradient-to-r from-tertiary to-tertiary absolute bottom-0 blur-[100px] opacity-100 z-50" /> */}
     </div>
   );
 };
