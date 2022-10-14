@@ -1,5 +1,8 @@
 import { HotelRoom, Reservation, User } from "../types/types";
 import { DocumentReference, getDoc } from "firebase/firestore";
+import { storage } from "../pages/index";
+import { getDownloadURL } from "firebase/storage";
+import { ref } from "firebase/storage";
 
 export const dbConverter = {
   async jsonToHotelRoom(json: any, ref: DocumentReference): Promise<HotelRoom> {
@@ -14,6 +17,7 @@ export const dbConverter = {
       hotel: json.hotel,
       imageURL: json.imageURL,
       location: json.location,
+      image: await getHotelRoomImage(json.imageURL),
     };
 
     return hotelRoom;
@@ -86,4 +90,20 @@ async function reservationRefsToArray(
 
 function arrayToRefsArray(array: any) {
   return array.map((el) => el.docRef);
+}
+
+async function getHotelRoomImage(imageURL: string) {
+  let url;
+
+  try {
+    url = await getDownloadURL(ref(storage, imageURL.concat("/mainImg.jpeg")));
+  } catch {
+    url = await getDownloadURL(ref(storage, "hotel1/mainImg.jpeg"));
+  
+    console.log("error");
+  }
+
+  console.log("hello");
+
+  return url;
 }

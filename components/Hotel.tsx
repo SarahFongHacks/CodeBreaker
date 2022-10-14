@@ -7,7 +7,7 @@ const Hotel = ({ hotel }) => {
       <div className="flex flex-col items-center justify-center text-sm cursor-pointer group ">
         <div className="w-full rounded-lg aspect-square bg-red-500 overflow-hidden">
           <img
-            src="./assets/test.webp"
+            src={hotel.image}
             className="w-full h-full object-cover group-hover:scale-110 transition duration-200 ease-linear"
           />
         </div>
