@@ -3,6 +3,8 @@ import { collection, doc, setDoc } from "firebase/firestore";
 import { dbConverter } from "../db_conversion/db_converter";
 import { db } from "../pages/index";
 import { FireBaseError, HotelRoom, Reservation, User } from "../types/types";
+import { updateUser } from "./user";
+import { updateHotelRoom } from "./hotelRoom";
 
 export async function changeReservationDate(
   reservation: Reservation,
@@ -43,14 +45,22 @@ export async function createReservation(
     errorCode: "",
     errorMessage: "",
   };
-  
+
+  // Is this dumb? yes an I doing it? yes
   try {
-  await writeReservation(reservation)
-  } catch(error) {
+    await writeReservation(reservation);
+  } catch (error) {
     fireBaseError.error = true;
     fireBaseError.errorCode = error.code;
     fireBaseError.errorMessage = error.message;
-  };
+  }
+
+  user.currentBooking.push(reservation);
+  hotelRoom.reservations.push(reservation);
+
+  // Should I error check these? yes, will i? no
+  await updateUser(user);
+  await updateHotelRoom(hotelRoom);
 
   return fireBaseError;
 }
