@@ -2,7 +2,7 @@ import { collection, doc, setDoc } from "firebase/firestore";
 
 import { dbConverter } from "../db_conversion/db_converter";
 import { db } from "../pages/index";
-import { HotelRoom, Reservation, User } from "../types/types";
+import { FireBaseError, HotelRoom, Reservation, User } from "../types/types";
 
 export async function changeReservationDate(
   reservation: Reservation,
@@ -24,7 +24,7 @@ export async function createReservation(
   user: User,
   startDate: Date,
   endDate: Date
-) {
+): Promise<FireBaseError> {
   const collectionRef = collection(db, "Reservation");
   const docRef = doc(collectionRef);
   const id = docRef.id;
@@ -38,5 +38,17 @@ export async function createReservation(
     userId: user.id,
   };
 
-  writeReservation(reservation);
+  const fireBaseError: FireBaseError = {
+    error: false,
+    errorCode: "",
+    errorMessage: "",
+  };
+
+  writeReservation(reservation).catch((error) => {
+    fireBaseError.error = true;
+    fireBaseError.errorCode = error.code;
+    fireBaseError.errorMessage = error.message;
+  });
+
+  return fireBaseError;
 }
