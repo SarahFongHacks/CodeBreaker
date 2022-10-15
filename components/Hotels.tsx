@@ -14,7 +14,7 @@ const Hotels = () => {
           <p className="">Filter</p>
         </div>
       </div> */}
-      <div className="w-full min-h-screen grid grid-cols-3 gap-8 items-start justify-center">
+      <div className="w-full h-full grid grid-cols-3 gap-8 items-start justify-center">
         {hotels.map((hotel) => {
           return <HotelSelect hotel={hotel} />;
         })}

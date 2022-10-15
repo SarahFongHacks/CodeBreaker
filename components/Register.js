@@ -12,19 +12,19 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const { userCred, setUserCred } = useContext(LoginContext);
+  const { user, setUser } = useContext(LoginContext);
   const router = useRouter();
 
   const registerHandler = (auth, email, password) => {
     register(auth, email, password, db).then((res) => {
       res.error && setError(res.error.errorMessage);
-      res.userCred && setUserCred(res.userCred);
+      res.user && setUser(res.user);
     });
   };
 
   useEffect(() => {
-    Object.keys(userCred).length !== 0 && router.push("/");
-  }, [userCred]);
+    user && router.push("/");
+  }, [user]);
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center">
@@ -36,10 +36,10 @@ const Register = () => {
       </div> */}
       <div className=" flex-col flex items-center justify-center space-y-4 w-96">
         <div className="bg-primary text-white p-4 px-8 rounded-lg ">
-          <h1 className="text-2xl">Register</h1>
+          <h1 className="text-2xl font-bold">Register</h1>
         </div>
         {error && (
-          <div className="bg-red-300 px-2 py-2 rounded-md text-sm flex items-center">
+          <div className="bg-red-500 px-2 py-2 rounded-md text-sm flex items-center">
             <BiErrorCircle className="mx-2 w-8 square flex items-center justify-center text-lg" />
             <p className="mr-4">{error}</p>
           </div>
@@ -62,12 +62,12 @@ const Register = () => {
           ></input>
           <div className="w-full flex space-x-2 items-center justify-center ">
             <Link href="/">
-              <div className="cursor-pointer hover:bg-tertiary hover:ring-1 hover:ring-tertiary hover:text-white transition ease-linear ring-1 duration-200 rounded-md w-full bg-white text-tertiary ring-tertiary p-2 flex items-center justify-center shadow-md">
+              <div className="cursor-pointer hover:bg-tertiary hover:ring-1 font-bold hover:ring-tertiary hover:text-white transition ease-linear ring-1 duration-200 rounded-md w-full bg-white text-tertiary ring-tertiary p-2 flex items-center justify-center shadow-md">
                 Back
               </div>
             </Link>
             <div
-              className="cursor-pointer hover:bg-white hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md w-full bg-tertiary text-white p-2 flex items-center justify-center shadow-md"
+              className="cursor-pointer hover:bg-white hover:ring-1 font-bold hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md w-full bg-tertiary text-white p-2 flex items-center justify-center shadow-md"
               onClick={() => registerHandler(auth, email, password)}
             >
               Register

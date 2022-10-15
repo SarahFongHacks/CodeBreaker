@@ -34,12 +34,12 @@ const Login = () => {
           className="object-cover w-full absolute bottom-0"
         />
       </div> */}
-      <div className=" flex-col flex items-center justify-center space-y-4 ">
+      <div className=" flex-col flex items-center justify-center space-y-4 w-96">
         <div className="bg-primary text-white p-4 px-8 rounded-lg text-center">
-          <h1 className="text-2xl">Welcome to Bookers Paradise</h1>
+          <h1 className="text-2xl font-bold">Welcome to Bookers Paradise</h1>
         </div>
         {error && (
-          <div className="bg-red-300 px-2 py-2 rounded-md text-sm flex items-center">
+          <div className="bg-red-500 text-white px-2 py-2 rounded-md text-sm flex items-center">
             <BiErrorCircle className="mx-2 w-8 square flex items-center justify-center text-lg" />
             <p className="mr-4">{error}</p>
           </div>
@@ -61,7 +61,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></input>
           <div
-            className="shadow-md cursor-pointer hover:bg-white w-52  hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md bg-tertiary text-white p-2 flex items-center justify-center"
+            className="shadow-md cursor-pointer font-bold hover:bg-white w-52  hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md bg-tertiary text-white p-2 flex items-center justify-center"
             onClick={() => signInHandler(auth, email, password)}
           >
             Login

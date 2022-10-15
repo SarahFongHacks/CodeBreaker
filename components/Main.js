@@ -22,10 +22,10 @@ const Main = () => {
       </div>
 
       <div className="w-full relative flex flex-col items-center justify-center mt-64">
-        <h1 className="text-7xl font-bold tracking-tighter text-white pb-2">
+        <h1 className="text-8xl font-bold tracking-tighter text-white pb-2">
           Booker's Paradise
         </h1>
-        <p className="text-white tracking-widest uppercase ">
+        <p className="text-white tracking-widest uppercase text-xl">
           Find your esacpe
         </p>
       </div>

@@ -6,6 +6,7 @@ import { FaMoneyBillWave, FaToilet } from "react-icons/fa";
 import { BsFillDoorOpenFill } from "react-icons/bs";
 import { LoginContext } from "../context";
 import { createReservation } from "../db_func/reservations";
+import Link from "next/link";
 
 const Hotel = ({ hotels }) => {
   const [checkin, setCheckin] = useState("");
@@ -15,8 +16,8 @@ const Hotel = ({ hotels }) => {
   const id = router.asPath.slice(7);
   const hotel = hotels.find((hotel) => hotel.id === id);
 
-  // const { user } = useContext(LoginContext);
-  // console.log(user);
+  const { user } = useContext(LoginContext);
+  console.log(user);
 
   const registrationHandler = ({ hotel, user, checkin, checkout }) => {
     createReservation(hotel, user, new Date(checkin), new Date(checkout)).then(
@@ -105,14 +106,22 @@ const Hotel = ({ hotels }) => {
               ></input>
             </div>
           </div>
-          <div
-            className="w-full shadow-md cursor-pointer ring-tertiary text-white   py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary hover:bg-white hover:text-tertiary hover:ring-tertiary"
-            onClick={() =>
-              registrationHandler({ hotel, user, checkin, checkout })
-            }
-          >
-            Book Now
-          </div>
+          {user ? (
+            <div
+              className="w-full shadow-md cursor-pointer ring-tertiary font-bold text-white   py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary hover:bg-white hover:text-tertiary hover:ring-tertiary"
+              onClick={() =>
+                registrationHandler({ hotel, user, checkin, checkout })
+              }
+            >
+              Book Now
+            </div>
+          ) : (
+            <Link href="/login">
+              <div className="w-full shadow-md cursor-pointer font-bold ring-red-500 text-white   py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-red-500 hover:bg-white hover:text-red-500 hover:ring-red-500">
+                Login to book
+              </div>
+            </Link>
+          )}
         </div>
       </div>
     </div>
