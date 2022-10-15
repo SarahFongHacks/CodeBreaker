@@ -11,7 +11,7 @@ export type HotelRoom = {
   hotel: string;
   imageURL: string;
   location: string;
-  image : any;
+  image : any; // First Image is the main bed image
 };
 
 export type Reservation = {

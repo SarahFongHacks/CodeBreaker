@@ -1,7 +1,7 @@
 import { HotelRoom, Reservation, User } from "../types/types";
 import { DocumentReference, getDoc } from "firebase/firestore";
 import { storage } from "../pages/index";
-import { getDownloadURL } from "firebase/storage";
+import { getDownloadURL, listAll } from "firebase/storage";
 import { ref } from "firebase/storage";
 
 export const dbConverter = {
@@ -92,16 +92,26 @@ function arrayToRefsArray(array: any) {
   return array.map((el) => el.docRef);
 }
 
-async function getHotelRoomImage(imageURL: string) {
-  let url;
+async function getHotelRoomImage(imageURL: string): Promise<any> {
+  const listRef = ref(storage, imageURL);
 
-  try {
-    url = await getDownloadURL(ref(storage, imageURL.concat("/mainImg.jpeg")));
-  } catch {
-    url = await getDownloadURL(ref(storage, "hotel1/mainImg.jpeg"));
+  const items = await listAll(listRef);
 
-    console.log("error");
+  const images = [];
+
+  /*const images = items.items.map(async (itemRef) => {
+    return await getDownloadURL(itemRef)
+  })*/
+
+  for (let i = 0; i < items.items.length; i++) {
+    const image = await getDownloadURL(items.items[i]);
+
+    if (items.items[i].fullPath === imageURL.concat("/mainImg.jpeg")) {
+      images.splice(0, 0, image);
+    } else {
+      images.push(image);
+    }
   }
 
-  return url;
+  return Promise.all(images);
 }

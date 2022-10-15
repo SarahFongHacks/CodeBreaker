@@ -9,7 +9,6 @@ const Hotel = ({ hotels }) => {
   const router = useRouter();
   const id = router.asPath.slice(7);
   const hotel = hotels.find((hotel) => hotel.id === id);
-  console.log(hotel);
 
   return (
     <div className="w-full h-screen flex flex-col items-start justify-center p-36 ">
