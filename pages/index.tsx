@@ -14,6 +14,8 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {getStorage} from "firebase/storage"
+
 import { HotelRoom, Reservation, User } from "../types/types";
 import { dbConverter } from "../db_conversion/db_converter";
 import useHotels from "../hooks/useHotels";
@@ -31,6 +33,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
+export const storage = getStorage(app);
 
 // async function testing() {
 //   const docRef = doc(db, "HotelRoom", "OKj8Mu4bT6oo5paI96jU");

@@ -11,6 +11,7 @@ export type HotelRoom = {
   hotel: string;
   imageURL: string;
   location: string;
+  image : any;
 };
 
 export type Reservation = {
