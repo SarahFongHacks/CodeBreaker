@@ -43,12 +43,14 @@ export async function createReservation(
     errorCode: "",
     errorMessage: "",
   };
-
-  writeReservation(reservation).catch((error) => {
+  
+  try {
+  await writeReservation(reservation)
+  } catch(error) {
     fireBaseError.error = true;
     fireBaseError.errorCode = error.code;
     fireBaseError.errorMessage = error.message;
-  });
+  };
 
   return fireBaseError;
 }
