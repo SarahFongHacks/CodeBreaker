@@ -16,14 +16,19 @@ const useHotels = (): HotelRoom[] => {
 
   useEffect(() => {
     async function getAllHotels() {
+      let allHotels = [];
+      let promises = [];
       const docSnap = await getDocs(collection(db, "HotelRoom"));
-      const allHotels = [];
       docSnap.forEach((doc) => {
-        dbConverter.jsonToHotelRoom(doc.data(), doc.ref).then((res) => {
-          allHotels.push(res);
-          setHotels(allHotels);
-        });
+        promises.push(
+          dbConverter.jsonToHotelRoom(doc.data(), doc.ref).then((res) => {
+            allHotels.push(res);
+          })
+        );
       });
+
+      await Promise.all(promises);
+      setHotels(allHotels);
     }
     getAllHotels();
   }, []);

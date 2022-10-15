@@ -99,11 +99,9 @@ async function getHotelRoomImage(imageURL: string) {
     url = await getDownloadURL(ref(storage, imageURL.concat("/mainImg.jpeg")));
   } catch {
     url = await getDownloadURL(ref(storage, "hotel1/mainImg.jpeg"));
-  
+
     console.log("error");
   }
-
-  console.log("hello");
 
   return url;
 }
