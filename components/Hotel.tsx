@@ -8,7 +8,7 @@ const Hotel = ({ hotels }) => {
   console.log(hotel);
 
   return (
-    <div className="w-full h-screen flex flex-col items-start justify-start p-36">
+    <div className="w-full h-screen flex flex-col items-start justify-center p-36 ">
       <h1 className="font-bold text-4xl mb-8">{hotel.hotel}</h1>
       <div className="w-full h-full flex flex-row items-start justify-center space-x-16">
         <div className="h-full square rounded-lg aspect-square overflow-hidden">
@@ -18,7 +18,7 @@ const Hotel = ({ hotels }) => {
           />
         </div>
         <div className="w-1/2 h-full flex flex-row space-between items-start">
-          <div className="w-full h-full flex flex-col text-lg items-start justify-between ">
+          <div className="w-full h-full grid grid-cols-2 gap-2 text-lg items-start justify-between ">
             <div className="flex flex-col">
               <p className="font-semibold">Location</p>
               <p className="text-base mt-1">{hotel.location}</p>
@@ -36,10 +36,14 @@ const Hotel = ({ hotels }) => {
               <p className="text-base mt-1">{hotel.numberOfBathrooms} baths</p>
             </div>
             <div className="flex flex-col">
+              <p className="font-semibold">Room Number</p>
+              <p className="text-base mt-1">{hotel.roomNumber}</p>
+            </div>
+            <div className="flex flex-col">
               <p className="font-semibold">Rate </p>
               <p className="text-base mt-1">${hotel.price}/night</p>
             </div>
-            <div className="w-full mt-16 place-self-end shadow-md cursor-pointer ring-tertiary text-tertiary  py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center hover:bg-tertiary hover:text-white hover:ring-tertiary">
+            <div className="w-full col-span-2 mt-16 place-self-end shadow-md cursor-pointer ring-tertiary text-tertiary  py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center hover:bg-tertiary hover:text-white hover:ring-tertiary">
               Book Now
             </div>
           </div>
