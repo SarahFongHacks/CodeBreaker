@@ -11,19 +11,20 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const { userCred, setUserCred } = useContext(LoginContext);
+  const { user, setUser } = useContext(LoginContext);
   const router = useRouter();
+  console.log(user);
 
   const signInHandler = (auth, email, password) => {
     signIn(auth, email, password).then((res) => {
       res.error && setError(res.error.errorMessage);
-      res.userCred && setUserCred(res.userCred);
+      res.user && setUser(res.user);
     });
   };
 
   useEffect(() => {
-    Object.keys(userCred).length !== 0 && router.push("/");
-  }, [userCred]);
+    user && router.push("/");
+  }, [user]);
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center relative">

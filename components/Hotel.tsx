@@ -14,17 +14,16 @@ const Hotel = ({ hotels }) => {
   const router = useRouter();
   const id = router.asPath.slice(7);
   const hotel = hotels.find((hotel) => hotel.id === id);
-  const userCred = useContext(LoginContext);
 
-  const registrationHandler = ({ hotel, userCred, checkin, checkout }) => {
-    createReservation(
-      hotel,
-      userCred,
-      new Date(checkin),
-      new Date(checkout)
-    ).then((res) => {
-      console.log(res);
-    });
+  // const { user } = useContext(LoginContext);
+  // console.log(user);
+
+  const registrationHandler = ({ hotel, user, checkin, checkout }) => {
+    createReservation(hotel, user, new Date(checkin), new Date(checkout)).then(
+      (res) => {
+        console.log(res);
+      }
+    );
   };
 
   return (
@@ -109,7 +108,7 @@ const Hotel = ({ hotels }) => {
           <div
             className="w-full shadow-md cursor-pointer ring-tertiary text-white   py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary hover:bg-white hover:text-tertiary hover:ring-tertiary"
             onClick={() =>
-              registrationHandler({ hotel, userCred, checkin, checkout })
+              registrationHandler({ hotel, user, checkin, checkout })
             }
           >
             Book Now

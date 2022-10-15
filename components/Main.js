@@ -5,7 +5,7 @@ import { BsArrowDownCircle } from "react-icons/bs";
 import { LoginContext } from "../context";
 
 const Main = () => {
-  const { userCred } = useContext(LoginContext);
+  const { user } = useContext(LoginContext);
 
   return (
     <div className="w-full h-screen bg-primary fixed flex flex-col items-center justify-start">
@@ -16,7 +16,7 @@ const Main = () => {
       <div className="w-full p-8 overflow-hidden relative flex justify-end">
         <Link href="/login">
           <div className="shadow-md cursor-pointer ring-white/50 hover:ring-white ring-1 transition ease-linear duration-200 rounded-md text-white  py-3 px-5 flex items-center justify-center">
-            {Object.keys(userCred).length !== 0 ? "Logout" : "Login"}
+            {user ? "Logout" : "Login"}
           </div>
         </Link>
       </div>

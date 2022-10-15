@@ -4,7 +4,6 @@ import HotelSelect from "./HotelSelect";
 
 const Hotels = () => {
   const hotels = useHotels();
-  console.log(hotels);
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-start p-16">
