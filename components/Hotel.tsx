@@ -1,14 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { MdLocationPin, MdPeopleAlt } from "react-icons/md";
 import { IoIosBed } from "react-icons/io";
 import { FaMoneyBillWave, FaToilet } from "react-icons/fa";
 import { BsFillDoorOpenFill } from "react-icons/bs";
+import { LoginContext } from "../context";
+import { createReservation } from "../db_func/reservations";
 
 const Hotel = ({ hotels }) => {
+  const [checkin, setCheckin] = useState("");
+  const [checkout, setCheckout] = useState("");
+
   const router = useRouter();
   const id = router.asPath.slice(7);
   const hotel = hotels.find((hotel) => hotel.id === id);
+  const userCred = useContext(LoginContext);
+
+  const registrationHandler = ({ hotel, userCred, checkin, checkout }) => {
+    createReservation(
+      hotel,
+      userCred,
+      new Date(checkin),
+      new Date(checkout)
+    ).then((res) => {
+      console.log(res);
+    });
+  };
 
   return (
     <div className="w-full h-screen flex flex-col items-start justify-center p-36 ">
@@ -65,7 +82,36 @@ const Hotel = ({ hotels }) => {
               <FaMoneyBillWave className="mx-1" />
             </div>
           </div>
-          <div className="w-full shadow-md cursor-pointer ring-tertiary text-white   py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary hover:bg-white hover:text-tertiary hover:ring-tertiary">
+          <div className="w-full flex flex-row justify-evenly items-center">
+            <div className="flex flex-col">
+              <label htmlFor="startDate" className="font-semibold">
+                Check-in
+              </label>
+              <input
+                type="date"
+                id="startDate"
+                className="focus:outline-none select-none ring-1 ring-black/20 p-2 rounded-md"
+                onChange={(e) => setCheckin(e.target.value)}
+              ></input>
+            </div>
+            <div className="flex flex-col">
+              <label htmlFor="endDate" className="font-semibold">
+                Checkout
+              </label>
+              <input
+                type="date"
+                id="endDate"
+                className="focus:outline-none select-none ring-1 ring-black/20 p-2 rounded-md"
+                onChange={(e) => setCheckout(e.target.value)}
+              ></input>
+            </div>
+          </div>
+          <div
+            className="w-full shadow-md cursor-pointer ring-tertiary text-white   py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary hover:bg-white hover:text-tertiary hover:ring-tertiary"
+            onClick={() =>
+              registrationHandler({ hotel, userCred, checkin, checkout })
+            }
+          >
             Book Now
           </div>
         </div>
