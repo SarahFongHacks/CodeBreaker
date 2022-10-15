@@ -1,9 +1,10 @@
 import React from "react";
 import useHotels from "../hooks/useHotels";
-import Hotel from "./Hotel";
+import HotelSelect from "./HotelSelect";
 
 const Hotels = () => {
   const hotels = useHotels();
+  console.log(hotels);
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-start p-16">
@@ -16,7 +17,7 @@ const Hotels = () => {
       </div> */}
       <div className="w-full min-h-screen grid grid-cols-3 gap-8 items-start justify-center">
         {hotels.map((hotel) => {
-          return <Hotel hotel={hotel} />;
+          return <HotelSelect hotel={hotel} />;
         })}
       </div>
     </div>

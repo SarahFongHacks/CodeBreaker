@@ -9,9 +9,10 @@ import {
 } from "firebase/firestore";
 import { db } from "..";
 import { dbConverter } from "../../db_conversion/db_converter";
+import Hotel from "../../components/Hotel";
 
 const RoomPage = ({ allHotels }) => {
-  return <div>Test test</div>;
+  return <Hotel hotels={allHotels} />;
 };
 
 export async function getStaticPaths() {
@@ -38,13 +39,17 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
   let allHotels = [];
-
+  let promises = [];
   const docSnap = await getDocs(collection(db, "HotelRoom"));
   docSnap.forEach((doc) => {
-    dbConverter.jsonToHotelRoom(doc.data(), doc.ref).then((res) => {
-      allHotels.push(res);
-    });
+    promises.push(
+      dbConverter.jsonToHotelRoom(doc.data(), doc.ref).then((res) => {
+        allHotels.push(res);
+      })
+    );
   });
+
+  await Promise.all(promises);
 
   return {
     props: { allHotels },
