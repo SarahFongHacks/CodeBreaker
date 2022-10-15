@@ -13,62 +13,60 @@ const Hotel = ({ hotels }) => {
   return (
     <div className="w-full h-screen flex flex-col items-start justify-center p-36 ">
       <h1 className="font-bold text-4xl mb-8">{hotel.hotel}</h1>
-      <div className="w-full h-full flex flex-row items-start justify-center space-x-16">
-        <div className="h-full square rounded-lg aspect-square overflow-hidden">
+      <div className="w-full h-full flex flex-row items-start justify-center space-x-8">
+        <div className="h-full square rounded-md aspect-square overflow-hidden">
           <img
             src={hotel.image}
             className="w-full h-full object-cover group-hover:scale-110 transition duration-200 ease-linear"
           />
         </div>
-        <div className="w-1/2 h-full flex flex-row space-between items-start">
-          <div className="w-full h-full grid grid-cols-2 gap-4 text-lg items-start justify-between ">
-            <div className="flex flex-row w-full items-center justify-between">
-              <div className="flex flex-col">
-                <p className="font-semibold">Location</p>
-                <p className="text-base mt-1">{hotel.location}</p>
+        <div className="w-1/2 h-full flex flex-col justify-between items-start">
+          <div className="w-full grid grid-cols-2 gap-4 items-start">
+            <div className="flex flex-row w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
+              <div className="flex flex-col ">
+                <p className="font-[600]">Location</p>
+                <p className="text-base">{hotel.location}</p>
               </div>
-              <MdLocationPin className="mx-4" />
+              <MdLocationPin className="mx-1" />
             </div>
-            <div className="flex flex-row w-full items-center justify-between">
-              <div className="flex flex-col">
-                <p className="font-semibold">Capacity</p>
-                <p className="text-base mt-1">{hotel.capacity} Guests</p>
+            <div className="flex flex-row w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
+              <div className="flex flex-col ">
+                <p className="font-[600]">Capacity</p>
+                <p className="text-base">{hotel.capacity} Guests</p>
               </div>
-              <MdPeopleAlt className="mx-4" />
+              <MdPeopleAlt className="mx-1" />
             </div>
-            <div className="flex flex-row w-full items-center justify-between">
-              <div className="flex flex-col">
-                <p className="font-semibold">Bedrooms</p>
-                <p className="text-base mt-1">{hotel.numberOfBeds} beds</p>
+            <div className="flex flex-row w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
+              <div className="flex flex-col ">
+                <p className="font-[600]">Bedrooms</p>
+                <p className="text-base">{hotel.numberOfBeds} Beds</p>
               </div>
-              <IoIosBed className="mx-4" />
+              <IoIosBed className="mx-1" />
             </div>
-            <div className="flex flex-row w-full items-center justify-between">
-              <div className="flex flex-col">
-                <p className="font-semibold">Bathrooms</p>
-                <p className="text-base mt-1">
-                  {hotel.numberOfBathrooms} baths
-                </p>
+            <div className="flex flex-row w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
+              <div className="flex flex-col ">
+                <p className="font-[600]">Bathrooms</p>
+                <p className="text-base">{hotel.numberOfBathrooms} Baths</p>
               </div>
-              <FaToilet className="mx-4" />
+              <FaToilet className="mx-1" />
             </div>
-            <div className="flex flex-row w-full items-center justify-between">
-              <div className="flex flex-col">
-                <p className="font-semibold">Room Number</p>
-                <p className="text-base mt-1">{hotel.roomNumber}</p>
+            <div className="flex flex-row w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
+              <div className="flex flex-col ">
+                <p className="font-[600]">Room Number</p>
+                <p className="text-base">{hotel.roomNumber}</p>
               </div>
-              <BsFillDoorOpenFill className="mx-4" />
+              <BsFillDoorOpenFill className="mx-1" />
             </div>
-            <div className="flex flex-row w-full items-center justify-between">
-              <div className="flex flex-col">
-                <p className="font-semibold">Rate</p>
-                <p className="text-base mt-1">${hotel.price}/night</p>
+            <div className="flex flex-row w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
+              <div className="flex flex-col ">
+                <p className="font-[600]">Rate</p>
+                <p className="text-base">${hotel.price / 100}/night</p>
               </div>
-              <FaMoneyBillWave className="mx-4" />
+              <FaMoneyBillWave className="mx-1" />
             </div>
-            <div className="w-full col-span-2 mt-16 place-self-end shadow-md cursor-pointer ring-tertiary text-tertiary  py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center hover:bg-tertiary hover:text-white hover:ring-tertiary">
-              Book Now
-            </div>
+          </div>
+          <div className="w-full shadow-md cursor-pointer ring-tertiary text-white   py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary hover:bg-white hover:text-tertiary hover:ring-tertiary">
+            Book Now
           </div>
         </div>
       </div>
