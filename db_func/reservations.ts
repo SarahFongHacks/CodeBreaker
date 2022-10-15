@@ -25,7 +25,7 @@ export async function createReservation(
   startDate: Date,
   endDate: Date
 ) {
-  const collectionRef = collection(db, "User");
+  const collectionRef = collection(db, "Reservation");
   const docRef = doc(collectionRef);
   const id = docRef.id;
 
