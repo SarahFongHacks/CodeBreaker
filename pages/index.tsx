@@ -14,7 +14,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import {getStorage} from "firebase/storage"
+import { getStorage } from "firebase/storage";
 
 import { HotelRoom, Reservation, User } from "../types/types";
 import { dbConverter } from "../db_conversion/db_converter";
@@ -56,7 +56,7 @@ const Home: NextPage = () => {
         <link rel="preconnect" href="https://fonts.googleapis.com/" />
         <link rel="preconnect" href="https://fonts.gstatic.com/" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
           rel="stylesheet"
         />
         <title>Code Breaker's Hotel</title>
