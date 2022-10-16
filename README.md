@@ -45,9 +45,9 @@ uses Node 18.9
 ``` npm install ```
 
 Dev Build
-``` npm next dev```
+``` yarn next dev```
 
-Prod Build
+Prod Build // Someone update this to yarn
 ``` npm run build ```
 ``` npm start ```
 
