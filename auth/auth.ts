@@ -15,6 +15,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { dbConverter } from "../db_conversion/db_converter";
+import { db } from "../pages/index";
 
 // returning a string is dumb, do something smarter in the future
 export async function register(
@@ -74,7 +75,6 @@ export async function signIn(
   auth: Auth,
   email: string,
   password: string,
-  db: Firestore
 ): Promise<UserLoginCred> {
   const fireBaseError: FireBaseError = {
     error: false,
@@ -94,15 +94,20 @@ export async function signIn(
       const user = userCredential.user;
 
       userCred.userCred = user;
+      
+      const userRef = collection(db, "User")
 
-      const q = query(collection(db, "User"), where("email", "==", email));
+      const q = query(userRef, where("email", "==", email));
       const snapshot = await getDocs(q);
+
 
       // This is dumb but I am lazy
       const userModel: User = await dbConverter.jsonToUser(
-        snapshot[0].data(),
-        snapshot[0].ref
+        snapshot.docs[0].data(),
+        snapshot.docs[0].ref
       );
+
+      userCred.user = userModel
     })
     .catch((error) => {
       const errorCode = error.code;
