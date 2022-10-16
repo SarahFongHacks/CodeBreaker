@@ -28,7 +28,14 @@ const Hotel = ({ hotels }) => {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col items-start justify-center p-36 ">
+    <div className="w-full h-screen flex flex-col items-start justify-center p-36 relative">
+      <div className="absolute left-0 top-0 flex w-full items-center justify-end p-8">
+        <Link href="/login">
+          <div className="shadow-md cursor-pointer ring-black/50 hover:ring-black ring-1 transition ease-linear duration-200 rounded-md text-black  py-3 px-5 flex items-center justify-center">
+            {user ? "Logout" : "Login"}
+          </div>
+        </Link>
+      </div>
       <h1 className="font-bold text-4xl mb-8">{hotel.hotel}</h1>
       <div className="w-full h-full flex flex-row items-start justify-center space-x-8">
         <div className="h-full square rounded-md aspect-square overflow-hidden">
