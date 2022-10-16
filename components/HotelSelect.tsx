@@ -5,7 +5,7 @@ const HotelSelect = ({ hotel }) => {
   return (
     <Link href={"/rooms/" + hotel.id}>
       <div className="flex flex-col items-center justify-center text-sm cursor-pointer group ">
-        <div className="w-full rounded-lg aspect-square bg-red-500 overflow-hidden">
+        <div className="w-full rounded-lg aspect-square overflow-hidden">
           <img
             src={hotel.image[0]}
             className="w-full h-full object-cover group-hover:scale-110 transition duration-200 ease-linear"
