@@ -42,7 +42,7 @@ uses Node 18.9
 
 
 
-``` npm install ```
+``` yarn install ```
 
 Dev Build
 ``` yarn next dev```
