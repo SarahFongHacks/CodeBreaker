@@ -13,10 +13,9 @@ const Login = () => {
 
   const { user, setUser } = useContext(LoginContext);
   const router = useRouter();
-  console.log(user);
 
-  const signInHandler = (auth, email, password) => {
-    signIn(auth, email, password).then((res) => {
+  const signInHandler = (auth, email, password, db) => {
+    signIn(auth, email, password, db).then((res) => {
       res.error && setError(res.error.errorMessage);
       res.user && setUser(res.user);
     });
@@ -36,7 +35,7 @@ const Login = () => {
       </div> */}
       <div className=" flex-col flex items-center justify-center space-y-4 w-96">
         <div className="bg-primary text-white p-4 px-8 rounded-lg text-center">
-          <h1 className="text-2xl font-bold">Welcome to Bookers Paradise</h1>
+          <h1 className="text-2xl font-bold">Welcome to Booker's Paradise</h1>
         </div>
         {error && (
           <div className="bg-red-500 text-white px-2 py-2 rounded-md text-sm flex items-center">
@@ -62,7 +61,7 @@ const Login = () => {
           ></input>
           <div
             className="shadow-md cursor-pointer font-bold hover:bg-white w-52  hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md bg-tertiary text-white p-2 flex items-center justify-center"
-            onClick={() => signInHandler(auth, email, password)}
+            onClick={() => signInHandler(auth, email, password, db)}
           >
             Login
           </div>
