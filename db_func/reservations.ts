@@ -18,7 +18,7 @@ export async function changeReservationDate(
 }
 
 async function writeReservation(reservation: Reservation) {
-  await setDoc(reservation.docRef, dbConverter.reservationToJson(reservation));
+  await setDoc(doc(db, "Reservation" ,reservation.id), dbConverter.reservationToJson(reservation));
 }
 
 export async function createReservation(
@@ -33,7 +33,6 @@ export async function createReservation(
 
   const reservation: Reservation = {
     id: id,
-    docRef: docRef,
     endDate: endDate.getTime(),
     hotelRoomId: hotelRoom.id,
     startDate: startDate.getTime(),

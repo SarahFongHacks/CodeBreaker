@@ -26,7 +26,7 @@ const Main = () => {
           Booker's Paradise
         </h1>
         <p className="text-white tracking-widest uppercase text-xl">
-          Find your esacpe
+          Find your escape
         </p>
       </div>
       <div className=" absolute bottom-16 w-full items-center flex justify-center  z-10">

@@ -16,7 +16,6 @@ export type HotelRoom = {
 
 export type Reservation = {
   id: string;
-  docRef: DocumentReference;
   endDate: number;
   hotelRoomId: string;
   startDate: number;
