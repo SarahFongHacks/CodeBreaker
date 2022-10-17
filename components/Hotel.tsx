@@ -7,6 +7,8 @@ import { BsFillDoorOpenFill } from "react-icons/bs";
 import { LoginContext } from "../context";
 import { createReservation } from "../db_func/reservations";
 import Link from "next/link";
+import { auth } from "../pages";
+import { signout } from "../auth/auth";
 
 const Hotel = ({ hotels }) => {
   const [checkin, setCheckin] = useState("");
@@ -16,8 +18,7 @@ const Hotel = ({ hotels }) => {
   const id = router.asPath.slice(7);
   const hotel = hotels.find((hotel) => hotel.id === id);
 
-  const { user } = useContext(LoginContext);
-  console.log(user);
+  const { user, setUser } = useContext(LoginContext);
 
   const registrationHandler = ({ hotel, user, checkin, checkout }) => {
     createReservation(hotel, user, new Date(checkin), new Date(checkout)).then(
@@ -27,14 +28,29 @@ const Hotel = ({ hotels }) => {
     );
   };
 
+  const signOutHandler = (auth) => {
+    signout(auth);
+    setUser(undefined);
+    console.log("signout");
+  };
+
   return (
     <div className="w-full h-screen flex flex-col items-start justify-center p-36 relative">
       <div className="absolute left-0 top-0 flex w-full items-center justify-end p-8">
-        <Link href="/login">
-          <div className="shadow-md cursor-pointer ring-black/50 hover:ring-black ring-1 transition ease-linear duration-200 rounded-md text-black  py-3 px-5 flex items-center justify-center">
-            {user ? "Logout" : "Login"}
+        {user ? (
+          <div
+            className="shadow-md cursor-pointer ring-white/50 hover:ring-white ring-1 transition ease-linear duration-200 rounded-md text-white  py-3 px-5 flex items-center justify-center"
+            onClick={() => signOutHandler(auth)}
+          >
+            Logout
           </div>
-        </Link>
+        ) : (
+          <Link href="/login">
+            <div className="shadow-md cursor-pointer ring-white/50 hover:ring-white ring-1 transition ease-linear duration-200 rounded-md text-white  py-3 px-5 flex items-center justify-center">
+              Login
+            </div>
+          </Link>
+        )}
       </div>
       <h1 className="font-bold text-4xl mb-8">{hotel.hotel}</h1>
       <div className="w-full h-full flex flex-row items-start justify-center space-x-8">

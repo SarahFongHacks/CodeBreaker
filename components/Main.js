@@ -9,7 +9,7 @@ import { auth } from "../pages/";
 const Main = () => {
   const { user, setUser } = useContext(LoginContext);
 
-  const signOutHandler = ({ auth }) => {
+  const signOutHandler = (auth) => {
     signout(auth);
     setUser(undefined);
     console.log("signout");

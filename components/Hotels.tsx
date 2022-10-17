@@ -1,21 +1,38 @@
 import Link from "next/link";
 import React, { useContext } from "react";
+import { signout } from "../auth/auth";
 import { LoginContext } from "../context";
 import useHotels from "../hooks/useHotels";
+import { auth } from "../pages";
 import HotelSelect from "./HotelSelect";
 
 const Hotels = () => {
   const hotels = useHotels();
-  const { user } = useContext(LoginContext);
+  const { user, setUser } = useContext(LoginContext);
+
+  const signOutHandler = (auth) => {
+    signout(auth);
+    setUser(undefined);
+    console.log("signout");
+  };
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-start p-16 relative">
       <div className="absolute top-0 flex w-full items-center justify-end p-8">
-        <Link href="/login">
-          <div className="shadow-md cursor-pointer ring-black/50 hover:ring-black ring-1 transition ease-linear duration-200 rounded-md text-black  py-3 px-5 flex items-center justify-center">
-            {user ? "Logout" : "Login"}
+        {user ? (
+          <div
+            className="shadow-md cursor-pointer ring-white/50 hover:ring-white ring-1 transition ease-linear duration-200 rounded-md text-white  py-3 px-5 flex items-center justify-center"
+            onClick={() => signOutHandler(auth)}
+          >
+            Logout
           </div>
-        </Link>
+        ) : (
+          <Link href="/login">
+            <div className="shadow-md cursor-pointer ring-white/50 hover:ring-white ring-1 transition ease-linear duration-200 rounded-md text-white  py-3 px-5 flex items-center justify-center">
+              Login
+            </div>
+          </Link>
+        )}
       </div>
       <h1 className="font-bold text-4xl mb-8">Hotels</h1>
       {/* <div className="w-full items-center justify-start flex mb-8">
