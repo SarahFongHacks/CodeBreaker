@@ -15,11 +15,11 @@ const Main = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-primary fixed flex flex-col items-center justify-start">
-      {/* <img
+    <div className="w-full h-screen fixed flex flex-col items-center justify-start bg-black">
+      <img
         src="./assets/home.jpg"
-        className="object-cover w-full h-full 0 fixed opacity-60 "
-      /> */}
+        className="object-cover w-full h-full fixed blur-sm opacity-60"
+      />
       <div className="w-full p-8 overflow-hidden relative flex justify-end">
         {user ? (
           <div
@@ -50,7 +50,7 @@ const Main = () => {
           <BsArrowDownCircle className="cursor-pointer text-5xl hover:scale-110 transition duration-200 ease-linear text-white/50 hover:text-white" />
         </Link>
       </div>
-      <div className="w-full h-16 bg-gradient-to-r from-secondary to-secondary absolute bottom-0 blur-[100px] opacity-100 z-50" />
+      {/* <div className="w-full h-16 bg-gradient-to-r from-white to-white absolute bottom-0 blur-[100px] opacity-100 z-50" /> */}
     </div>
   );
 };
