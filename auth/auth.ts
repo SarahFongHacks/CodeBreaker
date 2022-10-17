@@ -2,6 +2,7 @@ import {
   createUserWithEmailAndPassword,
   Auth,
   signInWithEmailAndPassword,
+  signOut 
 } from "firebase/auth";
 
 import { UserLoginCred, FireBaseError, User } from "../types/types";
@@ -122,3 +123,27 @@ export async function signIn(
 
   return userCred;
 }
+
+export async function signout(auth : Auth) : Promise<FireBaseError> {
+
+  const fireBaseError: FireBaseError = {
+    error: false,
+    errorCode: "",
+    errorMessage: "",
+  };
+
+  signOut(auth).then(() => {
+    // Sign-out successful.
+  }).catch((error) => {
+  
+    console.log(error)
+    
+    fireBaseError.error = true
+    fireBaseError.errorCode = error.errorCode
+    fireBaseError.errorMessage = error.errorMessage
+  });
+
+  return fireBaseError;
+}
+
+
