@@ -12,7 +12,6 @@ const Main = () => {
   const signOutHandler = (auth) => {
     signout(auth);
     setUser(undefined);
-    console.log("signout");
   };
 
   return (

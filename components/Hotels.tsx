@@ -13,7 +13,6 @@ const Hotels = () => {
   const signOutHandler = (auth) => {
     signout(auth);
     setUser(undefined);
-    console.log("signout");
   };
 
   return (
