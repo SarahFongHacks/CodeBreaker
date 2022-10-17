@@ -20,14 +20,14 @@ const Hotels = () => {
       <div className="absolute top-0 flex w-full items-center justify-end p-8">
         {user ? (
           <div
-            className="shadow-md cursor-pointer ring-white/50 hover:ring-white ring-1 transition ease-linear duration-200 rounded-md text-white  py-3 px-5 flex items-center justify-center"
+            className="shadow-md cursor-pointer ring-black/50 hover:ring-black ring-1 transition ease-linear duration-200 rounded-md text-black  py-3 px-5 flex items-center justify-center"
             onClick={() => signOutHandler(auth)}
           >
             Logout
           </div>
         ) : (
           <Link href="/login">
-            <div className="shadow-md cursor-pointer ring-white/50 hover:ring-white ring-1 transition ease-linear duration-200 rounded-md text-white  py-3 px-5 flex items-center justify-center">
+            <div className="shadow-md cursor-pointer ring-black/50 hover:ring-black ring-1 transition ease-linear duration-200 rounded-md text-black  py-3 px-5 flex items-center justify-center">
               Login
             </div>
           </Link>

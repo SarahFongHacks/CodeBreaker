@@ -13,6 +13,7 @@ import { signout } from "../auth/auth";
 const Hotel = ({ hotels }) => {
   const [checkin, setCheckin] = useState("");
   const [checkout, setCheckout] = useState("");
+  const [registered, setRegistered] = useState(false);
 
   const router = useRouter();
   const id = router.asPath.slice(7);
@@ -23,7 +24,8 @@ const Hotel = ({ hotels }) => {
   const registrationHandler = ({ hotel, user, checkin, checkout }) => {
     createReservation(hotel, user, new Date(checkin), new Date(checkout)).then(
       (res) => {
-        console.log(res);
+        // res.error === false && setRegistered(true);
+        res.error === false && alert("Hotel was successfully booked!");
       }
     );
   };
@@ -38,14 +40,14 @@ const Hotel = ({ hotels }) => {
       <div className="absolute left-0 top-0 flex w-full items-center justify-end p-8">
         {user ? (
           <div
-            className="shadow-md cursor-pointer ring-white/50 hover:ring-white ring-1 transition ease-linear duration-200 rounded-md text-white  py-3 px-5 flex items-center justify-center"
+            className="shadow-md cursor-pointer ring-black/50 hover:ring-black ring-1 transition ease-linear duration-200 rounded-md text-black  py-3 px-5 flex items-center justify-center"
             onClick={() => signOutHandler(auth)}
           >
             Logout
           </div>
         ) : (
           <Link href="/login">
-            <div className="shadow-md cursor-pointer ring-white/50 hover:ring-white ring-1 transition ease-linear duration-200 rounded-md text-white  py-3 px-5 flex items-center justify-center">
+            <div className="shadow-md cursor-pointer ring-black/50 hover:ring-black ring-1 transition ease-linear duration-200 rounded-md text-black  py-3 px-5 flex items-center justify-center">
               Login
             </div>
           </Link>
