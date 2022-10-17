@@ -97,7 +97,7 @@ const Hotel = ({ hotels }) => {
               <input
                 type="date"
                 id="startDate"
-                className="focus:outline-none select-none ring-1 ring-black/20 p-2 rounded-md"
+                className="focus:outline-none ring-1 ring-black/20 p-2 rounded-md"
                 onChange={(e) => setCheckin(e.target.value)}
               ></input>
             </div>
@@ -108,7 +108,7 @@ const Hotel = ({ hotels }) => {
               <input
                 type="date"
                 id="endDate"
-                className="focus:outline-none select-none ring-1 ring-black/20 p-2 rounded-md"
+                className="focus:outline-none ring-1 ring-black/20 p-2 rounded-md"
                 onChange={(e) => setCheckout(e.target.value)}
               ></input>
             </div>
