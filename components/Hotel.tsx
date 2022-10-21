@@ -10,10 +10,15 @@ import Link from "next/link";
 import { auth } from "../pages";
 import { signout } from "../auth/auth";
 
+import "react-dates/initialize";
+import { DateRangePicker } from "react-dates";
+import "react-dates/lib/css/_datepicker.css";
+
 const Hotel = ({ hotels }) => {
   const [checkin, setCheckin] = useState("");
   const [checkout, setCheckout] = useState("");
   const [registered, setRegistered] = useState(false);
+  const [focusedInput, setFocusedInput] = useState();
 
   const router = useRouter();
   const id = router.asPath.slice(7);
@@ -36,7 +41,7 @@ const Hotel = ({ hotels }) => {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col items-start justify-center p-36 relative">
+    <div className="w-full h-screen flex flex-col items-start justify-center p-36 relative overflow-hidden">
       <div className="absolute left-0 top-0 flex w-full items-center justify-end p-8">
         {user ? (
           <div
@@ -106,8 +111,22 @@ const Hotel = ({ hotels }) => {
               <FaMoneyBillWave className="mx-1" />
             </div>
           </div>
-          <div className="w-full flex flex-row justify-evenly items-center">
-            <div className="flex flex-col">
+          <div className="w-full flex flex-row justify-center items-center">
+            <DateRangePicker
+              daySize={35}
+              openDirection={"up"}
+              startDate={checkin}
+              startDateId="start-date"
+              endDate={checkout}
+              endDateId="end-date"
+              onDatesChange={({ startDate, endDate }) => {
+                setCheckin(startDate);
+                setCheckout(endDate);
+              }}
+              focusedInput={focusedInput}
+              onFocusChange={(focusedInput) => setFocusedInput(focusedInput)}
+            />
+            {/* <div className="flex flex-col">
               <label htmlFor="startDate" className="font-semibold">
                 Check-in
               </label>
@@ -128,7 +147,7 @@ const Hotel = ({ hotels }) => {
                 className="focus:outline-none ring-1 ring-black/20 p-2 rounded-md"
                 onChange={(e) => setCheckout(e.target.value)}
               ></input>
-            </div>
+            </div> */}
           </div>
           {user ? (
             <div
