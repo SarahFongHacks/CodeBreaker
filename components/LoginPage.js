@@ -39,8 +39,8 @@ const Login = () => {
         />
       </div> */}
       <div className=" flex-col flex items-center justify-center space-y-4 w-96">
-        <div className="bg-primary text-white p-4 px-8 rounded-lg text-center">
-          <h1 className="text-2xl font-bold">Welcome to Booker's Paradise</h1>
+        <div className="text-primary px-8 rounded-lg text-center">
+          <h1 className="text-4xl font-bold">Welcome to Booker's Paradise</h1>
         </div>
         {error && (
           <div className="bg-red-500 text-white px-2 py-2 rounded-md text-sm flex items-center">
@@ -48,24 +48,30 @@ const Login = () => {
             <p className="mr-4">{error}</p>
           </div>
         )}
-        <form className="flex flex-col space-y-4 w-full items-center">
+        <form className="flex flex-col w-full items-start">
+          <label for="email" className="text-sm mb-1">
+            Email
+          </label>
           <input
             id="email"
             type="text"
             autoComplete="off"
-            className="w-full rounded-md px-3 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
-            placeholder="Email"
+            className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
+            placeholder="Enter your email address..."
             onChange={(e) => setEmail(e.target.value)}
           ></input>
+          <label for="password" className="text-sm mb-1 ">
+            Password
+          </label>
           <input
             id="password"
             type="password"
-            className="w-full rounded-md px-3 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
-            placeholder="Password"
+            className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
+            placeholder="Enter your password..."
             onChange={(e) => setPassword(e.target.value)}
           ></input>
           <div
-            className="shadow-md cursor-pointer font-bold hover:bg-white w-52  hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md bg-tertiary text-white p-2 flex items-center justify-center"
+            className="shadow-md w-full cursor-pointer  hover:bg-white  hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md bg-tertiary text-white p-2 flex items-center justify-center"
             onClick={() => signInHandler(auth, email, password, db)}
           >
             Login

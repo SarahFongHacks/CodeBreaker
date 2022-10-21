@@ -13,6 +13,7 @@ import { signout } from "../auth/auth";
 import "react-dates/initialize";
 import { DateRangePicker } from "react-dates";
 import "react-dates/lib/css/_datepicker.css";
+import ImageCarousel from "./ImageCarousel";
 
 const Hotel = ({ hotels }) => {
   const [checkin, setCheckin] = useState();
@@ -40,6 +41,8 @@ const Hotel = ({ hotels }) => {
     setUser(undefined);
   };
 
+  console.log(hotel);
+
   return (
     <div className="w-full h-screen flex flex-col items-start justify-center p-36 relative overflow-hidden">
       <div className="absolute left-0 top-0 flex w-full items-center justify-end p-8">
@@ -60,12 +63,7 @@ const Hotel = ({ hotels }) => {
       </div>
       <h1 className="font-bold text-4xl mb-8">{hotel?.hotel}</h1>
       <div className="w-full h-full flex flex-row items-start justify-center space-x-8">
-        <div className="h-full square rounded-md aspect-square overflow-hidden">
-          <img
-            src={hotel?.image}
-            className="w-full h-full object-cover group-hover:scale-110 transition duration-200 ease-linear"
-          />
-        </div>
+        <ImageCarousel images={hotel?.image} />
         <div className="w-1/2 h-full flex flex-col justify-between items-start">
           <div className="w-full grid grid-cols-2 gap-4 items-start">
             <div className="flex flex-row w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">

@@ -40,8 +40,8 @@ const Register = () => {
         />
       </div> */}
       <div className=" flex-col flex items-center justify-center space-y-4 w-96">
-        <div className="bg-primary text-white p-4 px-8 rounded-lg ">
-          <h1 className="text-2xl font-bold">Register</h1>
+        <div className=" text-primary px-8 rounded-lg ">
+          <h1 className="text-4xl font-bold">Register</h1>
         </div>
         {error && (
           <div className="bg-red-500 px-2 py-2 rounded-md text-sm flex items-center">
@@ -49,30 +49,36 @@ const Register = () => {
             <p className="mr-4">{error}</p>
           </div>
         )}
-        <form className="flex flex-col space-y-4 w-full">
+        <form className="flex flex-col w-full">
+          <label for="email" className="text-sm mb-1">
+            Email
+          </label>
           <input
             id="email"
             type="email"
             autoComplete="off"
-            className="w-full rounded-md px-3 py-2 placeholder-black/60 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
-            placeholder="Email"
+            className="w-full rounded-md px-3 py-2 mb-4 placeholder-black/60 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
+            placeholder="Enter your email address..."
             onChange={(e) => setEmail(e.target.value)}
           ></input>
+          <label for="password" className="text-sm mb-1">
+            Password
+          </label>
           <input
             id="password"
             type="password"
-            className="w-full rounded-md px-3 py-2 placeholder-black/60 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
-            placeholder="Password"
+            className="w-full rounded-md px-3 py-2 mb-4 placeholder-black/60 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
+            placeholder="Enter your password..."
             onChange={(e) => setPassword(e.target.value)}
           ></input>
           <div className="w-full flex space-x-2 items-center justify-center ">
             <Link href="/">
-              <div className="cursor-pointer hover:bg-tertiary hover:ring-1 font-bold hover:ring-tertiary hover:text-white transition ease-linear ring-1 duration-200 rounded-md w-full bg-white text-tertiary ring-tertiary p-2 flex items-center justify-center shadow-md">
+              <div className="cursor-pointer hover:bg-tertiary hover:ring-1  hover:ring-tertiary hover:text-white transition ease-linear ring-1 duration-200 rounded-md w-full bg-white text-tertiary ring-tertiary p-2 flex items-center justify-center shadow-md">
                 Back
               </div>
             </Link>
             <div
-              className="cursor-pointer hover:bg-white hover:ring-1 font-bold hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md w-full bg-tertiary text-white p-2 flex items-center justify-center shadow-md"
+              className="cursor-pointer hover:bg-white hover:ring-1  hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md w-full bg-tertiary text-white p-2 flex items-center justify-center shadow-md"
               onClick={() => registerHandler(auth, email, password)}
             >
               Register
