@@ -5,6 +5,7 @@ import { LoginContext } from "../context";
 import useHotels from "../hooks/useHotels";
 import { auth } from "../pages";
 import HotelSelect from "./HotelSelect";
+import { motion } from "framer-motion";
 
 const Hotels = () => {
   const hotels = useHotels();
@@ -16,7 +17,11 @@ const Hotels = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-start p-16 relative">
+    <motion.div
+      className="w-full min-h-screen flex flex-col items-center justify-start p-16 relative"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       <div className="absolute top-0 flex w-full items-center justify-end p-8">
         {user ? (
           <div
@@ -45,7 +50,7 @@ const Hotels = () => {
           return <HotelSelect hotel={hotel} />;
         })}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

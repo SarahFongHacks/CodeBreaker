@@ -1,5 +1,5 @@
 import React from "react";
-import Hotels from "../components/Hotels";
+import Hotels from "../components/HotelsPage";
 
 const hotels = () => {
   return <Hotels />;

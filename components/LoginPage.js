@@ -5,6 +5,7 @@ import { db, auth } from "../pages";
 import { useRouter } from "next/router";
 import { LoginContext } from "../context";
 import { BiErrorCircle } from "react-icons/bi";
+import { motion } from "framer-motion";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -26,7 +27,11 @@ const Login = () => {
   }, [user]);
 
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-center relative">
+    <motion.div
+      className="w-full h-screen flex flex-col items-center justify-center relative"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       {/* <div className="w-full h-44 mb-16 overflow-hidden relative">
         <img
           src="/assets/header.jpeg"
@@ -74,7 +79,7 @@ const Login = () => {
         </div>
       </div>
       {/* <div className="w-full h-16 bg-gradient-to-r from-tertiary to-tertiary absolute bottom-0 blur-[100px] opacity-100 z-50" /> */}
-    </div>
+    </motion.div>
   );
 };
 

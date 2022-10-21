@@ -4,8 +4,9 @@ import { useContext, useState } from "react";
 import { BsArrowDownCircle } from "react-icons/bs";
 import { LoginContext } from "../context";
 import { signout } from "../auth/auth";
-import { auth } from "../pages/";
+import { auth } from "../pages";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 const Main = () => {
   const { user, setUser } = useContext(LoginContext);

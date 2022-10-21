@@ -6,6 +6,7 @@ import { BiErrorCircle } from "react-icons/bi";
 import { useRouter } from "next/router";
 import { LoginContext, useAppContext } from "../context";
 import { db } from "../pages";
+import { motion } from "framer-motion";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -27,7 +28,11 @@ const Register = () => {
   }, [user]);
 
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-center">
+    <motion.div
+      className="w-full h-screen flex flex-col items-center justify-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       {/* <div className="w-full h-44 mb-16 overflow-hidden relative">
         <img
           src="/assets/header.jpeg"
@@ -75,7 +80,7 @@ const Register = () => {
           </div>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
