@@ -25,16 +25,16 @@ const HotelSelect = ({ hotel }) => {
       >
         <div className="w-full rounded-t-lg aspect-square overflow-hidden">
           <img
-            src={hotel.image[0]}
+            src={hotel?.image[0]}
             className="w-full h-full object-cover group-hover:scale-110 transition duration-200 ease-linear"
           />
         </div>
-        <p className="font-bold mt-4">{hotel.hotel}</p>
+        <p className="font-bold mt-4">{hotel?.hotel}</p>
         <div className="w-full flex flex-row space-between items-start p-4 pt-2">
           <div className="w-full flex flex-col space-y-1">
-            <p className="text-gray-800">{hotel.location}</p>
+            <p className="text-gray-800">{hotel?.location}</p>
             <p className="text-gray-800 font-bold">
-              ${hotel.price / 100}
+              ${hotel?.price / 100}
               <span className="font-[500]">/night</span>
             </p>
           </div>

@@ -11,7 +11,7 @@ import {
 import { db } from "../pages";
 import { HotelRoom } from "../types/types";
 
-const useHotels = (): HotelRoom[] => {
+const useHotels = (): { data: HotelRoom[] } => {
   const [hotels, setHotels] = useState([]);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const useHotels = (): HotelRoom[] => {
     getAllHotels();
   }, []);
 
-  return hotels;
+  return { data: hotels };
 };
 
 export default useHotels;

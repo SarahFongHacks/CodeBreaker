@@ -8,7 +8,7 @@ import HotelSelect from "./HotelSelect";
 import { motion } from "framer-motion";
 
 const Hotels = () => {
-  const hotels = useHotels();
+  const { data: hotels } = useHotels();
   const { user, setUser } = useContext(LoginContext);
 
   const signOutHandler = (auth) => {
