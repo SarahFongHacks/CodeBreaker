@@ -63,6 +63,16 @@ export async function createReservation(
       }
   }
 
+  for (let userRes of user.currentBooking) {
+    //resrevation must not conflict with the user's currently-existing bookings
+    if( reservation.endDate < userRes.startDate  || reservation.startDate > userRes.endDate) {}
+    else {
+      fireBaseError.error = true;
+      fireBaseError.errorMessage = "You already have a reservation on these days!";
+      return fireBaseError;
+    }
+  }
+
   // Is this dumb? yes an I doing it? yes
   try {
     await writeReservation(reservation);
