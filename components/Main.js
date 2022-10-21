@@ -50,7 +50,7 @@ const Main = () => {
           <BsArrowDownCircle className="cursor-pointer text-5xl hover:scale-110 transition duration-200 ease-linear text-white/50 hover:text-white" />
         </Link>
       </div>
-      {/* <div className="w-full h-16 bg-gradient-to-r from-white to-white absolute bottom-0 blur-[100px] opacity-100 z-50" /> */}
+      <div className="w-full h-16 bg-gradient-to-r from-white to-white absolute bottom-0 blur-[100px] opacity-30 z-50" />
     </div>
   );
 };
