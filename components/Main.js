@@ -5,6 +5,7 @@ import { BsArrowDownCircle } from "react-icons/bs";
 import { LoginContext } from "../context";
 import { signout } from "../auth/auth";
 import { auth } from "../pages/";
+import { motion } from "framer-motion";
 
 const Main = () => {
   const { user, setUser } = useContext(LoginContext);
@@ -15,7 +16,12 @@ const Main = () => {
   };
 
   return (
-    <div className="w-full h-screen fixed flex flex-col items-center justify-start bg-black">
+    <motion.div
+      className="w-full h-screen fixed flex flex-col items-center justify-start bg-black"
+      key="main"
+      exit={{ opacity: 0 }}
+      transition={{ duration: 1 }}
+    >
       <img
         src="./assets/home.jpg"
         className="object-cover w-full h-full fixed blur-sm opacity-60"
@@ -51,7 +57,7 @@ const Main = () => {
         </Link>
       </div>
       <div className="w-full h-16 bg-gradient-to-r from-white to-white absolute bottom-0 blur-[100px] opacity-30 z-50" />
-    </div>
+    </motion.div>
   );
 };
 

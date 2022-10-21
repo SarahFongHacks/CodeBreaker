@@ -15,8 +15,8 @@ import { DateRangePicker } from "react-dates";
 import "react-dates/lib/css/_datepicker.css";
 
 const Hotel = ({ hotels }) => {
-  const [checkin, setCheckin] = useState("");
-  const [checkout, setCheckout] = useState("");
+  const [checkin, setCheckin] = useState();
+  const [checkout, setCheckout] = useState();
   const [registered, setRegistered] = useState(false);
   const [focusedInput, setFocusedInput] = useState();
 
@@ -113,7 +113,7 @@ const Hotel = ({ hotels }) => {
           </div>
           <div className="w-full flex flex-row justify-center items-center">
             <DateRangePicker
-              daySize={35}
+              daySize={30}
               openDirection={"up"}
               startDate={checkin}
               startDateId="start-date"
