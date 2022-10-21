@@ -41,8 +41,6 @@ const Hotel = ({ hotels }) => {
     setUser(undefined);
   };
 
-  console.log(hotel);
-
   return (
     <div className="w-full h-screen flex flex-col items-start justify-center p-36 relative overflow-hidden">
       <div className="absolute left-0 top-0 flex w-full items-center justify-end p-8">

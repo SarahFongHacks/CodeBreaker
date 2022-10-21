@@ -22,10 +22,12 @@ const ImageCarousel = ({ images }) => {
 
   return (
     <div className="h-full square rounded-md aspect-square overflow-hidden relative">
-      <img
-        src={images[counter]}
-        className="w-full select-none h-full object-cover group-hover:scale-110 transition duration-200 ease-linear"
-      />
+      {images && (
+        <img
+          src={images[counter]}
+          className="w-full select-none h-full object-cover group-hover:scale-110 transition duration-200 ease-linear"
+        />
+      )}
       <div
         className="bg-white/50 hover:bg-white transition duration-200 ease-linear ring-1  ring-black/50 flex text-xl items-center justify-center rounded-full w-12 h-12 absolute right-4 top-[45%] z-10 cursor-pointer"
         onClick={() => incrementHandler()}
