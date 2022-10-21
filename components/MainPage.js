@@ -20,11 +20,16 @@ const Main = () => {
     <motion.div
       className="w-full h-screen fixed flex flex-col items-center justify-start bg-black"
       key="main"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 1 }}
+      transition={{ duration: 0.5 }}
     >
-      <img
-        src="./assets/home.jpg"
+      <Image
+        src="/assets/home.jpg"
+        layout="fill"
+        width="100vw"
+        height="100vh"
         className="object-cover w-full h-full fixed blur-sm opacity-60"
       />
       <div className="w-full p-8 overflow-hidden relative flex justify-end">
