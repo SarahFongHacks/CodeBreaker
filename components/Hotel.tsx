@@ -42,7 +42,7 @@ const Hotel = ({ hotels }) => {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col items-start justify-center p-36 relative overflow-hidden">
+    <div className="w-full h-screen flex flex-col items-center justify-center p-36 relative overflow-hidden">
       <div className="absolute left-0 top-0 flex w-full items-center justify-end p-8">
         {user ? (
           <div
@@ -59,8 +59,8 @@ const Hotel = ({ hotels }) => {
           </Link>
         )}
       </div>
-      <h1 className="font-bold text-4xl mb-8">{hotel?.hotel}</h1>
-      <div className="w-full h-full flex flex-row items-start justify-center space-x-8">
+      <h1 className="font-bold text-4xl mb-8 self-start">{hotel?.hotel}</h1>
+      <div className="flex flex-row items-start justify-center space-x-8">
         <ImageCarousel images={hotel?.image} />
         <div className="w-1/2 h-full flex flex-col justify-between items-start">
           <div className="w-full grid grid-cols-2 gap-4 items-start">
@@ -107,8 +107,8 @@ const Hotel = ({ hotels }) => {
               <FaMoneyBillWave className="mx-1" />
             </div>
           </div>
-          <div className="w-full flex flex-row justify-start items-center ">
-            <DateRangePicker
+          <div className=" flex flex-row justify-center items-center ">
+            {/* <DateRangePicker
               daySize={30}
               openDirection={"up"}
               startDate={checkin}
@@ -121,7 +121,7 @@ const Hotel = ({ hotels }) => {
               }}
               focusedInput={focusedInput}
               onFocusChange={(focusedInput) => setFocusedInput(focusedInput)}
-            />
+            /> */}
             {/* <div className="flex flex-col">
               <label htmlFor="startDate" className="font-semibold">
                 Check-in
