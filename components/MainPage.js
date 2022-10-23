@@ -2,20 +2,12 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import { useContext, useState } from "react";
 import { BsArrowDownCircle } from "react-icons/bs";
-import { LoginContext } from "../context";
-import { signout } from "../auth/auth";
 import { auth } from "../pages";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import LoginButton from "./LoginButton";
 
 const Main = () => {
-  const { user, setUser } = useContext(LoginContext);
-
-  const signOutHandler = (auth) => {
-    signout(auth);
-    setUser(undefined);
-  };
-
   return (
     <motion.div
       className="w-full h-screen fixed flex flex-col items-center justify-start bg-black"
@@ -33,20 +25,7 @@ const Main = () => {
         className="object-cover w-full h-full fixed blur-sm opacity-60"
       />
       <div className="w-full p-8 overflow-hidden relative flex justify-end">
-        {user ? (
-          <div
-            className="shadow-md cursor-pointer ring-white/50 hover:ring-white ring-1 transition ease-linear duration-200 rounded-md text-white  py-3 px-5 flex items-center justify-center"
-            onClick={() => signOutHandler(auth)}
-          >
-            Logout
-          </div>
-        ) : (
-          <Link href="/login">
-            <div className="shadow-md cursor-pointer ring-white/50 hover:ring-white ring-1 transition ease-linear duration-200 rounded-md text-white  py-3 px-5 flex items-center justify-center">
-              Login
-            </div>
-          </Link>
-        )}
+        <LoginButton color="white" />
       </div>
 
       <div className="w-full relative flex flex-col items-center justify-center mt-64">

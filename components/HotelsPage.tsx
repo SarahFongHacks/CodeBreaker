@@ -6,6 +6,7 @@ import useHotels from "../hooks/useHotels";
 import { auth } from "../pages";
 import HotelSelect from "./HotelSelect";
 import { motion } from "framer-motion";
+import LoginButton from "./LoginButton";
 
 const Hotels = () => {
   const { data: hotels } = useHotels();
@@ -23,20 +24,7 @@ const Hotels = () => {
       animate={{ opacity: 1 }}
     >
       <div className="absolute top-0 flex w-full items-center justify-end p-8">
-        {user ? (
-          <div
-            className="shadow-md cursor-pointer ring-black/50 hover:ring-black ring-1 transition ease-linear duration-200 rounded-md text-black  py-3 px-5 flex items-center justify-center"
-            onClick={() => signOutHandler(auth)}
-          >
-            Logout
-          </div>
-        ) : (
-          <Link href="/login">
-            <div className="shadow-md cursor-pointer ring-black/50 hover:ring-black ring-1 transition ease-linear duration-200 rounded-md text-black  py-3 px-5 flex items-center justify-center">
-              Login
-            </div>
-          </Link>
-        )}
+        <LoginButton color="black" />
       </div>
       <h1 className="font-bold text-4xl mb-8">Hotels</h1>
       {/* <div className="w-full items-center justify-start flex mb-8">
