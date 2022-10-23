@@ -5,7 +5,7 @@ import { BsArrowDownCircle } from "react-icons/bs";
 import { auth } from "../pages";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import LoginButton from "./LoginButton";
+import LoginButton from "./UI/LoginButton";
 
 const Main = () => {
   return (

@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import { db } from "..";
 import { dbConverter } from "../../db_conversion/db_converter";
-import Hotel from "../../components/Hotel";
+import Hotel from "../../components/HotelPage";
 
 const RoomPage = ({ allHotels }) => {
   return <Hotel hotels={allHotels} />;

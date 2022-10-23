@@ -4,9 +4,9 @@ import { signout } from "../auth/auth";
 import { LoginContext } from "../context";
 import useHotels from "../hooks/useHotels";
 import { auth } from "../pages";
-import HotelSelect from "./HotelSelect";
+import HotelSelect from "./UI/HotelSelect";
 import { motion } from "framer-motion";
-import LoginButton from "./LoginButton";
+import LoginButton from "./UI/LoginButton";
 
 const Hotels = () => {
   const { data: hotels } = useHotels();
