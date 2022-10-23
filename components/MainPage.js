@@ -10,7 +10,7 @@ import LoginButton from "./UI/LoginButton";
 const Main = () => {
   return (
     <motion.div
-      className="w-full h-screen fixed flex flex-col items-center justify-start bg-black"
+      className="w-full h-screen fixed flex flex-col items-center justify-start bg-black select-none"
       key="main"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

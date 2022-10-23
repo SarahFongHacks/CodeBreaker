@@ -26,7 +26,7 @@ const HotelSelect = ({ hotel }) => {
         <div className="w-full rounded-t-lg aspect-square overflow-hidden">
           <img
             src={hotel?.image[0]}
-            className="w-full h-full object-cover group-hover:scale-110 transition duration-200 ease-linear"
+            className="w-full select-none h-full object-cover group-hover:scale-110 transition duration-200 ease-linear"
           />
         </div>
         <p className="font-bold mt-4">{hotel?.hotel}</p>
