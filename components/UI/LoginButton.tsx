@@ -4,6 +4,8 @@ import { signout } from "../../auth/auth";
 import { LoginContext } from "../../context";
 import { auth } from "../../pages";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import { BiGift, BiLogOut } from "react-icons/bi";
+import { CgProfile } from "react-icons/cg";
 
 const LoginButton = ({ color }) => {
   const { user, setUser } = useContext(LoginContext);
@@ -33,23 +35,30 @@ const LoginButton = ({ color }) => {
               </div>
               <DropdownMenu.Separator className="w-full h-[1px] bg-black/10" />
               <DropdownMenu.Item className="hover:outline-none hover:bg-black/10">
-                <div className="w-full text-black cursor-pointer px-4 py-3 ">
-                  My Profile
-                </div>
+                <Link href="/profile">
+                  <div className="w-full text-black cursor-pointer px-4 py-3 flex flex-row items-center space-x-2">
+                    <CgProfile />
+                    <p>My profile</p>
+                  </div>
+                </Link>
               </DropdownMenu.Item>
               <DropdownMenu.Separator className="w-full h-[1px] bg-black/10" />
               <DropdownMenu.Item className="hover:outline-none hover:bg-black/10">
-                <div className="w-full text-black cursor-pointer px-4 py-3 ">
-                  My Rewards
-                </div>
+                <Link href="/rewards">
+                  <div className="w-full text-black cursor-pointer px-4 py-3 flex flex-row items-center space-x-2">
+                    <BiGift />
+                    <p>My Rewards</p>
+                  </div>
+                </Link>
               </DropdownMenu.Item>
               <DropdownMenu.Separator className="w-full h-[1px] bg-black/10" />
               <DropdownMenu.Item className="hover:outline-none hover:bg-black/10">
                 <div
-                  className="w-full text-black cursor-pointer px-4 py-3 "
+                  className="w-full text-black cursor-pointer px-4 py-3 flex flex-row items-center space-x-2"
                   onClick={() => signOutHandler(auth)}
                 >
-                  Logout
+                  <BiLogOut />
+                  <p>Logout</p>
                 </div>
               </DropdownMenu.Item>
             </DropdownMenu.Content>
