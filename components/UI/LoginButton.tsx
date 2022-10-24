@@ -69,8 +69,8 @@ const LoginButton = ({ color }) => {
           <div
             className={`${
               color === "white"
-                ? "ring-white/50 hover:ring-white text-white"
-                : "ring-black/50 hover:ring-black text-black"
+                ? "ring-white/30 hover:ring-white text-white"
+                : "ring-black/30 hover:ring-black text-black"
             } "shadow-md cursor-pointer  ring-1 transition ease-linear duration-200 rounded-md   py-3 px-5 flex items-center justify-center"`}
           >
             Login
