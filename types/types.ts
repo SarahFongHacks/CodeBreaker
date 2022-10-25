@@ -39,3 +39,20 @@ export type UserLoginCred = {
   error: FireBaseError;
   user: User;
 };
+
+export type SearchFilter = {
+	location : string,
+	enableLocation : boolean,
+	numberOfBeds : number,
+	enableNumberOfBeds : boolean,
+	numberOfBathrooms : number,
+	enableNumberOfBathrooms : boolean,
+	capacity : number,
+	enableCapacity : boolean,
+	hotel : string,
+	enableHotel : boolean,
+	priceRangeLower : number,
+	priceRangeUpper : number,
+	enablePriceRange : boolean,
+}
+
