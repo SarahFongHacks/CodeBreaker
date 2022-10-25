@@ -24,8 +24,22 @@ export async function searchHotel(filter: SearchFilter) : Promise<HotelRoom[]> {
 	if(filter.enableLocation) {
 		q = query(q, where("location", "==", filter.location));
 	}
-
-	
+	if(filter.enableNumberOfBeds) {
+		q = query(q, where("numberOfBeds", "==", filter.numberOfBeds));
+	}
+	if(filter.enableNumberOfBathrooms) {
+		q = query(q, where("numberOfBathrooms", "==", filter.numberOfBeds));
+	}
+	if(filter.enableCapacity) {
+		q = query(q, where("capacity", "==", filter.capacity));
+	}
+	if(filter.enableHotel) {
+		q = query(q, where("hotel", "==", filter.hotel));
+	}
+	if(filter.enablePriceRange) {
+		q = query(q, where("price", ">=", filter.priceRangeLower));
+		q = query(q, where("price", "<=", filter.priceRangeUpper));
+	}
 
 	const snapshot = await getDocs(q);
 

@@ -16,9 +16,10 @@ import {
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 
-import { HotelRoom, Reservation, User } from "../types/types";
+import { HotelRoom, Reservation, SearchFilter, User } from "../types/types";
 import { dbConverter } from "../db_conversion/db_converter";
 import useHotels from "../hooks/useHotels";
+import { searchHotel } from "../db_func/hotelRoom";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBlMEnkyHKOUNZncSmOjXB3v1BEb_HJTY4",
@@ -49,7 +50,8 @@ export const storage = getStorage(app);
 // }
 
 const Home: NextPage = () => {
-  return (
+  
+	return (
     <div>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
