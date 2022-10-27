@@ -16,7 +16,8 @@ const Register = () => {
   const { user, setUser } = useContext(LoginContext);
   const router = useRouter();
 
-  const registerHandler = (auth, email, password) => {
+  const registerHandler = (e, auth, email, password) => {
+    e.preventDefault();
     register(auth, email, password, db).then((res) => {
       res.error && setError(res.error.errorMessage);
       res.user && setUser(res.user);
@@ -49,7 +50,11 @@ const Register = () => {
             <p className="mr-4">{error}</p>
           </div>
         )}
-        <form className="flex flex-col w-full">
+        <form
+          className="flex flex-col w-full"
+          onSubmit={(e) => registerHandler(e, auth, email, password, db)}
+        >
+          <input type="submit" className="hidden" />
           <label for="email" className="text-sm mb-1">
             Email
           </label>
@@ -79,7 +84,7 @@ const Register = () => {
             </Link>
             <div
               className="cursor-pointer hover:bg-white hover:ring-1  hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md w-full bg-tertiary text-white p-2 flex items-center justify-center shadow-md"
-              onClick={() => registerHandler(auth, email, password)}
+              onClick={(e) => registerHandler(e, auth, email, password)}
             >
               Register
             </div>

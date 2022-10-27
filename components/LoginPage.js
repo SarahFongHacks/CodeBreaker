@@ -15,7 +15,8 @@ const Login = () => {
   const { user, setUser } = useContext(LoginContext);
   const router = useRouter();
 
-  const signInHandler = (auth, email, password, db) => {
+  const signInHandler = (e, auth, email, password, db) => {
+    e.preventDefault();
     signIn(auth, email, password, db).then((res) => {
       res.error && setError(res.error.errorMessage);
       res.user && setUser(res.user);
@@ -48,7 +49,11 @@ const Login = () => {
             <p className="mr-4">{error}</p>
           </div>
         )}
-        <form className="flex flex-col w-full items-start">
+        <form
+          className="flex flex-col w-full items-start"
+          onSubmit={(e) => signInHandler(e, auth, email, password, db)}
+        >
+          <input type="submit" className="hidden" />
           <label for="email" className="text-sm mb-1">
             Email
           </label>
@@ -72,7 +77,7 @@ const Login = () => {
           ></input>
           <div
             className="shadow-md w-full cursor-pointer  hover:bg-white  hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md bg-tertiary text-white p-2 flex items-center justify-center"
-            onClick={() => signInHandler(auth, email, password, db)}
+            onClick={(e) => signInHandler(e, auth, email, password, db)}
           >
             Login
           </div>
