@@ -10,9 +10,9 @@ import Link from "next/link";
 import { auth } from "../pages";
 import { signout } from "../auth/auth";
 
-import "react-dates/initialize";
-import { DateRangePicker } from "react-dates";
-import "react-dates/lib/css/_datepicker.css";
+// import "react-dates/initialize";
+// import { DateRangePicker } from "react-dates";
+// import "react-dates/lib/css/_datepicker.css";
 import ImageCarousel from "./UI/ImageCarousel";
 import LoginButton from "./UI/LoginButton";
 
