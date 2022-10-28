@@ -9,6 +9,7 @@ import { createReservation } from "../db_func/reservations";
 import Link from "next/link";
 import { auth } from "../pages";
 import { signout } from "../auth/auth";
+import { motion } from "framer-motion";
 
 // import "react-dates/initialize";
 // import { DateRangePicker } from "react-dates";
@@ -42,13 +43,40 @@ const Hotel = ({ hotels }) => {
     setUser(undefined);
   };
 
+  const container = {
+    hidden: { y: 0 },
+    visible: { y: 0, transition: { duration: 0.5, staggerChildren: 0.5 } },
+  };
+
+  const item = {
+    hidden: { y: 50, opacity: 0 },
+    visible: { y: 0, opacity: 1 },
+  };
+
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-center p-36 relative overflow-hidden">
+    <motion.div
+      className="w-full h-screen flex flex-col items-center justify-center p-36 relative overflow-hidden"
+      key="main"
+      initial="hidden"
+      animate="visible"
+      variants={container}
+      exit={{ opacity: 0 }}
+    >
       <div className="absolute left-0 top-0 flex w-full items-center justify-end p-8">
         <LoginButton color="black" />
       </div>
-      <h1 className="font-bold text-4xl mb-8 self-start">{hotel?.hotel}</h1>
-      <div className="flex flex-row items-start justify-center space-x-8">
+      <div className="overflow-hidden ">
+        <motion.h1
+          variants={item}
+          className="font-bold text-4xl mb-8 self-start"
+        >
+          {hotel?.hotel}
+        </motion.h1>
+      </div>
+      <motion.div
+        variants={item}
+        className="flex flex-row items-start justify-center space-x-8"
+      >
         <ImageCarousel images={hotel?.image} />
         <div className="w-1/2 h-full flex flex-col justify-between items-start">
           <div className="w-full grid grid-cols-2 gap-4 items-start">
@@ -150,8 +178,8 @@ const Hotel = ({ hotels }) => {
             </Link>
           )}
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
