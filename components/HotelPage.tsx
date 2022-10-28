@@ -163,7 +163,7 @@ const Hotel = ({ hotels }) => {
           </div>
           {user ? (
             <div
-              className="w-full shadow-md cursor-pointer ring-tertiary font-bold text-white   py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary hover:bg-white hover:text-tertiary hover:ring-tertiary"
+              className="w-full shadow-lg hover:shadow-xl cursor-pointer hover:scale-[1.01] bg-gradient-to-r from-tertiary to-[#79A1F7] font-bold text-white   py-3 px-5 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary"
               onClick={() =>
                 registrationHandler({ hotel, user, checkin, checkout })
               }
@@ -172,7 +172,7 @@ const Hotel = ({ hotels }) => {
             </div>
           ) : (
             <Link href="/login">
-              <div className="w-full shadow-md cursor-pointer font-bold ring-red-500 text-white   py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-red-500 hover:bg-white hover:text-red-500 hover:ring-red-500">
+              <div className="w-full shadow-lg hover:shadow-xl hover:scale-[1.01] cursor-pointer font-bold ring-red-500 bg-gradient-to-r to-[#F37979] text-white   py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center from-red-500">
                 Login to book
               </div>
             </Link>
