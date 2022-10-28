@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import * as Select from "@radix-ui/react-select";
-import { BiChevronDown, BiMinus, BiPlus } from "react-icons/bi";
+import { BiChevronDown, BiMinus, BiPlus, BiSearchAlt2 } from "react-icons/bi";
 
 const filters = ["beds", "baths", "capacity", "price"] as const;
 type filterTypes = typeof filters[number];
@@ -103,11 +103,11 @@ const Filter = () => {
         <p className="font-bold mb-1">Location</p>
         <div className="w-full flex flex-row space-x-2">
           <input
-            className="w-full text-xl py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
+            className="w-full focus:ring-tertiary text-xl py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
             placeholder="Enter Location..."
           ></input>
           <Select.Root value={unitedStates} onValueChange={setUnitedStates}>
-            <Select.Trigger className="p-4 ring-1 ring-black/20 rounded-sm flex flex-row items-center justify-center focus:outline-none ">
+            <Select.Trigger className="p-4  ring-1 ring-black/20 rounded-sm flex flex-row items-center justify-center focus:outline-none ">
               <Select.Value />
               <Select.Icon>
                 <BiChevronDown />
@@ -122,7 +122,7 @@ const Filter = () => {
                     return (
                       <Select.Item
                         value={state}
-                        className="w-full p-2 focus:outline-none cursor-pointer items-center flex justify-center hover:bg-tertiary rounded-sm hover:text-white "
+                        className="w-full p-2  focus:outline-none cursor-pointer items-center flex justify-center hover:bg-tertiary rounded-sm hover:text-white "
                       >
                         <Select.ItemText>{state}</Select.ItemText>
                         <Select.ItemIndicator />
@@ -136,11 +136,11 @@ const Filter = () => {
           </Select.Root>
         </div>
       </div>
-      <div className="w-full col-span-2 flex-col flex items-start justify-center ">
+      <div className="w-full col-span-2 flex-col flex items-between justify-center ">
         <p className="font-bold mb-1 whitespace-nowrap">Additional filter</p>
-        <div className="w-full flex flex-row space-x-12">
+        <div className="w-full flex flex-row">
           <Select.Root value={filters} onValueChange={setFilters}>
-            <Select.Trigger className="p-4 h-full w-1/2 ring-1 ring-black/20 rounded-sm flex flex-row items-center justify-center focus:outline-none ">
+            <Select.Trigger className="p-4 h-full w-1/2  ring-1 ring-black/20 rounded-sm flex flex-row items-center justify-center focus:outline-none ">
               <Select.Value />
               <Select.Icon>
                 <BiChevronDown />
@@ -184,7 +184,7 @@ const Filter = () => {
               </Select.Content>
             </Select.Portal>
           </Select.Root>
-          <div className="flex flex-row items-center space-x-4 w-1/2 h-full">
+          <div className="flex flex-row items-center space-x-4 w-1/2 justify-center h-full">
             <div
               className="w-8 h-8 ring-1 ring-black/20 rounded-full items-center justify-center flex cursor-pointer"
               onClick={() => {
@@ -205,8 +205,9 @@ const Filter = () => {
           </div>
         </div>
       </div>
-      <div className="w-full rounded-lg flex items-center justify-center h-full  cursor-pointer bg-tertiary text-white font-bold">
-        Search
+      <div className="w-full rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] h-full  cursor-pointer bg-gradient-to-r from-tertiary to-[#79A1F7] text-white font-bold space-x-2">
+        <BiSearchAlt2 />
+        <p className="pr-2">Search</p>
       </div>
     </div>
   );
