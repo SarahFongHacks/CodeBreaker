@@ -1,12 +1,35 @@
 import React, { useState } from "react";
 import * as Select from "@radix-ui/react-select";
-import { BiChevronDown } from "react-icons/bi";
+import { BiChevronDown, BiMinus, BiPlus } from "react-icons/bi";
+
+const filters = ["beds", "baths", "capacity", "price"] as const;
+type filterTypes = typeof filters[number];
 
 const Filter = () => {
   const [location, setLocation] = useState("");
   const [enableLocation, setEnableLocation] = useState(false);
   const [city, setCity] = useState("");
   const [unitedStates, setUnitedStates] = useState("CA");
+  const [filters, setFilters] = useState("beds");
+  const [counter, setCounter] = useState(0);
+
+  const maxCounter = 4;
+
+  const incrementHandler = () => {
+    if (counter === maxCounter) {
+      setCounter(0);
+    } else {
+      setCounter(counter + 1);
+    }
+  };
+
+  const decrementHandler = () => {
+    if (counter === 0) {
+      setCounter(maxCounter);
+    } else {
+      setCounter(counter - 1);
+    }
+  };
 
   const states = [
     "AL",
@@ -75,12 +98,12 @@ const Filter = () => {
   };
 
   return (
-    <div className="w-full grid grid-cols-6 rounded-lg ring-1 ring-black/20 shadow-lg overflow-hidden gap-4 p-8">
-      <div className="w-full flex flex-col items-start justify-center col-span-4">
+    <div className="w-full grid grid-cols-5 rounded-lg ring-1 ring-black/20 shadow-lg overflow-hidden gap-8 p-8">
+      <div className="w-full flex flex-col items-start justify-center col-span-2">
         <p className="font-bold mb-1">Location</p>
-        <div className="w-full flex flex-row space-x-4">
+        <div className="w-full flex flex-row space-x-2">
           <input
-            className="w-3/4 text-xl py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
+            className="w-full text-xl py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
             placeholder="Enter Location..."
           ></input>
           <Select.Root value={unitedStates} onValueChange={setUnitedStates}>
@@ -106,7 +129,6 @@ const Filter = () => {
                       </Select.Item>
                     );
                   })}
-                  <Select.Separator />
                 </Select.Viewport>
                 <Select.ScrollDownButton />
               </Select.Content>
@@ -114,27 +136,78 @@ const Filter = () => {
           </Select.Root>
         </div>
       </div>
-      {/* <div className="w-full flex flex-col items-center justify-start">
-        <p className="font-bold text-sm mb-1">Beds</p>
-        <div className="flex flex-row items-center space-x-2 w-full justify-center">
-          <div className="w-6 h-6 ring-1 ring-black rounded-full" />
-          <p className="">1</p>
-          <div className="w-6 h-6 ring-1 ring-black rounded-full" />
+      <div className="w-full col-span-2 flex-col flex items-start justify-center ">
+        <p className="font-bold mb-1 whitespace-nowrap">Additional filter</p>
+        <div className="w-full flex flex-row space-x-12">
+          <Select.Root value={filters} onValueChange={setFilters}>
+            <Select.Trigger className="p-4 h-full w-1/2 ring-1 ring-black/20 rounded-sm flex flex-row items-center justify-center focus:outline-none ">
+              <Select.Value />
+              <Select.Icon>
+                <BiChevronDown />
+              </Select.Icon>
+            </Select.Trigger>
+
+            <Select.Portal>
+              <Select.Content className="w-full flex flex-col items-center justify-center p-2 overflow-hidden rounded-lg bg-white shadow-xl">
+                <Select.ScrollUpButton />
+                <Select.Viewport className="w-full">
+                  <Select.Item
+                    value="beds"
+                    className="w-full p-2 focus:outline-none cursor-pointer items-center flex justify-center hover:bg-tertiary rounded-sm hover:text-white "
+                  >
+                    <Select.ItemText>Beds</Select.ItemText>
+                    <Select.ItemIndicator />
+                  </Select.Item>
+                  <Select.Item
+                    value="baths"
+                    className="w-full p-2 focus:outline-none cursor-pointer items-center flex justify-center hover:bg-tertiary rounded-sm hover:text-white "
+                  >
+                    <Select.ItemText>Baths</Select.ItemText>
+                    <Select.ItemIndicator />
+                  </Select.Item>
+                  <Select.Item
+                    value="capacity"
+                    className="w-full p-2 focus:outline-none cursor-pointer items-center flex justify-center hover:bg-tertiary rounded-sm hover:text-white "
+                  >
+                    <Select.ItemText>Capacity</Select.ItemText>
+                    <Select.ItemIndicator />
+                  </Select.Item>
+                  <Select.Item
+                    value="Price"
+                    className="w-full p-2 focus:outline-none cursor-pointer items-center flex justify-center hover:bg-tertiary rounded-sm hover:text-white "
+                  >
+                    <Select.ItemText>Price</Select.ItemText>
+                    <Select.ItemIndicator />
+                  </Select.Item>
+                </Select.Viewport>
+                <Select.ScrollDownButton />
+              </Select.Content>
+            </Select.Portal>
+          </Select.Root>
+          <div className="flex flex-row items-center space-x-4 w-1/2 h-full">
+            <div
+              className="w-8 h-8 ring-1 ring-black/20 rounded-full items-center justify-center flex cursor-pointer"
+              onClick={() => {
+                decrementHandler();
+              }}
+            >
+              <BiMinus />
+            </div>
+            <p className="text-xl select-none">{counter}</p>
+            <div
+              className="w-8 h-8 ring-1 ring-black/20 rounded-full items-center justify-center flex cursor-pointer"
+              onClick={() => {
+                incrementHandler();
+              }}
+            >
+              <BiPlus />
+            </div>
+          </div>
         </div>
       </div>
-      <div className="w-full flex flex-col items-center justify-start">
-        <p className="font-bold text-sm mb-1">Bathrooms</p>
+      <div className="w-full rounded-lg flex items-center justify-center h-full  cursor-pointer bg-tertiary text-white font-bold">
+        Search
       </div>
-      <div className="w-full flex flex-col items-center justify-start">
-        <p className="font-bold text-sm mb-1">Capacity</p>
-      </div>
-      <div className="w-full flex flex-col items-center justify-start">
-        <p className="font-bold text-sm mb-1">Hotel</p>
-        <input className="ring-1 ring-black rounded-sm"></input>
-      </div>
-      <div className="w-full flex flex-col items-center justify-start">
-        <p className="font-bold text-sm mb-1">Price Range</p>
-      </div> */}
     </div>
   );
 };
