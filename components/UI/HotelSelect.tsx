@@ -38,7 +38,7 @@ const HotelSelect = ({ hotel }) => {
               <span className="font-[500]">/night</span>
             </p>
           </div>
-          <div className="shadow-md cursor-pointer font-bold ring-tertiary text-tertiary  py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center group-hover:bg-tertiary group-hover:text-white group-hover:ring-tertiary">
+          <div className="shadow-md cursor-pointer ring-tertiary text-tertiary  py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center group-hover:bg-tertiary group-hover:text-white group-hover:ring-tertiary">
             Book Now
           </div>
         </div>
