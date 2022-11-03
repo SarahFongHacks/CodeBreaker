@@ -12,7 +12,7 @@ const HotelSelect = ({ hotel }) => {
   return (
     <Link href={"/rooms/" + hotel.id}>
       <motion.div
-        className="flex flex-col items-center justify-center text-sm cursor-pointer group rounded-lg shadow-lg hover:shadow-xl transition ease-linear duration-200"
+        className=" flex flex-col h-full items-center justify-center text-sm cursor-pointer group rounded-lg shadow-lg hover:shadow-xl transition ease-linear duration-200"
         initial={{
           opacity: 0,
         }}
@@ -38,7 +38,7 @@ const HotelSelect = ({ hotel }) => {
               <span className="font-[500]">/night</span>
             </p>
           </div>
-          <div className="shadow-md cursor-pointer ring-tertiary text-tertiary  py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center group-hover:bg-tertiary group-hover:text-white group-hover:ring-tertiary">
+          <div className="lg:hidden shadow-md cursor-pointer ring-tertiary text-tertiary  py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center group-hover:bg-tertiary group-hover:text-white group-hover:ring-tertiary">
             Book Now
           </div>
         </div>

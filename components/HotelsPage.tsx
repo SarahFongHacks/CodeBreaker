@@ -29,7 +29,7 @@ const Hotels = () => {
       </div>
       <h1 className="font-bold text-4xl mb-8">Hotels</h1>
       <Filter />
-      <div className="w-full h-full grid grid-cols-3 gap-8 items-start justify-center mt-8">
+      <div className="w-full h-full grid md:grid-cols-3 lg:grid-cols-4 gap-6 items-start justify-center mt-8">
         {hotels.map((hotel) => {
           return <HotelSelect hotel={hotel} />;
         })}
