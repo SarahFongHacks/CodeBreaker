@@ -7,6 +7,7 @@ import { auth } from "../pages";
 import HotelSelect from "./UI/HotelSelect";
 import { motion } from "framer-motion";
 import LoginButton from "./UI/LoginButton";
+import Filter from "./UI/Filter";
 
 const Hotels = () => {
   const { data: hotels } = useHotels();
@@ -27,13 +28,8 @@ const Hotels = () => {
         <LoginButton color="black" />
       </div>
       <h1 className="font-bold text-4xl mb-8">Hotels</h1>
-      {/* <div className="w-full items-center justify-start flex mb-8">
-        <input className="w-full rounded-md p-3 h-12 border-[2px] border-secondary mr-4 focus:outline-none" />
-        <div className="w-44 h-12 bg-secondary p-3 rounded-md flex items-center justify-center cursor-pointer">
-          <p className="">Filter</p>
-        </div>
-      </div> */}
-      <div className="w-full h-full grid grid-cols-3 gap-8 items-start justify-center">
+      <Filter />
+      <div className="w-full h-full grid grid-cols-3 gap-8 items-start justify-center mt-8">
         {hotels.map((hotel) => {
           return <HotelSelect hotel={hotel} />;
         })}
