@@ -10,29 +10,32 @@ const Filter = () => {
   const [enableLocation, setEnableLocation] = useState(false);
   const [city, setCity] = useState("");
   const [unitedStates, setUnitedStates] = useState("CA");
-  const [priceLower, setPriceLower] = useState<number>();
-  const [priceUpper, setPriceUpper] = useState<number>();
+  const [priceLower, setPriceLower] = useState<number>(0);
+  const [priceUpper, setPriceUpper] = useState<number>(0);
   const [enablePrice, setEnablePrice] = useState(false);
-  const [capacity, setCapacity] = useState<number>();
+  const [capacity, setCapacity] = useState<number>(0);
   const [enableCapacity, setEnableCapacity] = useState(false);
-  const [beds, setBeds] = useState<number>();
+  const [beds, setBeds] = useState<number>(0);
   const [enableBeds, setEnableBeds] = useState(false);
-  const [baths, setBaths] = useState<number>();
+  const [baths, setBaths] = useState<number>(0);
   const [enableBaths, setEnableBaths] = useState(false);
   const [hotel, setHotel] = useState("");
   const [enableHotel, setEnableHotel] = useState(false);
 
   useEffect(() => {
-    if (capacity) {
+    if (location) {
+      setEnableLocation(true);
+    }
+    if (capacity !== 0) {
       setEnableCapacity(true);
     }
-    if (beds) {
+    if (beds !== 0) {
       setEnableBeds(true);
     }
-    if (baths) {
+    if (baths !== 0) {
       setEnableBaths(true);
     }
-    if (priceLower && priceUpper) {
+    if (priceLower != 0 && priceUpper !== 0) {
       setEnablePrice(true);
     }
   }, [capacity, beds, baths, priceLower, priceUpper]);
@@ -103,7 +106,8 @@ const Filter = () => {
     setLocation(city + ", " + unitedStates);
   };
 
-  const submitHandler = () => {
+  async function searchHandler() {
+    locationHanlder();
     const filter: SearchFilter = {
       location: location,
       enableLocation: enableLocation,
@@ -119,8 +123,8 @@ const Filter = () => {
       priceRangeUpper: priceUpper,
       enablePriceRange: enablePrice,
     };
-    searchHotel(filter);
-  };
+    console.log(await searchHotel(filter));
+  }
 
   return (
     <div className="w-full grid grid-cols-5 rounded-lg ring-1 ring-black/20 shadow-lg overflow-hidden gap-8 p-8">
@@ -174,7 +178,10 @@ const Filter = () => {
           setPriceUpper={setPriceUpper}
         />
       </div>
-      <div className="w-full rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] h-full  cursor-pointer bg-gradient-to-r from-tertiary to-[#79A1F7] select-none text-white font-bold space-x-2">
+      <div
+        className="w-full rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] h-full  cursor-pointer bg-gradient-to-r from-tertiary to-[#79A1F7] select-none text-white font-bold space-x-2"
+        onClick={() => searchHandler()}
+      >
         <BiSearchAlt2 />
         <p className="pr-2">Search</p>
       </div>

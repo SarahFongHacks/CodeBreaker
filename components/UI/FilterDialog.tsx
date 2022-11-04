@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { BiSlider } from "react-icons/bi";
+import { BiDollar, BiSlider } from "react-icons/bi";
 import { GrFormClose } from "react-icons/gr";
 
 const FilterDialog = ({
@@ -46,26 +46,36 @@ const FilterDialog = ({
                   >
                     Min Price
                   </label>
-                  <input
-                    className=" focus:ring-tertiary text-xl py-3 px-3 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
-                    placeholder="Min Price"
-                    value={priceLower}
-                    onChange={(e) => setPriceLower(e.target.value)}
-                    id="minprice"
-                  ></input>
+                  <div className="relative">
+                    <BiDollar className="absolute left-3 top-4" />
+                    <input
+                      className=" focus:ring-tertiary appearance-none text-xl py-3 px-3 pl-10 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
+                      placeholder="Min Price"
+                      value={priceLower}
+                      onChange={(e) => setPriceLower(e.target.value)}
+                      type="number"
+                      id="minprice"
+                      min="0"
+                    ></input>
+                  </div>
                 </div>
                 <div className="w-2 h-[1px] bg-black mt-6" />
                 <div className="flex flex-col">
                   <label className="text-base font-medium mb-1">
                     Max Price
                   </label>
-                  <input
-                    className=" focus:ring-tertiary text-xl py-3 px-3 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
-                    placeholder="Max Price"
-                    value={priceUpper}
-                    onChange={(e) => setPriceUpper(e.target.value)}
-                    id="maxprice"
-                  ></input>
+                  <div className="relative">
+                    <BiDollar className="absolute left-3 top-4" />
+                    <input
+                      className=" focus:ring-tertiary appearance-none text-xl py-3 px-3 pl-10 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
+                      placeholder="Min Price"
+                      value={priceUpper}
+                      onChange={(e) => setPriceUpper(e.target.value)}
+                      type="number"
+                      id="maxprice"
+                      min="0"
+                    ></input>
+                  </div>
                 </div>
               </div>
             </div>
@@ -81,6 +91,7 @@ const FilterDialog = ({
                         capacity == num && "bg-tertiary text-white"
                       } cursor-pointer px-6 py-2 rounded-2xl ring-1 ring-black/20`}
                       onClick={() => setCapacity(num)}
+                      key={num}
                     >
                       {num}
                     </div>
