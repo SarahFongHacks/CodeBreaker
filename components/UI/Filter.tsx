@@ -25,20 +25,32 @@ const Filter = () => {
   useEffect(() => {
     if (location) {
       setEnableLocation(true);
+    } else {
+      setEnableLocation(false);
     }
     if (capacity !== 0) {
       setEnableCapacity(true);
+    } else {
+      setEnableCapacity(false);
     }
     if (beds !== 0) {
       setEnableBeds(true);
+    } else {
+      setEnableBeds(false);
     }
     if (baths !== 0) {
       setEnableBaths(true);
+    } else {
+      setEnableBaths(false);
     }
     if (priceLower != 0 && priceUpper !== 0) {
       setEnablePrice(true);
+    } else {
+      setEnablePrice(false);
     }
   }, [capacity, beds, baths, priceLower, priceUpper]);
+
+  console.log(enableCapacity);
 
   const states = [
     "AL",
@@ -177,6 +189,7 @@ const Filter = () => {
           priceUpper={priceUpper}
           setPriceLower={setPriceLower}
           setPriceUpper={setPriceUpper}
+          searchHandler={searchHandler}
         />
       </div>
       <div
