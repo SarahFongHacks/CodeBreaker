@@ -31,7 +31,7 @@ const Hotels = () => {
       <Filter />
       <div className="w-full h-full grid md:grid-cols-3 lg:grid-cols-4 gap-6 items-start justify-center mt-8">
         {hotels.map((hotel) => {
-          return <HotelSelect hotel={hotel} />;
+          return <HotelSelect hotel={hotel} key={hotel.id} />;
         })}
       </div>
     </motion.div>

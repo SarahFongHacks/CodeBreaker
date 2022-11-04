@@ -112,6 +112,7 @@ const FilterDialog = ({
                         beds == num && "bg-tertiary text-white"
                       } cursor-pointer px-6 py-2 rounded-2xl ring-1 ring-black/20`}
                       onClick={() => setBeds(num)}
+                      key={num}
                     >
                       {num}
                     </div>
@@ -127,6 +128,7 @@ const FilterDialog = ({
                         baths == num && "bg-tertiary text-white"
                       } cursor-pointer px-6 py-2 rounded-2xl ring-1 ring-black/20`}
                       onClick={() => setBaths(num)}
+                      key={num}
                     >
                       {num}
                     </div>

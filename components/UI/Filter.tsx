@@ -129,7 +129,6 @@ const Filter = () => {
   return (
     <div className="w-full grid grid-cols-5 rounded-lg ring-1 ring-black/20 shadow-lg overflow-hidden gap-8 p-8">
       <div className="w-full flex flex-col items-start justify-center col-span-3">
-        <p className="font-bold mb-1">Location</p>
         <div className="w-full flex flex-row space-x-2">
           <input
             className="w-full focus:ring-tertiary text-xl py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
@@ -151,6 +150,7 @@ const Filter = () => {
                     return (
                       <Select.Item
                         value={state}
+                        key={state}
                         className="w-full p-2  focus:outline-none cursor-pointer items-center flex justify-center hover:bg-tertiary rounded-sm hover:text-white "
                       >
                         <Select.ItemText>{state}</Select.ItemText>
