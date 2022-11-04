@@ -1,15 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { BiSlider } from "react-icons/bi";
+import { SearchFilter } from "../../types/types";
 
 const FilterDialog = () => {
   const numArray = [1, 2, 3, 4, 5, 6];
 
-  const [capacity, setCapacity] = useState(1);
-  const [beds, setBeds] = useState(1);
-  const [baths, setBaths] = useState(1);
+  const [priceLower, setPriceLower] = useState<number>();
+  const [priceUpper, setPriceUpper] = useState<number>();
+  const [enablePrice, setEnablePrice] = useState(false);
+  const [capacity, setCapacity] = useState<number>();
+  const [enableCapacity, setEnableCapacity] = useState(false);
+  const [beds, setBeds] = useState<number>();
+  const [enableBeds, setEnableBeds] = useState(false);
+  const [baths, setBaths] = useState<number>();
+  const [enableBaths, setEnableBaths] = useState(false);
 
-  console.log(beds);
+  useEffect(() => {
+    if (capacity) {
+      setEnableCapacity(true);
+    }
+    if (beds) {
+      setEnableBeds(true);
+    }
+    if (baths) {
+      setEnableBaths(true);
+    }
+    if (priceLower && priceUpper) {
+      setEnablePrice(true);
+    }
+  }, [capacity, beds, baths]);
+
+  console.log(enableCapacity);
 
   return (
     <Dialog.Root>
@@ -30,9 +52,15 @@ const FilterDialog = () => {
             <div className="w-full flex flex-col items-start justify-center p-10 font-bold text-lg">
               <p>Price Range</p>
               <div className="w-full flex flex-row justify-center space-x-6 items-center mt-6">
-                <input className=" focus:ring-tertiary text-xl py-3 px-3 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"></input>
+                <input
+                  className=" focus:ring-tertiary text-xl py-3 px-3 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
+                  placeholder="Min Price"
+                ></input>
                 <div className="w-2 h-[1px] bg-black" />
-                <input className=" focus:ring-tertiary text-xl py-3 px-3 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"></input>
+                <input
+                  className=" focus:ring-tertiary text-xl py-3 px-3 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
+                  placeholder="Max Price"
+                ></input>
               </div>
             </div>
             <hr className="bg-black w-11/12" />
