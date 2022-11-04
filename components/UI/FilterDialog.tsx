@@ -1,37 +1,21 @@
 import React, { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { BiSlider } from "react-icons/bi";
-import { SearchFilter } from "../../types/types";
+import { GrFormClose } from "react-icons/gr";
 
-const FilterDialog = () => {
+const FilterDialog = ({
+  capacity,
+  setCapacity,
+  beds,
+  setBeds,
+  baths,
+  setBaths,
+  priceLower,
+  setPriceLower,
+  priceUpper,
+  setPriceUpper,
+}) => {
   const numArray = [1, 2, 3, 4, 5, 6];
-
-  const [priceLower, setPriceLower] = useState<number>();
-  const [priceUpper, setPriceUpper] = useState<number>();
-  const [enablePrice, setEnablePrice] = useState(false);
-  const [capacity, setCapacity] = useState<number>();
-  const [enableCapacity, setEnableCapacity] = useState(false);
-  const [beds, setBeds] = useState<number>();
-  const [enableBeds, setEnableBeds] = useState(false);
-  const [baths, setBaths] = useState<number>();
-  const [enableBaths, setEnableBaths] = useState(false);
-
-  useEffect(() => {
-    if (capacity) {
-      setEnableCapacity(true);
-    }
-    if (beds) {
-      setEnableBeds(true);
-    }
-    if (baths) {
-      setEnableBaths(true);
-    }
-    if (priceLower && priceUpper) {
-      setEnablePrice(true);
-    }
-  }, [capacity, beds, baths]);
-
-  console.log(enableCapacity);
 
   return (
     <Dialog.Root>
@@ -45,22 +29,44 @@ const FilterDialog = () => {
         <Dialog.Overlay className="fixed inset-0 bg-black/80" />
         <Dialog.Content>
           <div className="flex flex-col items-center overflow-y-scroll fixed left-1/2 top-1/2 w-8/12 max-w-[54rem] translate-x-[-50%] translate-y-[-50%] bg-white rounded-lg h-[44rem]">
-            <div className="w-full flex flex-row items-center justify-center p-6 font-bold text-xl">
+            <div className="w-full flex flex-row items-center justify-center relative p-6 font-bold text-xl">
+              <Dialog.Close className="absolute left-6">
+                <GrFormClose />
+              </Dialog.Close>
               <p>Filters</p>
             </div>
             <hr className="bg-black w-11/12" />
             <div className="w-full flex flex-col items-start justify-center p-10 font-bold text-lg">
               <p>Price Range</p>
               <div className="w-full flex flex-row justify-center space-x-6 items-center mt-6">
-                <input
-                  className=" focus:ring-tertiary text-xl py-3 px-3 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
-                  placeholder="Min Price"
-                ></input>
-                <div className="w-2 h-[1px] bg-black" />
-                <input
-                  className=" focus:ring-tertiary text-xl py-3 px-3 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
-                  placeholder="Max Price"
-                ></input>
+                <div className="flex flex-col">
+                  <label
+                    htmlFor="minprice"
+                    className="text-base font-medium mb-1"
+                  >
+                    Min Price
+                  </label>
+                  <input
+                    className=" focus:ring-tertiary text-xl py-3 px-3 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
+                    placeholder="Min Price"
+                    value={priceLower}
+                    onChange={(e) => setPriceLower(e.target.value)}
+                    id="minprice"
+                  ></input>
+                </div>
+                <div className="w-2 h-[1px] bg-black mt-6" />
+                <div className="flex flex-col">
+                  <label className="text-base font-medium mb-1">
+                    Max Price
+                  </label>
+                  <input
+                    className=" focus:ring-tertiary text-xl py-3 px-3 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
+                    placeholder="Max Price"
+                    value={priceUpper}
+                    onChange={(e) => setPriceUpper(e.target.value)}
+                    id="maxprice"
+                  ></input>
+                </div>
               </div>
             </div>
             <hr className="bg-black w-11/12" />

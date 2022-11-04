@@ -1,32 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Select from "@radix-ui/react-select";
 import { BiChevronDown, BiMinus, BiPlus, BiSearchAlt2 } from "react-icons/bi";
 import FilterDialog from "./FilterDialog";
+import { SearchFilter } from "../../types/types";
+import { searchHotel } from "../../db_func/hotelRoom";
 
 const Filter = () => {
   const [location, setLocation] = useState("");
   const [enableLocation, setEnableLocation] = useState(false);
   const [city, setCity] = useState("");
   const [unitedStates, setUnitedStates] = useState("CA");
-  const [counter, setCounter] = useState(0);
+  const [priceLower, setPriceLower] = useState<number>();
+  const [priceUpper, setPriceUpper] = useState<number>();
+  const [enablePrice, setEnablePrice] = useState(false);
+  const [capacity, setCapacity] = useState<number>();
+  const [enableCapacity, setEnableCapacity] = useState(false);
+  const [beds, setBeds] = useState<number>();
+  const [enableBeds, setEnableBeds] = useState(false);
+  const [baths, setBaths] = useState<number>();
+  const [enableBaths, setEnableBaths] = useState(false);
+  const [hotel, setHotel] = useState("");
+  const [enableHotel, setEnableHotel] = useState(false);
 
-  const maxCounter = 4;
-
-  const incrementHandler = () => {
-    if (counter === maxCounter) {
-      setCounter(0);
-    } else {
-      setCounter(counter + 1);
+  useEffect(() => {
+    if (capacity) {
+      setEnableCapacity(true);
     }
-  };
-
-  const decrementHandler = () => {
-    if (counter === 0) {
-      setCounter(maxCounter);
-    } else {
-      setCounter(counter - 1);
+    if (beds) {
+      setEnableBeds(true);
     }
-  };
+    if (baths) {
+      setEnableBaths(true);
+    }
+    if (priceLower && priceUpper) {
+      setEnablePrice(true);
+    }
+  }, [capacity, beds, baths, priceLower, priceUpper]);
 
   const states = [
     "AL",
@@ -94,6 +103,25 @@ const Filter = () => {
     setLocation(city + ", " + unitedStates);
   };
 
+  const submitHandler = () => {
+    const filter: SearchFilter = {
+      location: location,
+      enableLocation: enableLocation,
+      numberOfBeds: beds,
+      enableNumberOfBeds: enableBeds,
+      numberOfBathrooms: baths,
+      enableNumberOfBathrooms: enableBaths,
+      capacity: capacity,
+      enableCapacity: enableCapacity,
+      hotel: hotel,
+      enableHotel: enableHotel,
+      priceRangeLower: priceLower,
+      priceRangeUpper: priceUpper,
+      enablePriceRange: enablePrice,
+    };
+    searchHotel(filter);
+  };
+
   return (
     <div className="w-full grid grid-cols-5 rounded-lg ring-1 ring-black/20 shadow-lg overflow-hidden gap-8 p-8">
       <div className="w-full flex flex-col items-start justify-center col-span-3">
@@ -133,7 +161,18 @@ const Filter = () => {
         </div>
       </div>
       <div className="w-full col-span-1 flex-col flex justify-end ">
-        <FilterDialog />
+        <FilterDialog
+          capacity={capacity}
+          setCapacity={setCapacity}
+          beds={beds}
+          setBeds={setBeds}
+          baths={baths}
+          setBaths={setBaths}
+          priceLower={priceLower}
+          priceUpper={priceUpper}
+          setPriceLower={setPriceLower}
+          setPriceUpper={setPriceUpper}
+        />
       </div>
       <div className="w-full rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] h-full  cursor-pointer bg-gradient-to-r from-tertiary to-[#79A1F7] select-none text-white font-bold space-x-2">
         <BiSearchAlt2 />
