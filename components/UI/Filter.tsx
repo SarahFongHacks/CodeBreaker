@@ -4,6 +4,7 @@ import { BiChevronDown, BiMinus, BiPlus, BiSearchAlt2 } from "react-icons/bi";
 import FilterDialog from "./FilterDialog";
 import { SearchFilter } from "../../types/types";
 import { searchHotel } from "../../db_func/hotelRoom";
+import useStore from "../../lib/store";
 
 const Filter = () => {
   const [location, setLocation] = useState("");
@@ -21,6 +22,9 @@ const Filter = () => {
   const [enableBaths, setEnableBaths] = useState(false);
   const [hotel, setHotel] = useState("");
   const [enableHotel, setEnableHotel] = useState(false);
+
+  const search = useStore((state) => state.search);
+  const setSearch = useStore((state) => state.setSearch);
 
   useEffect(() => {
     if (location) {
@@ -133,8 +137,10 @@ const Filter = () => {
       priceRangeUpper: priceUpper,
       enablePriceRange: enablePrice,
     };
-    console.log(await searchHotel(filter));
+    setSearch(await searchHotel(filter));
   }
+
+  console.log(search);
 
   return (
     <div className="w-full grid grid-cols-5 rounded-lg ring-1 ring-black/20 shadow-lg overflow-hidden gap-8 p-8">

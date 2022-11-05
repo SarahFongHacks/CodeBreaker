@@ -162,19 +162,19 @@ const FilterDialog = ({
             </div>
             <hr className="bg-black w-full" />
             <div className=" w-full p-6 flex flex-row items-center justify-between">
-              <button
+              <div
                 onClick={() => clearHandler()}
                 className="px-4 py-2 rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] h-full  cursor-pointer bg-black select-none text-white  space-x-2"
               >
                 Clear all
-              </button>
+              </div>
               <Dialog.Close>
-                <button
+                <div
                   onClick={() => searchHandler()}
                   className="px-4 py-2 rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] h-full  cursor-pointer bg-gradient-to-r from-tertiary to-[#79A1F7] select-none text-white  space-x-2"
                 >
                   Search
-                </button>
+                </div>
               </Dialog.Close>
             </div>
           </motion.div>
