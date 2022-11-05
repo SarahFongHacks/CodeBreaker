@@ -50,8 +50,6 @@ const Filter = () => {
     }
   }, [capacity, beds, baths, priceLower, priceUpper]);
 
-  console.log(enableCapacity);
-
   const states = [
     "AL",
     "AK",
