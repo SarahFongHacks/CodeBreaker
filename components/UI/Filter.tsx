@@ -1,35 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Select from "@radix-ui/react-select";
 import { BiChevronDown, BiMinus, BiPlus, BiSearchAlt2 } from "react-icons/bi";
-
-const filters = ["beds", "baths", "capacity", "price"] as const;
-type filterTypes = typeof filters[number];
+import FilterDialog from "./FilterDialog";
+import { SearchFilter } from "../../types/types";
+import { searchHotel } from "../../db_func/hotelRoom";
+import useStore from "../../lib/store";
 
 const Filter = () => {
   const [location, setLocation] = useState("");
   const [enableLocation, setEnableLocation] = useState(false);
   const [city, setCity] = useState("");
   const [unitedStates, setUnitedStates] = useState("CA");
-  const [filters, setFilters] = useState("beds");
-  const [counter, setCounter] = useState(0);
+  const [priceLower, setPriceLower] = useState<number>(0);
+  const [priceUpper, setPriceUpper] = useState<number>(0);
+  const [enablePrice, setEnablePrice] = useState(false);
+  const [capacity, setCapacity] = useState<number>(0);
+  const [enableCapacity, setEnableCapacity] = useState(false);
+  const [beds, setBeds] = useState<number>(0);
+  const [enableBeds, setEnableBeds] = useState(false);
+  const [baths, setBaths] = useState<number>(0);
+  const [enableBaths, setEnableBaths] = useState(false);
+  const [hotel, setHotel] = useState("");
+  const [enableHotel, setEnableHotel] = useState(false);
 
-  const maxCounter = 4;
+  const search = useStore((state) => state.search);
+  const setSearch = useStore((state) => state.setSearch);
 
-  const incrementHandler = () => {
-    if (counter === maxCounter) {
-      setCounter(0);
+  useEffect(() => {
+    if (location) {
+      setEnableLocation(true);
     } else {
-      setCounter(counter + 1);
+      setEnableLocation(false);
     }
-  };
-
-  const decrementHandler = () => {
-    if (counter === 0) {
-      setCounter(maxCounter);
+    if (capacity !== 0) {
+      setEnableCapacity(true);
     } else {
-      setCounter(counter - 1);
+      setEnableCapacity(false);
     }
-  };
+    if (beds !== 0) {
+      setEnableBeds(true);
+    } else {
+      setEnableBeds(false);
+    }
+    if (baths !== 0) {
+      setEnableBaths(true);
+    } else {
+      setEnableBaths(false);
+    }
+    if (priceLower != 0 && priceUpper !== 0) {
+      setEnablePrice(true);
+    } else {
+      setEnablePrice(false);
+    }
+  }, [capacity, beds, baths, priceLower, priceUpper]);
 
   const states = [
     "AL",
@@ -97,10 +120,31 @@ const Filter = () => {
     setLocation(city + ", " + unitedStates);
   };
 
+  async function searchHandler() {
+    locationHanlder();
+    const filter: SearchFilter = {
+      location: location,
+      enableLocation: enableLocation,
+      numberOfBeds: beds,
+      enableNumberOfBeds: enableBeds,
+      numberOfBathrooms: baths,
+      enableNumberOfBathrooms: enableBaths,
+      capacity: capacity,
+      enableCapacity: enableCapacity,
+      hotel: hotel,
+      enableHotel: enableHotel,
+      priceRangeLower: priceLower,
+      priceRangeUpper: priceUpper,
+      enablePriceRange: enablePrice,
+    };
+    setSearch(await searchHotel(filter));
+  }
+
+  console.log(search);
+
   return (
     <div className="w-full grid grid-cols-5 rounded-lg ring-1 ring-black/20 shadow-lg overflow-hidden gap-8 p-8">
-      <div className="w-full flex flex-col items-start justify-center col-span-2">
-        <p className="font-bold mb-1">Location</p>
+      <div className="w-full flex flex-col items-start justify-center col-span-3">
         <div className="w-full flex flex-row space-x-2">
           <input
             className="w-full focus:ring-tertiary text-xl py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
@@ -122,6 +166,7 @@ const Filter = () => {
                     return (
                       <Select.Item
                         value={state}
+                        key={state}
                         className="w-full p-2  focus:outline-none cursor-pointer items-center flex justify-center hover:bg-tertiary rounded-sm hover:text-white "
                       >
                         <Select.ItemText>{state}</Select.ItemText>
@@ -136,76 +181,25 @@ const Filter = () => {
           </Select.Root>
         </div>
       </div>
-      <div className="w-full col-span-2 flex-col flex items-between justify-center ">
-        <p className="font-bold mb-1 whitespace-nowrap">Additional filter</p>
-        <div className="w-full flex flex-row">
-          <Select.Root value={filters} onValueChange={setFilters}>
-            <Select.Trigger className="p-4 h-full w-1/2  ring-1 ring-black/20 rounded-sm flex flex-row items-center justify-center focus:outline-none ">
-              <Select.Value />
-              <Select.Icon>
-                <BiChevronDown />
-              </Select.Icon>
-            </Select.Trigger>
-
-            <Select.Portal>
-              <Select.Content className="w-full flex flex-col items-center justify-center p-2 overflow-hidden rounded-lg bg-white shadow-xl">
-                <Select.ScrollUpButton />
-                <Select.Viewport className="w-full">
-                  <Select.Item
-                    value="beds"
-                    className="w-full p-2 focus:outline-none cursor-pointer items-center flex justify-center hover:bg-tertiary rounded-sm hover:text-white "
-                  >
-                    <Select.ItemText>Beds</Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
-                  <Select.Item
-                    value="baths"
-                    className="w-full p-2 focus:outline-none cursor-pointer items-center flex justify-center hover:bg-tertiary rounded-sm hover:text-white "
-                  >
-                    <Select.ItemText>Baths</Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
-                  <Select.Item
-                    value="capacity"
-                    className="w-full p-2 focus:outline-none cursor-pointer items-center flex justify-center hover:bg-tertiary rounded-sm hover:text-white "
-                  >
-                    <Select.ItemText>Capacity</Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
-                  <Select.Item
-                    value="Price"
-                    className="w-full p-2 focus:outline-none cursor-pointer items-center flex justify-center hover:bg-tertiary rounded-sm hover:text-white "
-                  >
-                    <Select.ItemText>Price</Select.ItemText>
-                    <Select.ItemIndicator />
-                  </Select.Item>
-                </Select.Viewport>
-                <Select.ScrollDownButton />
-              </Select.Content>
-            </Select.Portal>
-          </Select.Root>
-          <div className="flex flex-row items-center space-x-4 w-1/2 justify-center h-full">
-            <div
-              className="w-8 h-8 ring-1 ring-black/20 rounded-full items-center justify-center flex cursor-pointer"
-              onClick={() => {
-                decrementHandler();
-              }}
-            >
-              <BiMinus />
-            </div>
-            <p className="text-xl select-none">{counter}</p>
-            <div
-              className="w-8 h-8 ring-1 ring-black/20 rounded-full items-center justify-center flex cursor-pointer"
-              onClick={() => {
-                incrementHandler();
-              }}
-            >
-              <BiPlus />
-            </div>
-          </div>
-        </div>
+      <div className="w-full col-span-1 flex-col flex justify-end ">
+        <FilterDialog
+          capacity={capacity}
+          setCapacity={setCapacity}
+          beds={beds}
+          setBeds={setBeds}
+          baths={baths}
+          setBaths={setBaths}
+          priceLower={priceLower}
+          priceUpper={priceUpper}
+          setPriceLower={setPriceLower}
+          setPriceUpper={setPriceUpper}
+          searchHandler={searchHandler}
+        />
       </div>
-      <div className="w-full rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] h-full  cursor-pointer bg-gradient-to-r from-tertiary to-[#79A1F7] select-none text-white font-bold space-x-2">
+      <div
+        className="w-full rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] h-full  cursor-pointer bg-gradient-to-r from-tertiary to-[#79A1F7] select-none text-white font-bold space-x-2"
+        onClick={() => searchHandler()}
+      >
         <BiSearchAlt2 />
         <p className="pr-2">Search</p>
       </div>
