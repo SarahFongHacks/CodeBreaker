@@ -25,6 +25,7 @@ const Filter = () => {
 
   const search = useStore((state) => state.search);
   const setSearch = useStore((state) => state.setSearch);
+  const setSearchEnabled = useStore((state) => state.setSearchEnabled);
 
   useEffect(() => {
     if (location !== "") {
@@ -51,6 +52,15 @@ const Filter = () => {
       setEnablePrice(true);
     } else {
       setEnablePrice(false);
+    }
+    if (
+      !enableLocation &&
+      !enableCapacity &&
+      !enableBeds &&
+      !enableBaths &&
+      !enablePrice
+    ) {
+      setSearchEnabled(false);
     }
   }, [location, capacity, beds, baths, priceLower, priceUpper]);
 
@@ -147,6 +157,8 @@ const Filter = () => {
       enablePriceRange: enablePrice,
     };
     setSearch(await searchHotel(filter));
+    setSearchEnabled(true);
+    console.log(search);
   }
 
   return (
@@ -156,6 +168,7 @@ const Filter = () => {
           <input
             className="w-full focus:ring-tertiary text-xl py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
             placeholder="Enter Location..."
+            value={city}
             onChange={(e) => setCity(e.target.value)}
           ></input>
           <Select.Root value={unitedStates} onValueChange={setUnitedStates}>

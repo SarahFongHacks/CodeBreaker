@@ -16,6 +16,7 @@ const Hotels = () => {
   const { user, setUser } = useContext(LoginContext);
 
   const search = useStore((state) => state.search);
+  const searchEnabled = useStore((state) => state.searchEnabled);
 
   const signOutHandler = (auth) => {
     signout(auth);
@@ -35,13 +36,21 @@ const Hotels = () => {
       <Search />
       <Filter />
       <div className="w-full h-full grid md:grid-cols-3 lg:grid-cols-4 gap-6 items-start justify-center mt-8">
-        {search.length > 0
-          ? search.map((hotel) => {
+        {searchEnabled ? (
+          search.length > 0 ? (
+            search.map((hotel) => {
               return <HotelSelect hotel={hotel} key={hotel.id} />;
             })
-          : hotels.map((hotel) => {
-              return <HotelSelect hotel={hotel} key={hotel.id} />;
-            })}
+          ) : (
+            <div className="w-full flex items-center justify-center">
+              No hotels found
+            </div>
+          )
+        ) : (
+          hotels.map((hotel) => {
+            return <HotelSelect hotel={hotel} key={hotel.id} />;
+          })
+        )}
       </div>
     </motion.div>
   );
