@@ -25,6 +25,7 @@ const Filter = () => {
 
   const search = useStore((state) => state.search);
   const setSearch = useStore((state) => state.setSearch);
+  const searchEnabled = useStore((state) => state.searchEnabled);
   const setSearchEnabled = useStore((state) => state.setSearchEnabled);
 
   useEffect(() => {
@@ -63,6 +64,18 @@ const Filter = () => {
       setSearchEnabled(false);
     }
   }, [location, capacity, beds, baths, priceLower, priceUpper]);
+
+  useEffect(() => {
+    if (!searchEnabled) {
+      setCity("");
+      setUnitedStates("");
+      setCapacity(0);
+      setBeds(0);
+      setBaths(0);
+      setPriceLower(0);
+      setPriceUpper(0);
+    }
+  }, [searchEnabled]);
 
   useEffect(() => {
     if (city != "" && unitedStates != "") {
