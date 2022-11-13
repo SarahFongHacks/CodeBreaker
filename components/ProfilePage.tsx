@@ -1,14 +1,10 @@
 import React, { useContext } from "react";
 import { LoginContext } from "../context";
+import DateDialog from "./UI/DateDialog";
 import LoginButton from "./UI/LoginButton";
 
 const ProfilePage = () => {
   const { user } = useContext(LoginContext);
-
-  const dateHandler = (date) => {
-    const dateObj = new Date(date);
-    return dateObj.toLocaleDateString("en-US");
-  };
 
   return (
     <div className="w-full min-h-screen flex items-start justify-center p-36">
@@ -38,23 +34,7 @@ const ProfilePage = () => {
             <p className="text-3xl font-bold mb-4">Bookings</p>
             <div className="w-full grid grid-cols-2 gap-8">
               {user?.currentBooking?.map((booking) => (
-                <div className="w-full flex items-center p-16 justify-center flex-col rounded-lg h-48 shadow-xl ring-1 ring-black/20 mb-4">
-                  <div className="w-full justify-between flex flex-row">
-                    <p>Bookingid</p>
-                    <p className="font-bold ">{booking?.id}</p>
-                  </div>
-                  <div className="w-full justify-between flex flex-row">
-                    <p>Roomid</p>
-                    <p className="font-bold ">{booking?.hotelRoomId}</p>
-                  </div>
-                  <div className="w-full flex flex-row space-x-2 mt-4 items-center justify-center">
-                    <p>
-                      {booking?.startDate && dateHandler(booking?.startDate)}
-                    </p>
-                    <p>-</p>
-                    <p>{booking?.endDate && dateHandler(booking?.endDate)}</p>
-                  </div>
-                </div>
+                <DateDialog booking={booking} />
               ))}
             </div>
           </div>
