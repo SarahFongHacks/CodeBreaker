@@ -67,6 +67,7 @@ export const dbConverter = {
       email: json.email,
       id: ref.id,
       currentBooking: await reservationRefsToArray(json.currentBooking),
+      rewardPoints : json.rewardPoints ? json.rewardPoints : 0,
     };
     return user;
   },
@@ -76,6 +77,7 @@ export const dbConverter = {
       email: user.email,
       id: user.id,
       currentBooking: arrayToRefsArray(user.currentBooking),
+      rewardPoints : user.rewardPoints,
     };
   },
 };
