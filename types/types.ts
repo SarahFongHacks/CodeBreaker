@@ -26,6 +26,7 @@ export type User = {
   id: string;
   email: string;
   currentBooking: Reservation[];
+  rewardPoints : number;
 };
 
 export type FireBaseError = {

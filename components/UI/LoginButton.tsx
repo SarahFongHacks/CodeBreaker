@@ -21,7 +21,9 @@ const LoginButton = ({ color }) => {
         <div className="h-12">
           <DropdownMenu.Root>
             <DropdownMenu.Trigger className="select-none focus:outline-none">
-              <div className="h-12 w-12 rounded-full bg-white ring-2 ring-black/30 transition duration-200 ease-linear hover:ring-black cursor-pointer"></div>
+              <div className="w-36 rounded-lg bg-white ring-1 truncate overflow-hidden py-3 px-5 ring-black/30 transition duration-200 ease-linear hover:ring-black cursor-pointer">
+                {user.email}
+              </div>
             </DropdownMenu.Trigger>
 
             <DropdownMenu.Portal>
@@ -31,10 +33,6 @@ const LoginButton = ({ color }) => {
                 collisionPadding={30}
                 className=" bg-white shadow-2xl text-sm rounded-lg flex flex-col justify-center p-2"
               >
-                <div className="w-full text-black font-bold px-4 py-3">
-                  {user.email}
-                </div>
-                <DropdownMenu.Separator className="w-full h-[1px] bg-black/10" />
                 <DropdownMenu.Item className="hover:outline-none hover:bg-black/10">
                   <Link href="/profile">
                     <div className="w-full text-black cursor-pointer px-4 py-3 flex flex-row items-center space-x-2">
@@ -43,15 +41,7 @@ const LoginButton = ({ color }) => {
                     </div>
                   </Link>
                 </DropdownMenu.Item>
-                <DropdownMenu.Separator className="w-full h-[1px] bg-black/10" />
-                <DropdownMenu.Item className="hover:outline-none hover:bg-black/10">
-                  <Link href="/rewards">
-                    <div className="w-full text-black cursor-pointer px-4 py-3 flex flex-row items-center space-x-2">
-                      <BiGift />
-                      <p>My Rewards</p>
-                    </div>
-                  </Link>
-                </DropdownMenu.Item>
+
                 <DropdownMenu.Separator className="w-full h-[1px] bg-black/10" />
                 <DropdownMenu.Item className="hover:outline-none hover:bg-black/10">
                   <div

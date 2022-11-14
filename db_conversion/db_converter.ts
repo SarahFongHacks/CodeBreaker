@@ -7,6 +7,8 @@ import {db} from "../pages/index"
 
 export const dbConverter = {
   async jsonToHotelRoom(json: any, ref: DocumentReference): Promise<HotelRoom> {
+
+
     const hotelRoom: HotelRoom = {
       id: ref.id,
       roomNumber: json.roomNumber,
@@ -18,8 +20,8 @@ export const dbConverter = {
       hotel: json.hotel,
       imageURL: json.imageURL,
       location: json.location,
-      image: await getHotelRoomImage(json.imageURL),
-    };
+    	image: json.image && json.image.length > 0 ? json.image : ["https://firebasestorage.googleapis.com/v0/b/codebreaker-505ec.appspot.com/o/hotel4%2FmainImg.jpeg?alt=media&token=d4c178ec-8dc2-4fa4-899f-be83e1593517"]
+		};
 
     return hotelRoom;
   },
@@ -65,6 +67,7 @@ export const dbConverter = {
       email: json.email,
       id: ref.id,
       currentBooking: await reservationRefsToArray(json.currentBooking),
+      rewardPoints : json.rewardPoints ? json.rewardPoints : 0,
     };
     return user;
   },
@@ -74,6 +77,7 @@ export const dbConverter = {
       email: user.email,
       id: user.id,
       currentBooking: arrayToRefsArray(user.currentBooking),
+      rewardPoints : user.rewardPoints,
     };
   },
 };
@@ -99,10 +103,6 @@ async function getHotelRoomImage(imageURL: string): Promise<any> {
   const items = await listAll(listRef);
 
   const images = [];
-
-  /*const images = items.items.map(async (itemRef) => {
-    return await getDownloadURL(itemRef)
-  })*/
 
   for (let i = 0; i < items.items.length; i++) {
     const image = await getDownloadURL(items.items[i]);
