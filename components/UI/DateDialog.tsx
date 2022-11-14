@@ -28,7 +28,7 @@ const DateDialog = ({ booking }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <div className="w-full flex items-center p-16 justify-center flex-col rounded-lg h-48 shadow-xl ring-1 ring-black/20 mb-4">
+        <div className="hover:scale-[1.02] transition duration-200 ease-linear hover:shadow-xl w-full flex items-center p-16 justify-center flex-col rounded-lg h-48 shadow-lg ring-1 ring-black/20">
           <div className="w-full justify-between flex flex-row">
             <p>Bookingid</p>
             <p className="font-bold ">{booking?.id}</p>
@@ -37,7 +37,7 @@ const DateDialog = ({ booking }) => {
             <p>Roomid</p>
             <p className="font-bold ">{booking?.hotelRoomId}</p>
           </div>
-          <div className="w-full flex flex-row space-x-2 mt-4 items-center justify-center">
+          <div className="w-full flex flex-row space-x-2 mt-4 items-center justify-center bg-tertiary text-white p-2 rounded-lg font-bold">
             <p>{booking?.startDate && dateHandler(booking?.startDate)}</p>
             <p>-</p>
             <p>{booking?.endDate && dateHandler(booking?.endDate)}</p>
