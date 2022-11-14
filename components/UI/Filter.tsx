@@ -34,6 +34,11 @@ const Filter = () => {
     } else {
       setEnableLocation(false);
     }
+    if (hotel !== "") {
+      setEnableHotel(true);
+    } else {
+      setEnableHotel(false);
+    }
     if (capacity !== 0) {
       setEnableCapacity(true);
     } else {
@@ -56,6 +61,7 @@ const Filter = () => {
     }
     if (
       !enableLocation &&
+      !enableHotel &&
       !enableCapacity &&
       !enableBeds &&
       !enableBaths &&
@@ -63,12 +69,13 @@ const Filter = () => {
     ) {
       setSearchEnabled(false);
     }
-  }, [location, capacity, beds, baths, priceLower, priceUpper]);
+  }, [location, hotel, capacity, beds, baths, priceLower, priceUpper]);
 
   useEffect(() => {
     if (!searchEnabled) {
       setCity("");
       setUnitedStates("");
+      setHotel("");
       setCapacity(0);
       setBeds(0);
       setBaths(0);
@@ -84,6 +91,14 @@ const Filter = () => {
       setLocation("");
     }
   }, [city, unitedStates]);
+
+  useEffect(() => {
+    if (hotel != "") {
+      hotelHanlder();
+    } else {
+      setHotel("");
+    }
+  }, [hotel]);
 
   const states = [
     "AL",
@@ -153,6 +168,12 @@ const Filter = () => {
     }
   };
 
+  const hotelHanlder = () => {
+    if (hotel !== "") {
+      setHotel(hotel);
+    }
+  };
+
   async function searchHandler() {
     const filter: SearchFilter = {
       location: location,
@@ -176,7 +197,19 @@ const Filter = () => {
 
   return (
     <div className="bg-white w-full grid grid-cols-5 rounded-lg ring-1 ring-black/20 shadow-lg overflow-hidden gap-8 p-8">
-      <div className="w-full flex flex-col items-start justify-center col-span-3">
+      
+      <div className="w-full flex flex-col space-y-4 items-start justify-center col-span-5">
+        <div className = "w-full flex-row space-x-2">
+          <input
+            className="w-full focus:ring-tertiary text-xl py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
+            placeholder="Enter Hotel Name..."
+            value={hotel}
+            onChange={(e) => setHotel(e.target.value)}
+          ></input>
+        </div>
+      </div>
+
+      <div className="w-full flex flex-col space-y-4 items-start justify-center col-span-3">
         <div className="w-full flex flex-row space-x-2">
           <input
             className="w-full focus:ring-tertiary text-xl py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
