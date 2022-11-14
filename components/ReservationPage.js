@@ -21,11 +21,11 @@ const ReservationPage = ({ hotel }) => {
         <h1 className="text-3xl font-bold">{hotel?.hotel}</h1>
       </div>
 
-      <div className="flex justify-around w-full ">
+      <div className="flex space-x-8 w-full items-center justify-center ">
         <div className="border-2 border-dashed rounded-lg w-fit shadow-lg">
           <ImageCarousel images={hotel?.image} />
         </div>
-        <div className="border-2 border-dashed bg-white shadow-lg rounded-lg px-32 flex items-start justify-center flex-col">
+        <div className="border-2 border-dashed bg-white shadow-lg rounded-lg px-32 h-full flex items-start justify-center flex-col">
           <div className="text-center my-4">
             <h3 className="text-xl font-bold">
               ${hotel?.price / 100} <span className="font-medium">night</span>

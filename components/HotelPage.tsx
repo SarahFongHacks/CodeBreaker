@@ -181,7 +181,7 @@ const Hotel = ({ hotels }) => {
                 </div>
               ) : (
                 <Link href="/login">
-                  <div className="w-full shadow-lg hover:shadow-xl hover:scale-[1.01] cursor-pointer font-bold ring-red-500 bg-gradient-to-r to-[#F37979] text-white   py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center from-red-500">
+                  <div className="w-full shadow-lg hover:shadow-xl hover:scale-[1.01] cursor-pointer font-bold ring-black bg-gradient-to-r to-[#494949] text-white   py-3 px-5 ring-1 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center from-black">
                     Login to book
                   </div>
                 </Link>
