@@ -4,10 +4,15 @@ import { createProduct } from "../stripe/stripe_product";
 import { createReservation } from "../db_func/reservations";
 import { LoginContext } from "../context";
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 const ReservationPage = ({ hotel }) => {
   const [checkin, setCheckin] = useState();
   const [checkout, setCheckout] = useState();
   const [total, setTotal] = useState(0);
+
+  const [startDate, setStartDate] = useState(new Date());
 
   const { user } = useContext(LoginContext);
 
@@ -24,13 +29,16 @@ const ReservationPage = ({ hotel }) => {
   const totalHandler = () => {
     if (checkin && checkout && checkout > checkin) {
       const total = (new Date(checkout) - new Date(checkin)) / 8640000000;
-      setTotal(total * hotel.price);
+      setTotal((total * hotel.price).toFixed(2));
     }
   };
 
   useEffect(() => {
     totalHandler();
   }, [checkin, checkout]);
+
+  console.log(new Date(checkin));
+  console.log(new Date(checkout));
 
   return (
     <div className="bg-gradient-to-b from-white to-tertiary/10 w-full h-screen flex items-center justify-center flex-col p-16">
@@ -54,15 +62,21 @@ const ReservationPage = ({ hotel }) => {
               <input
                 type="date"
                 name="checkin-date"
+                value={checkin}
                 className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
                 onChange={(e) => setCheckin(e.target.value)}
               />
             </div>
             <div className="check-out">
               <label>Check out: </label>
+              {/* <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+              /> */}
               <input
                 type="date"
                 name="checkout-date"
+                value={checkout}
                 className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
                 onChange={(e) => setCheckout(e.target.value)}
               />
@@ -74,7 +88,9 @@ const ReservationPage = ({ hotel }) => {
             </div>
             <div
               className="w-full shadow-lg hover:shadow-xl cursor-pointer hover:scale-[1.01] bg-gradient-to-r from-tertiary to-[#79A1F7] font-bold text-white   py-3 px-5 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary"
-              onClick={() => reservationHandler(hotel, user, checkin, checkout)}
+              onClick={() =>
+                reservationHandler({ hotel, user, checkin, checkout })
+              }
             >
               Reserve
             </div>
