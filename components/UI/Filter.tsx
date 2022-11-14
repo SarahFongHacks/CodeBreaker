@@ -175,7 +175,7 @@ const Filter = () => {
   }
 
   return (
-    <div className="w-full grid grid-cols-5 rounded-lg ring-1 ring-black/20 shadow-lg overflow-hidden gap-8 p-8">
+    <div className="bg-white w-full grid grid-cols-5 rounded-lg ring-1 ring-black/20 shadow-lg overflow-hidden gap-8 p-8">
       <div className="w-full flex flex-col items-start justify-center col-span-3">
         <div className="w-full flex flex-row space-x-2">
           <input

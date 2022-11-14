@@ -61,7 +61,7 @@ const Hotel = ({ hotels }) => {
         <ReservationPage hotel={hotel} />
       ) : (
         <motion.div
-          className="w-full h-screen flex flex-col items-center justify-center p-36 relative overflow-hidden"
+          className="w-full h-screen bg-gradient-to-b from-white to-tertiary/10 flex flex-col items-center justify-center p-36 relative overflow-hidden"
           key="main"
           initial="hidden"
           animate="visible"
@@ -86,28 +86,28 @@ const Hotel = ({ hotels }) => {
             <ImageCarousel images={hotel?.image} />
             <div className="w-1/2 h-full flex flex-col justify-between items-start">
               <div className="w-full grid grid-cols-2 gap-4 items-start">
-                <div className="flex flex-row w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
+                <div className="flex flex-row bg-white w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
                   <div className="flex flex-col ">
                     <p className="font-[600]">Location</p>
                     <p className="text-base">{hotel?.location}</p>
                   </div>
                   <MdLocationPin className="mx-1" />
                 </div>
-                <div className="flex flex-row w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
+                <div className="flex flex-row bg-white w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
                   <div className="flex flex-col ">
                     <p className="font-[600]">Capacity</p>
                     <p className="text-base">{hotel?.capacity} Guests</p>
                   </div>
                   <MdPeopleAlt className="mx-1" />
                 </div>
-                <div className="flex flex-row w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
+                <div className="flex flex-row bg-white w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
                   <div className="flex flex-col ">
                     <p className="font-[600]">Bedrooms</p>
                     <p className="text-base">{hotel?.numberOfBeds} Beds</p>
                   </div>
                   <IoIosBed className="mx-1" />
                 </div>
-                <div className="flex flex-row w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
+                <div className="flex flex-row bg-white w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
                   <div className="flex flex-col ">
                     <p className="font-[600]">Bathrooms</p>
                     <p className="text-base">
@@ -116,14 +116,14 @@ const Hotel = ({ hotels }) => {
                   </div>
                   <FaToilet className="mx-1" />
                 </div>
-                <div className="flex flex-row w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
+                <div className="flex flex-row bg-white w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
                   <div className="flex flex-col ">
                     <p className="font-[600]">Room Number</p>
                     <p className="text-base">{hotel?.roomNumber}</p>
                   </div>
                   <BsFillDoorOpenFill className="mx-1" />
                 </div>
-                <div className="flex flex-row w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
+                <div className="flex flex-row bg-white w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
                   <div className="flex flex-col ">
                     <p className="font-[600]">Rate</p>
                     <p className="text-base">${hotel?.price / 100}/night</p>

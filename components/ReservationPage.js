@@ -16,20 +16,22 @@ const ReservationPage = ({ hotel }) => {
   };
 
   return (
-    <div className="reservation-page">
+    <div className="bg-gradient-to-b from-white to-tertiary/10 w-full h-screen flex items-center justify-center flex-col p-16">
       <div className="text-primary px-8 rounded-lg text-center my-8">
         <h1 className="text-3xl font-bold">{hotel?.hotel}</h1>
       </div>
 
-      <div className="flex justify-around ">
-        <div className="border-2 border-dashed rounded-lg w-2/5">
+      <div className="flex justify-around w-full ">
+        <div className="border-2 border-dashed rounded-lg w-fit shadow-lg">
           <ImageCarousel images={hotel?.image} />
         </div>
-        <div className="border-2 border-dashed rounded-lg w-2/5">
+        <div className="border-2 border-dashed bg-white shadow-lg rounded-lg px-32 flex items-start justify-center flex-col">
           <div className="text-center my-4">
-            <h3 className="text-1xl">${hotel?.price / 100}/night</h3>
+            <h3 className="text-xl font-bold">
+              ${hotel?.price / 100} <span className="font-medium">night</span>
+            </h3>
           </div>
-          <form className="flex flex-col justify-around items-center">
+          <form className="flex flex-col w-80">
             <div className="check-in">
               <label>Check in: </label>
               <input
@@ -48,20 +50,13 @@ const ReservationPage = ({ hotel }) => {
                 onChange={(e) => setCheckout(e.target.value)}
               />
             </div>
-            <div className="num-of-guest">
-              <label>Number of Guests: </label>
-              <input
-                type="text"
-                name="guest-num"
-                className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
-                onChange={(e) => setNumGuest(e.target.value)}
-              />
-            </div>
-            <div className="mb-4">
-              <h4>Room Fee: </h4>
+            <div className="w-full h-[2px] bg-black/20 my-4 " />
+            <div className="mb-4 w-full text-xl font-bold flex justify-between items-center">
+              <h4>Total </h4>
+              <h4>${hotel?.price / 100} </h4>
             </div>
             <div
-              className=" mb-4 shadow-md w-1/3 cursor-pointer  hover:bg-white  hover:ring-1 hover:ring-tertiary hover:text-tertiary transition ease-linear duration-200 rounded-md bg-tertiary text-white p-2 flex items-center justify-center"
+              className="w-full shadow-lg hover:shadow-xl cursor-pointer hover:scale-[1.01] bg-gradient-to-r from-tertiary to-[#79A1F7] font-bold text-white   py-3 px-5 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary"
               onClick={() =>
                 // registrationHandler({ hotel, user, checkin, checkout })
                 alert("Hotel was successfully booked!")
