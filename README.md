@@ -37,19 +37,21 @@ https://prettier.io/docs/en/editors.html
 ## How to run
 
 If you use fish this is a nice nvm manager https://github.com/jorgebucaran/nvm.fish
+uses Node 16
 
-uses Node 18.9
+
 
 
 
 ``` yarn install ```
 
+
 Dev Build
 ``` yarn next dev```
 
 Prod Build // Someone update this to yarn
-``` npm run build ```
-``` npm start ```
+``` yarn next build```
+``` yarn next start ```
 
 ## Credits 
 - Sarah Fong (Team Lead / Back End) (@SarahFongHacks)
