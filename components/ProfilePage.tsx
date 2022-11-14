@@ -1,12 +1,15 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../context";
 import DateDialog from "./UI/DateDialog";
 import LoginButton from "./UI/LoginButton";
 
 const ProfilePage = () => {
-  const { user } = useContext(LoginContext);
+  const { user, setUser } = useContext(LoginContext);
+  const [dateChange, setDateChange] = useState(false);
 
-  useEffect(() => {}, [user]);
+  useEffect(() => {
+    setUser(user);
+  }, [dateChange]);
 
   return (
     <div className="w-full min-h-screen flex items-start justify-center p-36">
@@ -38,7 +41,11 @@ const ProfilePage = () => {
             </p>
             <div className="w-full grid grid-cols-2 gap-4">
               {user?.currentBooking?.map((booking) => (
-                <DateDialog booking={booking} />
+                <DateDialog
+                  booking={booking}
+                  changed={dateChange}
+                  setChanged={setDateChange}
+                />
               ))}
             </div>
           </div>

@@ -3,13 +3,13 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { motion } from "framer-motion";
 import { changeReservationDate } from "../../db_func/reservations";
 
-const DateDialog = ({ booking }) => {
+const DateDialog = ({ booking, changed, setChanged }) => {
   const [checkin, setCheckin] = useState("");
   const [checkout, setCheckout] = useState("");
 
   const dateHandler = (date) => {
     const dateObj = new Date(date);
-    return dateObj.toLocaleDateString("en-US");
+    return dateObj.toLocaleDateString();
   };
 
   const container = {
@@ -23,6 +23,7 @@ const DateDialog = ({ booking }) => {
 
   const changeReservationDateHandler = () => {
     changeReservationDate(booking, new Date(checkin), new Date(checkout));
+    setChanged(!changed);
   };
 
   return (
@@ -60,8 +61,6 @@ const DateDialog = ({ booking }) => {
                 <input
                   type="date"
                   name="start-date"
-                  min="2022-11-18"
-                  max="2022-11-19"
                   className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
                   onChange={(e) => setCheckin(e.target.value)}
                 />
