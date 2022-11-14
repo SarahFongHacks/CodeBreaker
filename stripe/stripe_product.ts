@@ -5,7 +5,8 @@ import { HotelRoom } from "../types/types";
 export function createProduct(
   hotelRoom: HotelRoom,
   startDate: Date,
-  endDate: Date
+  endDate: Date,
+	price : number,
 ) {
   const product_create_function = httpsCallable(functions, "helloWorld");
 
@@ -25,7 +26,7 @@ export function createProduct(
     productName: name,
     startDate: startDate,
     endDate: endDate,
-    price: hotelRoom.price,
+    price: price,
     images: hotelRoom.image,
   }).then((result) => {
     console.log(result);
