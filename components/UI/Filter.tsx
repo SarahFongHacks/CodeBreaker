@@ -52,6 +52,11 @@ const Filter = () => {
     } else {
       setEnablePrice(false);
     }
+    if (hotel) {
+      setEnableHotel(true);
+    } else {
+      setEnableHotel(false);
+    }
   }, [capacity, beds, baths, priceLower, priceUpper]);
 
   const states = [
@@ -120,6 +125,11 @@ const Filter = () => {
     setLocation(city + ", " + unitedStates);
   };
 
+  const hotelName = () => [
+    "LikeHomeHotels",
+    "Hilton" ,
+  ];
+
   async function searchHandler() {
     locationHanlder();
     const filter: SearchFilter = {
@@ -144,7 +154,19 @@ const Filter = () => {
 
   return (
     <div className="w-full grid grid-cols-5 rounded-lg ring-1 ring-black/20 shadow-lg overflow-hidden gap-8 p-8">
-      <div className="w-full flex flex-col items-start justify-center col-span-3">
+      <div className="w-full flex flex-col space-y-4 items-start justify-center col-span-5">
+        <div className = "w-full flex-row space-x-2">
+          <input
+            className="w-full focus:ring-tertiary text-xl py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
+            placeholder="Enter Hotel Name..."
+          ></input>
+          <Select.Root value={hotel} onValueChange={setHotel}>
+            
+          </Select.Root>
+        </div>
+      </div>
+      
+      <div className="w-full flex flex-col space-y-4 items-start justify-center col-span-3">
         <div className="w-full flex flex-row space-x-2">
           <input
             className="w-full focus:ring-tertiary text-xl py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
