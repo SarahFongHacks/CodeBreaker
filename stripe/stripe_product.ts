@@ -1,5 +1,5 @@
 import { httpsCallable } from "firebase/functions";
-import { functions } from "../pages/index";
+import { functions } from "../pages/";
 import { HotelRoom } from "../types/types";
 
 export function createProduct(
@@ -9,9 +9,15 @@ export function createProduct(
 ) {
   const product_create_function = httpsCallable(functions, "helloWorld");
 
-  const startDateString = startDate.getMonth() + "/" + startDate.getDate() + "/" + startDate.getFullYear();
+  const startDateString =
+    startDate.getMonth() +
+    "/" +
+    startDate.getDate() +
+    "/" +
+    startDate.getFullYear();
 
-  const endDateString = endDate.getMonth() + "/" + endDate.getDate() + "/" + endDate.getFullYear();
+  const endDateString =
+    endDate.getMonth() + "/" + endDate.getDate() + "/" + endDate.getFullYear();
 
   const name = hotelRoom.hotel + " " + startDateString + "-" + endDateString;
 

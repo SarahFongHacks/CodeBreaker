@@ -1,12 +1,18 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ImageCarousel from "./UI/ImageCarousel";
+import { createProduct } from "../stripe/stripe_product";
+import { createReservation } from "../db_func/reservations";
+import { LoginContext } from "../context";
 
 const ReservationPage = ({ hotel }) => {
   const [checkin, setCheckin] = useState();
   const [checkout, setCheckout] = useState();
-  const [numGuest, setNumGuest] = useState();
+  const [total, setTotal] = useState(0);
+
+  const { user } = useContext(LoginContext);
 
   const reservationHandler = ({ hotel, user, checkin, checkout }) => {
+    createProduct(hotel, new Date(checkin), new Date(checkout));
     createReservation(hotel, user, new Date(checkin), new Date(checkout)).then(
       (res) => {
         // res.error === false && setRegistered(true);
@@ -14,6 +20,17 @@ const ReservationPage = ({ hotel }) => {
       }
     );
   };
+
+  const totalHandler = () => {
+    if (checkin && checkout && checkout > checkin) {
+      const total = (new Date(checkout) - new Date(checkin)) / 8640000000;
+      setTotal(total * hotel.price);
+    }
+  };
+
+  useEffect(() => {
+    totalHandler();
+  }, [checkin, checkout]);
 
   return (
     <div className="bg-gradient-to-b from-white to-tertiary/10 w-full h-screen flex items-center justify-center flex-col p-16">
@@ -53,14 +70,11 @@ const ReservationPage = ({ hotel }) => {
             <div className="w-full h-[2px] bg-black/20 my-4 " />
             <div className="mb-4 w-full text-xl font-bold flex justify-between items-center">
               <h4>Total </h4>
-              <h4>${hotel?.price / 100} </h4>
+              <h4>${total} </h4>
             </div>
             <div
               className="w-full shadow-lg hover:shadow-xl cursor-pointer hover:scale-[1.01] bg-gradient-to-r from-tertiary to-[#79A1F7] font-bold text-white   py-3 px-5 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary"
-              onClick={() =>
-                // registrationHandler({ hotel, user, checkin, checkout })
-                alert("Hotel was successfully booked!")
-              }
+              onClick={() => reservationHandler(hotel, user, checkin, checkout)}
             >
               Reserve
             </div>
