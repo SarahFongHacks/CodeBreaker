@@ -4,7 +4,7 @@ import Main from "../components/MainPage";
 
 import { signIn, register } from "../auth/auth";
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 import {
   setDoc,
   doc,
@@ -13,13 +13,15 @@ import {
   addDoc,
   getDocs,
 } from "firebase/firestore";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getStorage } from "firebase/storage";
+import { connectAuthEmulator, getAuth, onAuthStateChanged } from "firebase/auth";
+import { connectStorageEmulator, getStorage } from "firebase/storage";
 
 import { HotelRoom, Reservation, SearchFilter, User } from "../types/types";
 import { dbConverter } from "../db_conversion/db_converter";
 import useHotels from "../hooks/useHotels";
 import { searchHotel } from "../db_func/hotelRoom";
+import { getFunctions, httpsCallable, connectFunctionsEmulator} from "firebase/functions";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyBlMEnkyHKOUNZncSmOjXB3v1BEb_HJTY4",
@@ -35,19 +37,8 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 export const storage = getStorage(app);
-
-// async function testing() {
-//   const docRef = doc(db, "HotelRoom", "OKj8Mu4bT6oo5paI96jU");
-//   const docSnap = await getDoc(docRef);
-
-//   if (docSnap.exists()) {
-//     const hotelRoom = await dbConverter.jsonToHotelRoom(docSnap.data(), docRef);
-//     console.log(dbConverter.hotelRoomToJson(hotelRoom));
-//   } else {
-//     // doc.data() will be undefined in this case
-//     console.log("No such document!");
-//   }
-// }
+export const functions = getFunctions(app);
+connectFunctionsEmulator(functions, 'localhost', 5001);
 
 const Home: NextPage = () => {
   
