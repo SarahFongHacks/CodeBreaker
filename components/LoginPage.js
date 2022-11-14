@@ -29,7 +29,7 @@ const Login = () => {
 
   return (
     <motion.div
-      className="w-full h-screen flex flex-col items-center justify-center relative"
+      className="w-full h-screen bg-gradient-to-b from-white to-tertiary/10 flex flex-col items-center justify-center relative"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >

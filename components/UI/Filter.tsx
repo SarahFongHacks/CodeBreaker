@@ -10,7 +10,7 @@ const Filter = () => {
   const [location, setLocation] = useState("");
   const [enableLocation, setEnableLocation] = useState(false);
   const [city, setCity] = useState("");
-  const [unitedStates, setUnitedStates] = useState("CA");
+  const [unitedStates, setUnitedStates] = useState("");
   const [priceLower, setPriceLower] = useState<number>(0);
   const [priceUpper, setPriceUpper] = useState<number>(0);
   const [enablePrice, setEnablePrice] = useState(false);
@@ -25,9 +25,11 @@ const Filter = () => {
 
   const search = useStore((state) => state.search);
   const setSearch = useStore((state) => state.setSearch);
+  const searchEnabled = useStore((state) => state.searchEnabled);
+  const setSearchEnabled = useStore((state) => state.setSearchEnabled);
 
   useEffect(() => {
-    if (location) {
+    if (location !== "") {
       setEnableLocation(true);
     } else {
       setEnableLocation(false);
@@ -58,6 +60,37 @@ const Filter = () => {
       setEnableHotel(false);
     }
   }, [capacity, beds, baths, priceLower, priceUpper]);
+  
+    if (
+      !enableLocation &&
+      !enableCapacity &&
+      !enableBeds &&
+      !enableBaths &&
+      !enablePrice
+    ) {
+      setSearchEnabled(false);
+    }
+  }, [location, capacity, beds, baths, priceLower, priceUpper]);
+
+  useEffect(() => {
+    if (!searchEnabled) {
+      setCity("");
+      setUnitedStates("");
+      setCapacity(0);
+      setBeds(0);
+      setBaths(0);
+      setPriceLower(0);
+      setPriceUpper(0);
+    }
+  }, [searchEnabled]);
+
+  useEffect(() => {
+    if (city != "" && unitedStates != "") {
+      locationHanlder();
+    } else {
+      setLocation("");
+    }
+  }, [city, unitedStates]);
 
   const states = [
     "AL",
@@ -122,7 +155,9 @@ const Filter = () => {
   ];
 
   const locationHanlder = () => {
-    setLocation(city + ", " + unitedStates);
+    if (city !== "" && unitedStates !== "") {
+      setLocation(city + ", " + unitedStates);
+    }
   };
 
   const hotelName = () => [
@@ -131,7 +166,6 @@ const Filter = () => {
   ];
 
   async function searchHandler() {
-    locationHanlder();
     const filter: SearchFilter = {
       location: location,
       enableLocation: enableLocation,
@@ -148,9 +182,9 @@ const Filter = () => {
       enablePriceRange: enablePrice,
     };
     setSearch(await searchHotel(filter));
+    setSearchEnabled(true);
+    console.log(search);
   }
-
-  console.log(search);
 
   return (
     <div className="w-full grid grid-cols-5 rounded-lg ring-1 ring-black/20 shadow-lg overflow-hidden gap-8 p-8">
@@ -167,10 +201,14 @@ const Filter = () => {
       </div>
       
       <div className="w-full flex flex-col space-y-4 items-start justify-center col-span-3">
+    <div className="bg-white w-full grid grid-cols-5 rounded-lg ring-1 ring-black/20 shadow-lg overflow-hidden gap-8 p-8">
+      <div className="w-full flex flex-col items-start justify-center col-span-3">
         <div className="w-full flex flex-row space-x-2">
           <input
             className="w-full focus:ring-tertiary text-xl py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
             placeholder="Enter Location..."
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
           ></input>
           <Select.Root value={unitedStates} onValueChange={setUnitedStates}>
             <Select.Trigger className="p-4  ring-1 ring-black/20 rounded-sm flex flex-row items-center justify-center focus:outline-none ">
@@ -216,6 +254,8 @@ const Filter = () => {
           setPriceLower={setPriceLower}
           setPriceUpper={setPriceUpper}
           searchHandler={searchHandler}
+          setCity={setCity}
+          setUnitedStates={setUnitedStates}
         />
       </div>
       <div

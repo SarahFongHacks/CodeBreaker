@@ -16,6 +16,8 @@ const FilterDialog = ({
   priceUpper,
   setPriceUpper,
   searchHandler,
+  setCity,
+  setUnitedStates,
 }) => {
   const numArray = [1, 2, 3, 4, 5, 6];
 
@@ -29,6 +31,8 @@ const FilterDialog = ({
   };
 
   const clearHandler = () => {
+    setCity("");
+    setUnitedStates("");
     setCapacity(0);
     setBeds(0);
     setBaths(0);

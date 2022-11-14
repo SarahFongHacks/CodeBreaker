@@ -12,7 +12,7 @@ const HotelSelect = ({ hotel }) => {
   return (
     <Link href={"/rooms/" + hotel.id}>
       <motion.div
-        className=" flex flex-col h-full items-center justify-center text-sm cursor-pointer group rounded-lg shadow-lg hover:shadow-xl transition ease-linear duration-200"
+        className="bg-white flex flex-col h-full items-center justify-center text-sm cursor-pointer group rounded-lg shadow-lg hover:shadow-xl transition ease-linear duration-200"
         initial={{
           opacity: 0,
         }}

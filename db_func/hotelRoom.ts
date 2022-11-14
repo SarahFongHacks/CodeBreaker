@@ -47,5 +47,7 @@ export async function searchHotel(filter: SearchFilter): Promise<HotelRoom[]> {
     return await dbConverter.jsonToHotelRoom(el.data(), el.ref);
   });
 
+  console.log(filter);
+
   return Promise.all(rooms);
 }
