@@ -5,6 +5,7 @@ import FilterDialog from "./FilterDialog";
 import { SearchFilter } from "../../types/types";
 import { searchHotel } from "../../db_func/hotelRoom";
 import useStore from "../../lib/store";
+import { m } from "framer-motion";
 
 const Filter = () => {
   const [location, setLocation] = useState("");
@@ -20,7 +21,7 @@ const Filter = () => {
   const [enableBeds, setEnableBeds] = useState(false);
   const [baths, setBaths] = useState<number>(0);
   const [enableBaths, setEnableBaths] = useState(false);
-  const [hotel, setHotel] = useState("");
+  const [hotel, setHotel] = useState();
   const [enableHotel, setEnableHotel] = useState(false);
 
   const search = useStore((state) => state.search);
@@ -51,6 +52,11 @@ const Filter = () => {
       setEnablePrice(true);
     } else {
       setEnablePrice(false);
+    }
+    if (hotel) {
+      setEnableHotel(true);
+    } else {
+      setEnableHotel(false);
     }
   }, [capacity, beds, baths, priceLower, priceUpper]);
 
@@ -116,12 +122,22 @@ const Filter = () => {
     "WY",
   ];
 
+  const hotelName = [
+    "LikeHome",
+    "Hilton",
+  ];
+
   const locationHanlder = () => {
     setLocation(city + ", " + unitedStates);
   };
 
+  const hotelHandler = () => {
+    setHotel(hotel);
+  };
+
   async function searchHandler() {
     locationHanlder();
+    hotelHandler();
     const filter: SearchFilter = {
       location: location,
       enableLocation: enableLocation,
@@ -144,7 +160,17 @@ const Filter = () => {
 
   return (
     <div className="w-full grid grid-cols-5 rounded-lg ring-1 ring-black/20 shadow-lg overflow-hidden gap-8 p-8">
-      <div className="w-full flex flex-col items-start justify-center col-span-3">
+      <div className="w-full flex flex-col space-y-4 items-start justify-center col-span-5">
+        <div className = "w-full flex-row space-x-2">
+          <input
+            className="w-full focus:ring-tertiary text-xl py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
+            placeholder="Enter Hotel Name..."
+          ></input>
+          
+        </div>
+      </div>
+      
+      <div className="w-full flex flex-col space-y-4 items-start justify-center col-span-3">
         <div className="w-full flex flex-row space-x-2">
           <input
             className="w-full focus:ring-tertiary text-xl py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
