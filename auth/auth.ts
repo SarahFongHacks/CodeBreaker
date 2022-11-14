@@ -52,6 +52,7 @@ export async function register(
         email: email,
         id: id,
         currentBooking: [],
+        rewardPoints: 0,
       };
 
       await setDoc(docRef, await dbConverter.userToJson(userModel));
