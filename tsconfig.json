@@ -20,7 +20,8 @@
     "**/*.ts",
     "**/*.tsx",
     "hooks/useHotels.jsx",
-    "hooks/useHotels.tsz"
+    "hooks/useHotels.tsz",
+    "lib/store.js"
   ],
   "exclude": ["node_modules"]
 }

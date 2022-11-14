@@ -11,7 +11,7 @@ export type HotelRoom = {
   hotel: string;
   imageURL: string;
   location: string;
-  image : any; // First Image is the main bed image
+  image: any; // First Image is the main bed image
 };
 
 export type Reservation = {
@@ -26,6 +26,7 @@ export type User = {
   id: string;
   email: string;
   currentBooking: Reservation[];
+  rewardPoints : number;
 };
 
 export type FireBaseError = {
@@ -41,18 +42,17 @@ export type UserLoginCred = {
 };
 
 export type SearchFilter = {
-	location : string,
-	enableLocation : boolean,
-	numberOfBeds : number,
-	enableNumberOfBeds : boolean,
-	numberOfBathrooms : number,
-	enableNumberOfBathrooms : boolean,
-	capacity : number,
-	enableCapacity : boolean,
-	hotel : string,
-	enableHotel : boolean,
-	priceRangeLower : number,
-	priceRangeUpper : number,
-	enablePriceRange : boolean,
-}
-
+  location: string;
+  enableLocation: boolean;
+  numberOfBeds: number;
+  enableNumberOfBeds: boolean;
+  numberOfBathrooms: number;
+  enableNumberOfBathrooms: boolean;
+  capacity: number;
+  enableCapacity: boolean;
+  hotel: string;
+  enableHotel: boolean;
+  priceRangeLower: number;
+  priceRangeUpper: number;
+  enablePriceRange: boolean;
+};

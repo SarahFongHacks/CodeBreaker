@@ -7,10 +7,17 @@ import { auth } from "../pages";
 import HotelSelect from "./UI/HotelSelect";
 import { motion } from "framer-motion";
 import LoginButton from "./UI/LoginButton";
+import Filter from "./UI/Filter";
+import Search from "./UI/Search";
+import useStore from "../lib/store";
 
 const Hotels = () => {
   const { data: hotels } = useHotels();
   const { user, setUser } = useContext(LoginContext);
+
+  const search = useStore((state) => state.search);
+  const searchEnabled = useStore((state) => state.searchEnabled);
+  const setSearchEnabled = useStore((state) => state.setSearchEnabled);
 
   const signOutHandler = (auth) => {
     signout(auth);
@@ -19,7 +26,7 @@ const Hotels = () => {
 
   return (
     <motion.div
-      className="w-full min-h-screen flex flex-col items-center justify-start p-16 relative"
+      className="w-full min-h-screen bg-gradient-to-b from-white to-tertiary/10 flex flex-col items-center justify-start p-16 relative"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
@@ -27,16 +34,33 @@ const Hotels = () => {
         <LoginButton color="black" />
       </div>
       <h1 className="font-bold text-4xl mb-8">Hotels</h1>
-      {/* <div className="w-full items-center justify-start flex mb-8">
-        <input className="w-full rounded-md p-3 h-12 border-[2px] border-secondary mr-4 focus:outline-none" />
-        <div className="w-44 h-12 bg-secondary p-3 rounded-md flex items-center justify-center cursor-pointer">
-          <p className="">Filter</p>
-        </div>
-      </div> */}
-      <div className="w-full h-full grid grid-cols-3 gap-8 items-start justify-center">
-        {hotels.map((hotel) => {
-          return <HotelSelect hotel={hotel} />;
-        })}
+      <Search />
+      <Filter />
+      <div className="w-full h-full grid md:grid-cols-3 lg:grid-cols-4 gap-6 items-start justify-center mt-8">
+        {searchEnabled ? (
+          search.length > 0 ? (
+            search.map((hotel) => {
+              return <HotelSelect hotel={hotel} key={hotel.id} />;
+            })
+          ) : (
+            <div className="w-full col-span-full flex flex-col">
+              <p className="font-bold text-2xl mb-2">No hotels found</p>
+              <p className="text-lg">
+                Try changing or removing some of your filters.
+              </p>
+              <div
+                onClick={() => setSearchEnabled(false)}
+                className="px-4 py-2 mt-8 rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] w-fit  cursor-pointer bg-black select-none text-white"
+              >
+                Remove filters
+              </div>
+            </div>
+          )
+        ) : (
+          hotels.map((hotel) => {
+            return <HotelSelect hotel={hotel} key={hotel.id} />;
+          })
+        )}
       </div>
     </motion.div>
   );

@@ -1,4 +1,4 @@
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, setDoc } from "firebase/firestore";
 
 import { dbConverter } from "../db_conversion/db_converter";
 import { db } from "../pages/index";
@@ -16,6 +16,17 @@ export async function changeReservationDate(
   reservation.endDate = endDate.getTime();
 
   await writeReservation(reservation);
+}
+
+export async function changeReservationRoom(
+  user: User,
+  reservation: Reservation,
+  hotelRoom: HotelRoom,
+  startDate: Date,
+  endDate: Date
+){
+  await createReservation(hotelRoom, user, startDate, endDate);
+  await deleteDoc(doc(db, "Reservation", reservation.id));
 }
 
 async function writeReservation(reservation: Reservation) {
