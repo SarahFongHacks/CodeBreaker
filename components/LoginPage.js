@@ -24,7 +24,7 @@ const Login = () => {
   };
 
   useEffect(() => {
-    user && router.push("/hotels");
+    user && router.back();
   }, [user]);
 
   return (
