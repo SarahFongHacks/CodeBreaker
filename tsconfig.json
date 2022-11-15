@@ -21,7 +21,8 @@
     "**/*.tsx",
     "hooks/useHotels.jsx",
     "hooks/useHotels.tsz",
-    "lib/store.js"
+    "lib/store.js",
+    "components/ReservationPage.js"
   ],
   "exclude": ["node_modules"]
 }
