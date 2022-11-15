@@ -11,13 +11,14 @@ const ReservationPage = ({ hotel }) => {
   const [checkin, setCheckin] = useState();
   const [checkout, setCheckout] = useState();
   const [total, setTotal] = useState(0);
+  const [error, setError] = useState(false);
 
   const [startDate, setStartDate] = useState(new Date());
 
   const { user } = useContext(LoginContext);
 
   const reservationHandler = ({ hotel, user, checkin, checkout }) => {
-    createProduct(hotel, new Date(checkin), new Date(checkout));
+    createProduct(hotel, new Date(checkin), new Date(checkout), total);
     createReservation(hotel, user, new Date(checkin), new Date(checkout)).then(
       (res) => {
         // res.error === false && setRegistered(true);
@@ -28,8 +29,13 @@ const ReservationPage = ({ hotel }) => {
 
   const totalHandler = () => {
     if (checkin && checkout && checkout > checkin) {
+      setError(false);
       const total = (new Date(checkout) - new Date(checkin)) / 8640000000;
-      setTotal((total * hotel.price).toFixed(2));
+      if (total >= 0) {
+        setTotal((total * hotel.price).toFixed(2));
+      }
+    } else {
+      setError(true);
     }
   };
 
@@ -56,6 +62,11 @@ const ReservationPage = ({ hotel }) => {
               ${hotel?.price / 100} <span className="font-medium">night</span>
             </h3>
           </div>
+          {error && (
+            <div className="w-full items-center justify-center flex mb-2 bg-red-400 rounded-md text-white">
+              Invalid dates please try different dates.
+            </div>
+          )}
           <form className="flex flex-col w-80">
             <div className="check-in">
               <label>Check in: </label>
@@ -86,6 +97,7 @@ const ReservationPage = ({ hotel }) => {
               <h4>Total </h4>
               <h4>${total} </h4>
             </div>
+
             <div
               className="w-full shadow-lg hover:shadow-xl cursor-pointer hover:scale-[1.01] bg-gradient-to-r from-tertiary to-[#79A1F7] font-bold text-white   py-3 px-5 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary"
               onClick={() =>
