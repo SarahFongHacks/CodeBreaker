@@ -85,10 +85,9 @@ const Filter = () => {
   }, [searchEnabled]);
 
   useEffect(() => {
+    console.log(searchEnabled);
     if (city != "" && unitedStates != "") {
       locationHanlder();
-    } else {
-      setLocation("");
     }
   }, [city, unitedStates]);
 
@@ -192,14 +191,12 @@ const Filter = () => {
     };
     setSearch(await searchHotel(filter));
     setSearchEnabled(true);
-    console.log(search);
   }
 
   return (
     <div className="bg-white w-full grid grid-cols-5 rounded-lg ring-1 ring-black/20 shadow-lg overflow-hidden gap-8 p-8">
-      
       <div className="w-full flex flex-col space-y-4 items-start justify-center col-span-5">
-        <div className = "w-full flex-row space-x-2">
+        <div className="w-full flex-row space-x-2">
           <input
             className="w-full focus:ring-tertiary text-xl py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
             placeholder="Enter Hotel Name..."
