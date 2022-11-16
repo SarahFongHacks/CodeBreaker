@@ -2,11 +2,11 @@ import { httpsCallable } from "firebase/functions";
 import { functions } from "../pages/";
 import { HotelRoom } from "../types/types";
 
-export function createProduct(
+export async function createProduct(
   hotelRoom: HotelRoom,
   startDate: Date,
   endDate: Date,
-	price : number,
+  price: number
 ) {
   const product_create_function = httpsCallable(functions, "helloWorld");
 
@@ -22,13 +22,13 @@ export function createProduct(
 
   const name = hotelRoom.hotel + " " + startDateString + "-" + endDateString;
 
-  product_create_function({
+  const data = await product_create_function({
     productName: name,
     startDate: startDate,
     endDate: endDate,
     price: price,
     images: hotelRoom.image,
-  }).then((result) => {
-    console.log(result);
   });
+
+  return data;
 }

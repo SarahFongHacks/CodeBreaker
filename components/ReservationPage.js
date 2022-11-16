@@ -3,10 +3,12 @@ import ImageCarousel from "./UI/ImageCarousel";
 import { createProduct } from "../stripe/stripe_product";
 import { createReservation } from "../db_func/reservations";
 import { LoginContext } from "../context";
+import { loadStripe } from "@stripe/stripe-js";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { HotelRoom } from "../types/types";
+import { useRouter } from "next/router";
 
 const ReservationPage = ({ hotel }) => {
   const [total, setTotal] = useState(0);
@@ -16,12 +18,25 @@ const ReservationPage = ({ hotel }) => {
 
   const { user } = useContext(LoginContext);
 
-  const reservationHandler = ({ hotel, user, startDate, endDate }) => {
-    createProduct(hotel, startDate, endDate, total);
-    createReservation(hotel, user, startDate, endDate).then((res) => {
-      // res.error === false && setRegistered(true);
-      res.error === false && alert("Hotel was successfully booked!");
-    });
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+  );
+
+  const router = useRouter();
+
+  const reservationHandler = async ({ hotel, user, startDate, endDate }) => {
+    const data = await createProduct(hotel, startDate, endDate, total * 100);
+    if (data) {
+      const data2 = await fetch("/api/checkout_sessions", {
+        method: "POST",
+      });
+      const stripeData = await data2.json();
+      router.push(stripeData.url);
+    }
+    // createReservation(hotel, user, startDate, endDate).then((res) => {
+    //   // res.error === false && setRegistered(true);
+    //   res.error === false && alert("Hotel was successfully booked!");
+    // });
   };
 
   const totalHandler = () => {
@@ -36,6 +51,20 @@ const ReservationPage = ({ hotel }) => {
       setTotal(0);
     }
   };
+
+  useEffect(() => {
+    // Check to see if this is a redirect back from Checkout
+    const query = new URLSearchParams(window.location.search);
+    if (query.get("success")) {
+      console.log("Order placed! You will receive an email confirmation.");
+    }
+
+    if (query.get("canceled")) {
+      console.log(
+        "Order canceled -- continue to shop around and checkout when you’re ready."
+      );
+    }
+  }, []);
 
   useEffect(() => {
     totalHandler();
