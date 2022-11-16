@@ -8,10 +8,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import { HotelRoom } from "../types/types";
 
 const ReservationPage = ({ hotel }) => {
+  var today = new Date();
+  
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState(today);
+  var minCheckout = new Date(startDate);
+  minCheckout.setDate(minCheckout.getDate()+1);
+  const [endDate, setEndDate] = useState(minCheckout);
 
   const { user } = useContext(LoginContext);
 
@@ -23,7 +27,7 @@ const ReservationPage = ({ hotel }) => {
   };
 
   const totalHandler = () => {
-    if (startDate && endDate && endDate >= startDate) {
+    if (startDate && endDate && endDate > startDate) {
       setError(false);
       const total = (endDate - startDate) / 8640000000;
       if (total >= 0) {
@@ -38,6 +42,7 @@ const ReservationPage = ({ hotel }) => {
   useEffect(() => {
     totalHandler();
   }, [startDate, endDate]);
+  console.log(hotel);
 
   const excludedDates = [];
 
@@ -87,7 +92,7 @@ const ReservationPage = ({ hotel }) => {
                 className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
                 selected={endDate}
                 onChange={(date) => setEndDate(date)}
-                minDate={new Date()}
+                minDate={minCheckout}
               />
               {/* <input
                 type="date"
