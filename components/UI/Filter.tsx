@@ -185,8 +185,8 @@ const Filter = () => {
       enableCapacity: enableCapacity,
       hotel: hotel,
       enableHotel: enableHotel,
-      priceRangeLower: priceLower,
-      priceRangeUpper: priceUpper,
+      priceRangeLower: priceLower * 100,
+      priceRangeUpper: priceUpper * 100,
       enablePriceRange: enablePrice,
     };
     setSearch(await searchHotel(filter));
