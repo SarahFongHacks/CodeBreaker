@@ -28,14 +28,16 @@ const ReservationPage = ({ hotel }) => {
     if (data) {
       const data2 = await fetch("/api/checkout_sessions", {
         method: "POST",
+        body: JSON.stringify(data.data.price.id),
       });
       const stripeData = await data2.json();
-      router.push(stripeData.url);
+      console.log(stripeData);
+      //router.push(stripeData.url);
     }
-    // createReservation(hotel, user, startDate, endDate).then((res) => {
-    //   // res.error === false && setRegistered(true);
-    //   res.error === false && alert("Hotel was successfully booked!");
-    // });
+    createReservation(hotel, user, startDate, endDate).then((res) => {
+      // res.error === false && setRegistered(true);
+      res.error === false && alert("Hotel was successfully booked!");
+    });
   };
 
   const totalHandler = () => {
@@ -56,7 +58,7 @@ const ReservationPage = ({ hotel }) => {
   }, [startDate, endDate]);
 
   const excludedDates = [];
-  for (let i = 0; i < hotel.reservations.length; i++) {
+  for (let i = 0; i < hotel?.reservations.length; i++) {
     excludedDates.push({
       start: new Date(hotel.reservations[i].startDate),
       end: new Date(hotel.reservations[i].endDate),

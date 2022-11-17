@@ -1,15 +1,16 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
-  console.log(req.body);
   if (req.method === "POST") {
     try {
       // Create Checkout Sessions from body params.
+      console.log(req.body);
       const session = await stripe.checkout.sessions.create({
         line_items: [
           {
             // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-            price: "price_1LxPLNGjvQ8kI9VgXaiVL6ym",
+
+            price: req.body,
             quantity: 1,
           },
         ],
