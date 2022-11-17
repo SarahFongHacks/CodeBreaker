@@ -9,12 +9,20 @@ import {
   collection,
   query,
   where,
+  getDoc
 } from "firebase/firestore";
 
 export async function updateHotelRoom(hotelRoom: HotelRoom) {
   const docRef = doc(db, "HotelRoom", hotelRoom.id);
 
   await updateDoc(docRef, await dbConverter.hotelRoomToJson(hotelRoom));
+}
+
+export async function getHotelRoom(id : string) : Promise<HotelRoom> {
+
+  const docRef = doc(db, "HotelRoom", id);
+  
+  return await dbConverter.jsonToHotelRoom(await getDoc(docRef), docRef);
 }
 
 export async function searchHotel(filter: SearchFilter): Promise<HotelRoom[]> {
