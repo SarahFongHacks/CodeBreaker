@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { motion } from "framer-motion";
 import { changeReservationDate } from "../../db_func/reservations";
+import { getHotelRoom } from "../../db_func/hotelRoom";
 
 const DateDialog = ({ booking, changed, setChanged }) => {
   const [checkin, setCheckin] = useState("");
@@ -25,6 +26,8 @@ const DateDialog = ({ booking, changed, setChanged }) => {
     changeReservationDate(booking, new Date(checkin), new Date(checkout));
     setChanged(!changed);
   };
+
+  const hotel = getHotelRoom(booking.hotelRoomId);
 
   return (
     <Dialog.Root>

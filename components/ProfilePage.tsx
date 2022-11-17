@@ -39,7 +39,7 @@ const ProfilePage = () => {
             <p className="text-3xl font-bold mb-4">
               Bookings ({user?.currentBooking?.length})
             </p>
-            <div className="w-full grid grid-cols-2 gap-4">
+            <div className="w-full grid grid-cols-1 gap-4">
               {user?.currentBooking?.map((booking) => (
                 <DateDialog
                   booking={booking}
