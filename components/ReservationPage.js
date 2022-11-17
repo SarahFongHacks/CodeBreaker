@@ -9,12 +9,12 @@ import { HotelRoom } from "../types/types";
 
 const ReservationPage = ({ hotel }) => {
   var today = new Date();
-  
+
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(false);
   const [startDate, setStartDate] = useState(today);
   var minCheckout = new Date(startDate);
-  minCheckout.setDate(minCheckout.getDate()+1);
+  minCheckout.setDate(minCheckout.getDate() + 1);
   const [endDate, setEndDate] = useState(minCheckout);
 
   const { user } = useContext(LoginContext);
@@ -44,18 +44,21 @@ const ReservationPage = ({ hotel }) => {
   }, [startDate, endDate]);
 
   const excludedDates = [];
-  for (let i = 0; i < hotel.reservations.length; i ++) {
-    excludedDates.push({"start": new Date(hotel.reservations[i].startDate), "end": new Date(hotel.reservations[i].endDate)});
+  for (let i = 0; i < hotel?.reservations.length; i++) {
+    excludedDates.push({
+      start: new Date(hotel.reservations[i].startDate),
+      end: new Date(hotel.reservations[i].endDate),
+    });
     //console.log(new Date(hotel.reservations[i].startDate) + ", " + new Date(hotel.reservations[i].endDate));
-  };
+  }
 
-  const disableDateRange = excludedDates.map(range => (
-    {start: range.start, end: range.end}
-  ));
-  
+  const disableDateRange = excludedDates.map((range) => ({
+    start: range.start,
+    end: range.end,
+  }));
 
   return (
-    <div className="bg-gradient-to-b from-white to-tertiary/10 w-full h-screen flex items-center justify-center flex-col p-16">
+    <div className="bg-gradient-to-b from-white to-tertiary/50 w-full h-screen flex items-center justify-center flex-col p-16">
       <div className="text-primary px-8 rounded-lg text-center my-8">
         <h1 className="text-3xl font-bold">{hotel?.hotel}</h1>
       </div>

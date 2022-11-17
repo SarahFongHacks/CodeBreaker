@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { motion } from "framer-motion";
 import { changeReservationDate } from "../../db_func/reservations";
+import { getHotelRoom } from "../../db_func/hotelRoom";
 
 const DateDialog = ({ booking, changed, setChanged }) => {
   const [checkin, setCheckin] = useState("");
@@ -26,10 +27,12 @@ const DateDialog = ({ booking, changed, setChanged }) => {
     setChanged(!changed);
   };
 
+  const hotel = getHotelRoom(booking.hotelRoomId);
+
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <div className="hover:scale-[1.02] transition duration-200 ease-linear hover:shadow-xl w-full flex items-center p-16 justify-center flex-col rounded-lg h-48 shadow-lg ring-1 ring-black/20">
+        <div className="hover:scale-[1.02] bg-white transition duration-200 ease-linear hover:shadow-xl w-full flex items-center p-16 justify-center flex-col rounded-lg h-48 shadow-lg ring-1 ring-black/20">
           <div className="w-full justify-between flex flex-row">
             <p>Bookingid</p>
             <p className="font-bold ">{booking?.id}</p>
