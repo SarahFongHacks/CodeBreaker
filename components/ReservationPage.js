@@ -1,33 +1,46 @@
 import { useContext, useEffect, useState } from "react";
 import ImageCarousel from "./UI/ImageCarousel";
+import { createProduct } from "../stripe/stripe_product";
 import { createReservation } from "../db_func/reservations";
 import { LoginContext } from "../context";
+import { loadStripe } from "@stripe/stripe-js";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { HotelRoom } from "../types/types";
+import { useRouter } from "next/router";
 
 const ReservationPage = ({ hotel }) => {
-  var today = new Date();
-
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(false);
-  const [startDate, setStartDate] = useState(today);
-  var minCheckout = new Date(startDate);
-  minCheckout.setDate(minCheckout.getDate() + 1);
-  const [endDate, setEndDate] = useState(minCheckout);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
 
   const { user } = useContext(LoginContext);
 
-  const reservationHandler = ({ hotel, user, startDate, endDate }) => {
-    createReservation(hotel, user, startDate, endDate).then((res) => {
-      // res.error === false && setRegistered(true);
-      res.error === false && alert("Hotel was successfully booked!");
-    });
+  const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+  );
+
+  const router = useRouter();
+
+  const reservationHandler = async ({ hotel, user, startDate, endDate }) => {
+    const data = await createProduct(hotel, startDate, endDate, total * 100);
+    if (data) {
+      const data2 = await fetch("/api/checkout_sessions", {
+        method: "POST",
+      });
+      const stripeData = await data2.json();
+      router.push(stripeData.url);
+    }
+    // createReservation(hotel, user, startDate, endDate).then((res) => {
+    //   // res.error === false && setRegistered(true);
+    //   res.error === false && alert("Hotel was successfully booked!");
+    // });
   };
 
   const totalHandler = () => {
-    if (startDate && endDate && endDate > startDate) {
+    if (startDate && endDate && endDate >= startDate) {
       setError(false);
       const total = (endDate - startDate) / 8640000000;
       if (total >= 0) {
@@ -40,25 +53,27 @@ const ReservationPage = ({ hotel }) => {
   };
 
   useEffect(() => {
+    // Check to see if this is a redirect back from Checkout
+    const query = new URLSearchParams(window.location.search);
+    if (query.get("success")) {
+      console.log("Order placed! You will receive an email confirmation.");
+    }
+
+    if (query.get("canceled")) {
+      console.log(
+        "Order canceled -- continue to shop around and checkout when you’re ready."
+      );
+    }
+  }, []);
+
+  useEffect(() => {
     totalHandler();
   }, [startDate, endDate]);
 
   const excludedDates = [];
-  for (let i = 0; i < hotel?.reservations.length; i++) {
-    excludedDates.push({
-      start: new Date(hotel.reservations[i].startDate),
-      end: new Date(hotel.reservations[i].endDate),
-    });
-    //console.log(new Date(hotel.reservations[i].startDate) + ", " + new Date(hotel.reservations[i].endDate));
-  }
-
-  const disableDateRange = excludedDates.map((range) => ({
-    start: range.start,
-    end: range.end,
-  }));
 
   return (
-    <div className="bg-gradient-to-b from-white to-tertiary/30 w-full h-screen flex items-center justify-center flex-col p-16">
+    <div className="bg-gradient-to-b from-white to-tertiary/10 w-full h-screen flex items-center justify-center flex-col p-16">
       <div className="text-primary px-8 rounded-lg text-center my-8">
         <h1 className="text-4xl font-bold">{hotel?.hotel}</h1>
       </div>
@@ -86,8 +101,7 @@ const ReservationPage = ({ hotel }) => {
                 className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
-                //excludeDates={excludedDates}
-                excludeDateIntervals={disableDateRange}
+                excludeDates={excludedDates}
                 minDate={new Date()}
               />
               {/* <input
@@ -103,9 +117,8 @@ const ReservationPage = ({ hotel }) => {
               <DatePicker
                 className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
                 selected={endDate}
-                excludeDateIntervals={disableDateRange}
                 onChange={(date) => setEndDate(date)}
-                minDate={minCheckout}
+                minDate={new Date()}
               />
               {/* <input
                 type="date"

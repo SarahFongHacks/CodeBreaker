@@ -20,6 +20,7 @@ import { HotelRoom, Reservation, SearchFilter, User } from "../types/types";
 import { dbConverter } from "../db_conversion/db_converter";
 import useHotels from "../hooks/useHotels";
 import { searchHotel } from "../db_func/hotelRoom";
+import { getFunctions } from "firebase/functions";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBlMEnkyHKOUNZncSmOjXB3v1BEb_HJTY4",
@@ -35,6 +36,7 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 export const storage = getStorage(app);
+export const functions = getFunctions(app);
 
 // async function testing() {
 //   const docRef = doc(db, "HotelRoom", "OKj8Mu4bT6oo5paI96jU");
@@ -50,8 +52,7 @@ export const storage = getStorage(app);
 // }
 
 const Home: NextPage = () => {
-  
-	return (
+  return (
     <div>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
