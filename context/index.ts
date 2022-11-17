@@ -2,6 +2,6 @@ import { createContext, useContext } from "react";
 import { User } from "../types/types";
 
 export const LoginContext = createContext<{
-  user: User | undefined;
+  user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User>>;
-}>({ user: undefined, setUser: () => undefined });
+}>({ user: null, setUser: () => null });

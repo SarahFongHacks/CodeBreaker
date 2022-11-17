@@ -13,8 +13,8 @@ export default async function handler(req, res) {
           },
         ],
         mode: "payment",
-        success_url: `${req.headers.origin}`,
-        cancel_url: `${req.headers.origin}`,
+        success_url: `${req.headers.origin}/profile`,
+        cancel_url: `${req.headers.origin}/hotels`,
       });
       res.status(200).json({ url: session.url });
     } catch (err) {
