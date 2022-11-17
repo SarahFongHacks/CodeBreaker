@@ -12,7 +12,7 @@ const ProfilePage = () => {
   }, [dateChange]);
 
   return (
-    <div className="w-full min-h-screen flex items-start justify-center p-36">
+    <div className="w-full min-h-screen flex items-start justify-center p-36 bg-gradient-to-b from-white to-tertiary/50">
       <div className="w-full p-8 overflow-hidden absolute top-0 flex justify-end">
         <LoginButton color="black" />
       </div>
@@ -20,15 +20,15 @@ const ProfilePage = () => {
         <div className="flex flex-col items-center justify-center w-full">
           <p className="text-5xl font-bold mb-12">Your Profile</p>
           <div className="grid grid-cols-3 w-full gap-4">
-            <div className="shadow-xl ring-1 ring-black/20 rounded-lg p-8 py-16 flex items-center justify-center w-full flex-col">
+            <div className="shadow-xl ring-1 bg-white ring-black/20 rounded-lg p-8 py-16 flex items-center justify-center w-full flex-col">
               <p className="text-xl mb-2 text-center">email</p>
               <p className="text-2xl font-bold text-center">{user?.email}</p>
             </div>
-            <div className="shadow-xl ring-1 ring-black/20 rounded-lg p-8 py-16 flex items-center justify-center w-full flex-col">
+            <div className="shadow-xl ring-1 bg-white ring-black/20 rounded-lg p-8 py-16 flex items-center justify-center w-full flex-col">
               <p className="text-xl mb-2 text-center">userid</p>
               <p className="text-2xl font-bold text-center">{user?.id}</p>
             </div>
-            <div className="shadow-xl ring-1 ring-black/20 rounded-lg p-8 py-16 flex items-center justify-center w-full flex-col">
+            <div className="shadow-xl ring-1 bg-white ring-black/20 rounded-lg p-8 py-16 flex items-center justify-center w-full flex-col">
               <p className="text-xl mb-2 text-center">reward points</p>
               <p className="text-2xl font-bold text-center">
                 {user?.rewardPoints}

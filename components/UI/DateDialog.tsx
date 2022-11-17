@@ -29,7 +29,7 @@ const DateDialog = ({ booking, changed, setChanged }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <div className="hover:scale-[1.02] transition duration-200 ease-linear hover:shadow-xl w-full flex items-center p-16 justify-center flex-col rounded-lg h-48 shadow-lg ring-1 ring-black/20">
+        <div className="hover:scale-[1.02] bg-white transition duration-200 ease-linear hover:shadow-xl w-full flex items-center p-16 justify-center flex-col rounded-lg h-48 shadow-lg ring-1 ring-black/20">
           <div className="w-full justify-between flex flex-row">
             <p>Bookingid</p>
             <p className="font-bold ">{booking?.id}</p>
