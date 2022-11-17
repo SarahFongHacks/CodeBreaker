@@ -58,9 +58,9 @@ const ReservationPage = ({ hotel }) => {
   }));
 
   return (
-    <div className="bg-gradient-to-b from-white to-tertiary/50 w-full h-screen flex items-center justify-center flex-col p-16">
+    <div className="bg-gradient-to-b from-white to-tertiary/30 w-full h-screen flex items-center justify-center flex-col p-16">
       <div className="text-primary px-8 rounded-lg text-center my-8">
-        <h1 className="text-3xl font-bold">{hotel?.hotel}</h1>
+        <h1 className="text-4xl font-bold">{hotel?.hotel}</h1>
       </div>
 
       <div className="flex space-x-8 w-full items-center justify-center ">

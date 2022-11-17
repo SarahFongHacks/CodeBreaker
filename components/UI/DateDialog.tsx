@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { motion } from "framer-motion";
 import { changeReservationDate } from "../../db_func/reservations";
 import { getHotelRoom } from "../../db_func/hotelRoom";
+import { HotelRoom } from "../../types/types";
 
 const DateDialog = ({ booking, changed, setChanged }) => {
   const [checkin, setCheckin] = useState("");
   const [checkout, setCheckout] = useState("");
+  const [hotel, setHotel] = useState<HotelRoom | null>(null);
 
   const dateHandler = (date) => {
     const dateObj = new Date(date);
@@ -27,24 +29,51 @@ const DateDialog = ({ booking, changed, setChanged }) => {
     setChanged(!changed);
   };
 
-  const hotel = getHotelRoom(booking.hotelRoomId);
+  const getHotel = async () => {
+    const hotel = await getHotelRoom(booking.hotelRoomId);
+    setHotel(hotel);
+  };
+
+  useEffect(() => {
+    getHotel();
+  }, []);
+
+  console.log(hotel);
 
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <div className="hover:scale-[1.02] bg-white transition duration-200 ease-linear hover:shadow-xl w-full flex items-center p-16 justify-center flex-col rounded-lg h-48 shadow-lg ring-1 ring-black/20">
-          <div className="w-full justify-between flex flex-row">
-            <p>Bookingid</p>
-            <p className="font-bold ">{booking?.id}</p>
+        <div className="hover:scale-[1.02] bg-white transition duration-200 ease-linear hover:shadow-xl w-full grid grid-cols-3 gap-8 p-8 justify-between rounded-lg h-64 shadow-lg ring-1 ring-black/20">
+          <div className="h-full w-full square overflow-hidden rounded-lg object-cover bg-red-500 ">
+            <img src={hotel?.image} className="object-cover w-full h-full " />
           </div>
-          <div className="w-full justify-between flex flex-row">
-            <p>Roomid</p>
-            <p className="font-bold ">{booking?.hotelRoomId}</p>
-          </div>
-          <div className="w-full flex flex-row space-x-2 mt-4 items-center justify-center bg-tertiary text-white p-2 rounded-lg font-bold">
-            <p>{booking?.startDate && dateHandler(booking?.startDate)}</p>
-            <p>-</p>
-            <p>{booking?.endDate && dateHandler(booking?.endDate)}</p>
+          <div className="col-span-2 flex flex-col ">
+            <div className="w-full flex justify-between items-center ">
+              <h1 className="text-lg ">Hotel name</h1>
+              <h1 className="font-bold text-lg">{hotel?.hotel}</h1>
+            </div>
+            <div className="w-full flex justify-between items-center ">
+              <h1 className="text-lg ">Location</h1>
+              <h1 className="font-bold text-lg">{hotel?.location}</h1>
+            </div>
+            <div className="w-full flex justify-between items-center ">
+              <h1 className="text-lg ">Room number</h1>
+              <h1 className="font-bold text-lg">{hotel?.roomNumber}</h1>
+            </div>
+
+            <div className="w-full flex flex-row space-x-2 mt-4 items-center justify-center text-tertiary ring-tertiary ring-1 p-2 rounded-lg font-bold">
+              <p>{booking?.startDate && dateHandler(booking?.startDate)}</p>
+              <p>-</p>
+              <p>{booking?.endDate && dateHandler(booking?.endDate)}</p>
+            </div>
+            <div className="w-full flex flex-row space-x-2">
+              <div className="w-full flex flex-row space-x-2 mt-4 items-center justify-center bg-black text-white p-2 rounded-lg font-bold">
+                <p>Edit booking</p>
+              </div>
+              <div className="w-full flex flex-row space-x-2 mt-4 items-center justify-center bg-red-500 text-white p-2 rounded-lg font-bold">
+                <p>Cancel booking</p>
+              </div>
+            </div>
           </div>
         </div>
       </Dialog.Trigger>

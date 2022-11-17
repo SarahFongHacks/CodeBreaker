@@ -25,7 +25,7 @@ const Hotels = () => {
 
   return (
     <motion.div
-      className="w-full min-h-screen bg-gradient-to-b from-white to-tertiary/50 flex flex-col items-center justify-start p-16 relative"
+      className="w-full min-h-screen bg-gradient-to-b from-white to-tertiary/30 flex flex-col items-center justify-start p-16 relative"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
