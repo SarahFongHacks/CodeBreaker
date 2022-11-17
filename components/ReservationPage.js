@@ -28,11 +28,11 @@ const ReservationPage = ({ hotel }) => {
     if (data) {
       const data2 = await fetch("/api/checkout_sessions", {
         method: "POST",
-        body: JSON.stringify(data.data.price.id),
+        body: data.data.price.id,
       });
       const stripeData = await data2.json();
       console.log(stripeData);
-      //router.push(stripeData.url);
+      router.push(stripeData.url);
     }
     createReservation(hotel, user, startDate, endDate).then((res) => {
       // res.error === false && setRegistered(true);
