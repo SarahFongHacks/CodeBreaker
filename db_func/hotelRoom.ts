@@ -12,6 +12,7 @@ import {
   getDoc
 } from "firebase/firestore";
 
+
 export async function updateHotelRoom(hotelRoom: HotelRoom) {
   const docRef = doc(db, "HotelRoom", hotelRoom.id);
 
@@ -22,7 +23,7 @@ export async function getHotelRoom(id : string) : Promise<HotelRoom> {
 
   const docRef = doc(db, "HotelRoom", id);
   
-  return await dbConverter.jsonToHotelRoom(await getDoc(docRef), docRef);
+  return (await dbConverter.jsonToHotelRoom((await getDoc(docRef)).data(), docRef));
 }
 
 export async function searchHotel(filter: SearchFilter): Promise<HotelRoom[]> {
