@@ -28,10 +28,14 @@ const ReservationPage = ({ hotel }) => {
     if (data) {
       const data2 = await fetch("/api/checkout_sessions", {
         method: "POST",
-        body: data.data.price.id,
+        body: JSON.stringify({
+          priceId: data.data.price.id,
+          userId: user.id,
+          hotelId: hotel.id,
+        }),
       });
       const stripeData = await data2.json();
-      console.log(stripeData);
+      //console.log(stripeData);
       router.push(stripeData.url);
     }
     createReservation(hotel, user, startDate, endDate).then((res) => {
@@ -45,7 +49,7 @@ const ReservationPage = ({ hotel }) => {
       setError(false);
       const total = (endDate - startDate) / 8640000000;
       if (total >= 0) {
-        setTotal((total * hotel.price).toFixed(2));
+        setTotal((total * hotel?.price).toFixed(2));
       }
     } else {
       setError(true);

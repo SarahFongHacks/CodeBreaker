@@ -1,6 +1,7 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
+  const { priceId, userId, hotelId } = JSON.parse(req.body);
   if (req.method === "POST") {
     try {
       // Create Checkout Sessions from body params.
@@ -9,10 +10,11 @@ export default async function handler(req, res) {
         line_items: [
           {
             // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-            price: req.body,
+            price: priceId,
             quantity: 1,
           },
         ],
+        metadata: { user: userId, hotel: hotelId },
         mode: "payment",
         success_url: `${req.headers.origin}/profile`,
         cancel_url: `${req.headers.origin}/hotels`,
