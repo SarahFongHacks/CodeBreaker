@@ -15,7 +15,7 @@
   "dependencies": {
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.18.0",
-    "stripe": "^10.17.0"
+    "stripe": "^11.1.0"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.2.0"

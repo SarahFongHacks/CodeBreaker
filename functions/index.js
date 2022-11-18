@@ -1,3 +1,12 @@
+// // Create and Deploy Your First Cloud Functions
+// // https://firebase.google.com/docs/functions/write-firebase-functions
+//
+// exports.helloWorld = functions.https.onRequest((request, response) => {
+//   functions.logger.info("Hello logs!", {structuredData: true});
+//   response.send("Hello from Firebase!");
+// });
+//
+
 const { warn } = require("console");
 const functions = require("firebase-functions");
 // Create and Deploy Your First Cloud Functions
@@ -8,7 +17,6 @@ const stripe = require("stripe")(
 );
 
 exports.helloWorld = functions.https.onCall(async (request, response) => {
-  console.log(request.images);
 
   const product = await stripe.products.create({
     name: request.productName,
@@ -16,13 +24,21 @@ exports.helloWorld = functions.https.onCall(async (request, response) => {
   });
 
   const price = await stripe.prices.create({
-    unit_amount: request.price,
-    currency: "usd",
-    product: product.id,
-  });
+    unit_amount : request.price,
+    currency : 'usd',
+    product : product.id,
+  })
 
-  console.log(product);
-  console.log(price);
+  const ret = {
+    product : product,
+    price : price,
+  }
 
-  return product;
+  return ret;
+});
+
+exports.checkoutComplete = functions.https.onRequest((request, response) => {
+  
+  console.log(request.body)
+
 });
