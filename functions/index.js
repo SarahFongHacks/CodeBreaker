@@ -39,6 +39,6 @@ exports.helloWorld = functions.https.onCall(async (request, response) => {
 
 exports.checkoutComplete = functions.https.onRequest((request, response) => {
   
-  console.log(request.body)
+  console.log(request.body.data.object.metadata)
 
 });
