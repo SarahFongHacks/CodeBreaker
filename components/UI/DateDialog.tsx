@@ -39,7 +39,7 @@ const DateDialog = ({ booking, changed, setChanged }) => {
   }, []);
 
   return (
-    <div className=" bg-white/50 backdrop-blur-xl  w-full grid grid-cols-3 gap-8 p-8 justify-between rounded-lg h-64 shadow-lg ring-1 ring-black/20">
+    <div className=" bg-white/70 backdrop-blur-xl  w-full grid grid-cols-3 gap-8 p-8 justify-between rounded-lg h-64 shadow-lg ring-1 ring-black/20">
       <div className="h-full w-full square overflow-hidden rounded-lg object-cover">
         <img src={hotel?.image} className="object-cover w-full h-full " />
       </div>
