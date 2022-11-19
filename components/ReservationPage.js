@@ -80,7 +80,7 @@ const ReservationPage = ({ hotel }) => {
   }));
 
   return (
-    <div className="bg-gradient-to-b relative from-white to-tertiary/10 w-full h-screen flex items-center justify-center flex-col p-16">
+    <div className="relative w-full h-screen flex items-center justify-center flex-col p-16">
       <div className="text-primary px-8 rounded-lg text-center my-8">
         <h1 className="text-3xl font-bold">{hotel?.hotel}</h1>
       </div>
@@ -92,7 +92,7 @@ const ReservationPage = ({ hotel }) => {
         <div className="border-2 border-dashed rounded-lg w-fit shadow-lg">
           <ImageCarousel images={hotel?.image} />
         </div>
-        <div className="border-2 border-dashed bg-white shadow-lg rounded-lg px-32 h-full flex items-start justify-center flex-col">
+        <div className="border-2 border-dashed bg-white/50 backdrop-blur-xl shadow-lg rounded-lg px-32 h-full flex items-start justify-center flex-col">
           <div className="w-full flex flex-row justify-between my-4">
             <h3 className="text-xl font-bold">Rate</h3>
             <h3 className="text-xl font-bold">

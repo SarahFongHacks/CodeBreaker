@@ -22,7 +22,7 @@ const ImageCarousel = ({ images }) => {
   };
 
   return (
-    <div className="h-[32rem] w-[32rem] square rounded-md aspect-square overflow-hidden relative bg-white">
+    <div className="h-[32rem] w-[32rem] square rounded-md aspect-square overflow-hidden relative bg-white/50 backdrop-blur-xl">
       <AnimatePresence exitBeforeEnter>
         {images && (
           <motion.img
@@ -38,13 +38,13 @@ const ImageCarousel = ({ images }) => {
       </AnimatePresence>
 
       <div
-        className="bg-white/50 hover:bg-white transition duration-200 ease-linear ring-1  ring-black/50 flex text-xl items-center justify-center rounded-full w-12 h-12 absolute right-4 top-[45%] z-10 cursor-pointer"
+        className="bg-white/50 backdrop-blur-xl hover:bg-white transition duration-200 ease-linear ring-1  ring-black/50 flex text-xl items-center justify-center rounded-full w-12 h-12 absolute right-4 top-[45%] z-10 cursor-pointer"
         onClick={() => incrementHandler()}
       >
         <BsArrowRightShort />
       </div>
       <div
-        className="bg-white/50 hover:bg-white transition duration-200 ease-linear ring-1  ring-black/50 flex text-xl items-center justify-center rounded-full w-12 h-12 absolute left-4 top-[45%] z-10 cursor-pointer"
+        className="bg-white/50 backdrop-blur-xl hover:bg-white transition duration-200 ease-linear ring-1  ring-black/50 flex text-xl items-center justify-center rounded-full w-12 h-12 absolute left-4 top-[45%] z-10 cursor-pointer"
         onClick={() => decrementHandler()}
       >
         <BsArrowLeftShort />

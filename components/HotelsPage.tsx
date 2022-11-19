@@ -24,43 +24,49 @@ const Hotels = () => {
   };
 
   return (
-    <motion.div
-      className="w-full min-h-screen bg-gradient-to-b from-white to-tertiary/30 flex flex-col items-center justify-start p-16 relative"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-    >
-      <div className="absolute top-0 flex w-full items-center justify-end p-8">
-        <LoginButton color="black" />
-      </div>
-      <h1 className="font-bold text-4xl mb-8">Hotels</h1>
-      <Filter />
-      <div className="w-full h-full grid md:grid-cols-3 lg:grid-cols-4 gap-6 items-start justify-center mt-8">
-        {searchEnabled ? (
-          search.length > 0 ? (
-            search.map((hotel) => {
+    <div className="w-full min-h-screen ">
+      <img
+        src="/assets/gradient.jpeg"
+        className="w-full fixed h-screen top-0 -z-10"
+      />
+      <motion.div
+        className="w-full min-h-screen flex flex-col items-center justify-start p-16 relative"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+      >
+        <div className="absolute top-0 flex w-full items-center justify-end p-8">
+          <LoginButton color="black" />
+        </div>
+        <h1 className="font-bold text-4xl mb-8">Hotels</h1>
+        <Filter />
+        <div className="w-full h-full grid md:grid-cols-3 lg:grid-cols-4 gap-6 items-start justify-center mt-8">
+          {searchEnabled ? (
+            search.length > 0 ? (
+              search.map((hotel) => {
+                return <HotelSelect hotel={hotel} key={hotel.id} />;
+              })
+            ) : (
+              <div className="w-full col-span-full flex flex-col">
+                <p className="font-bold text-2xl mb-2">No hotels found</p>
+                <p className="text-lg">
+                  Try changing or removing some of your filters.
+                </p>
+                <div
+                  onClick={() => setSearchEnabled(false)}
+                  className="px-4 py-2 mt-8 rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] w-fit  cursor-pointer bg-black select-none text-white"
+                >
+                  Remove filters
+                </div>
+              </div>
+            )
+          ) : (
+            hotels.map((hotel) => {
               return <HotelSelect hotel={hotel} key={hotel.id} />;
             })
-          ) : (
-            <div className="w-full col-span-full flex flex-col">
-              <p className="font-bold text-2xl mb-2">No hotels found</p>
-              <p className="text-lg">
-                Try changing or removing some of your filters.
-              </p>
-              <div
-                onClick={() => setSearchEnabled(false)}
-                className="px-4 py-2 mt-8 rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] w-fit  cursor-pointer bg-black select-none text-white"
-              >
-                Remove filters
-              </div>
-            </div>
-          )
-        ) : (
-          hotels.map((hotel) => {
-            return <HotelSelect hotel={hotel} key={hotel.id} />;
-          })
-        )}
-      </div>
-    </motion.div>
+          )}
+        </div>
+      </motion.div>
+    </div>
   );
 };
 

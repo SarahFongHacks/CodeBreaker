@@ -16,12 +16,12 @@ const LoginButton = ({ color }) => {
   };
 
   return (
-    <div className="select-none">
+    <div className="select-none ">
       {user ? (
         <div className="h-12">
           <DropdownMenu.Root>
             <DropdownMenu.Trigger className="select-none focus:outline-none">
-              <div className="w-36 rounded-lg bg-white ring-1 truncate overflow-hidden py-3 px-5 ring-black/30 transition duration-200 ease-linear hover:ring-black cursor-pointer">
+              <div className="w-36 rounded-lg bg-white/50 backdrop-blur-xl  ring-1 truncate overflow-hidden py-3 px-5 ring-black/30 transition duration-200 ease-linear hover:ring-black cursor-pointer">
                 {user.email}
               </div>
             </DropdownMenu.Trigger>

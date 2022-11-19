@@ -29,10 +29,14 @@ const Login = () => {
 
   return (
     <motion.div
-      className="w-full h-screen bg-gradient-to-b from-white to-tertiary/30 flex flex-col items-center justify-center relative"
+      className="w-full h-screen  flex flex-col items-center justify-center relative"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
+      <img
+        src="/assets/gradient.jpeg"
+        className="w-full fixed h-screen top-0 -z-10"
+      />
       {/* <div className="w-full h-44 mb-16 overflow-hidden relative">
         <img
           src="/assets/header.jpeg"
