@@ -34,6 +34,8 @@ const ReservationPage = ({ hotel }) => {
           priceId: data.data.price.id,
           userId: user.id,
           hotelId: hotel.id,
+          startDate: startDate,
+          endDate: endDate,
         }),
       });
       const stripeData = await data2.json();
