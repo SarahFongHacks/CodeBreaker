@@ -25,12 +25,12 @@ const Hotels = () => {
 
   return (
     <div className="w-full min-h-screen ">
-      <img
+      {/* <img
         src="/assets/gradient.jpeg"
         className="w-full fixed h-screen top-0 -z-10"
-      />
+      /> */}
       <motion.div
-        className="w-full min-h-screen flex flex-col items-center justify-start p-16 relative"
+        className="w-full min-h-screen flex flex-col bg-gradient-to-b from-white to-tertiary/40 items-center justify-start p-16 relative"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >

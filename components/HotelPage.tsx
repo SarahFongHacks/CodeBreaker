@@ -58,15 +58,15 @@ const Hotel = ({ hotels }) => {
 
   return (
     <div className="w-full min-h-screen ">
-      <img
+      {/* <img
         src="/assets/gradient.jpeg"
         className="w-full fixed h-screen top-0 -z-10"
-      />
+      /> */}
       {reservation ? (
         <ReservationPage hotel={hotel} />
       ) : (
         <motion.div
-          className="w-full h-screen flex flex-col items-center justify-center p-36 relative overflow-hidden"
+          className="w-full h-screen flex flex-col items-center bg-gradient-to-b from-white to-tertiary/40 justify-center p-36 relative overflow-hidden"
           key="main"
           initial="hidden"
           animate="visible"
