@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../context";
+import BackButton from "./UI/BackButton";
 import DateDialog from "./UI/DateDialog";
 import LoginButton from "./UI/LoginButton";
 
@@ -13,7 +14,8 @@ const ProfilePage = () => {
 
   return (
     <div className="w-full min-h-screen flex items-start justify-center p-36 bg-gradient-to-b from-white to-tertiary/30">
-      <div className="w-full p-8 overflow-hidden absolute top-0 flex justify-end">
+      <div className="absolute left-0 top-0 flex w-full items-center justify-between p-8">
+        <BackButton href="/hotels" />
         <LoginButton color="black" />
       </div>
       {user ? (

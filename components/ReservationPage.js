@@ -8,6 +8,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { HotelRoom } from "../types/types";
 import { createProduct } from "../stripe/stripe_product";
 import { useRouter } from "next/router";
+import BackButton from "./UI/BackButton";
+import LoginButton from "./UI/LoginButton";
 
 const ReservationPage = ({ hotel }) => {
   var today = new Date();
@@ -76,11 +78,14 @@ const ReservationPage = ({ hotel }) => {
   }));
 
   return (
-    <div className="bg-gradient-to-b from-white to-tertiary/10 w-full h-screen flex items-center justify-center flex-col p-16">
+    <div className="bg-gradient-to-b relative from-white to-tertiary/10 w-full h-screen flex items-center justify-center flex-col p-16">
       <div className="text-primary px-8 rounded-lg text-center my-8">
         <h1 className="text-3xl font-bold">{hotel?.hotel}</h1>
       </div>
-
+      <div className="absolute left-0 top-0 flex w-full items-center justify-between p-8">
+        <BackButton href="/hotels" />
+        <LoginButton color="black" />
+      </div>
       <div className="flex space-x-8 w-full items-center justify-center ">
         <div className="border-2 border-dashed rounded-lg w-fit shadow-lg">
           <ImageCarousel images={hotel?.image} />

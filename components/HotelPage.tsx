@@ -17,6 +17,7 @@ import { motion } from "framer-motion";
 import ImageCarousel from "./UI/ImageCarousel";
 import LoginButton from "./UI/LoginButton";
 import ReservationPage from "./ReservationPage";
+import BackButton from "./UI/BackButton";
 
 const Hotel = ({ hotels }) => {
   const [checkin, setCheckin] = useState();
@@ -68,7 +69,8 @@ const Hotel = ({ hotels }) => {
           variants={container}
           exit={{ opacity: 0 }}
         >
-          <div className="absolute left-0 top-0 flex w-full items-center justify-end p-8">
+          <div className="absolute left-0 top-0 flex w-full items-center justify-between p-8">
+            <BackButton href="/hotels" />
             <LoginButton color="black" />
           </div>
           <div className="overflow-hidden ">
