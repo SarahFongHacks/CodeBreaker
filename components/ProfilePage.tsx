@@ -3,6 +3,7 @@ import { LoginContext } from "../context";
 import BackButton from "./UI/BackButton";
 import DateDialog from "./UI/DateDialog";
 import LoginButton from "./UI/LoginButton";
+import { motion } from "framer-motion";
 
 const ProfilePage = () => {
   const { user, setUser } = useContext(LoginContext);
@@ -11,6 +12,19 @@ const ProfilePage = () => {
   useEffect(() => {
     setUser(user);
   }, [dateChange]);
+
+  const container = {
+    hidden: { y: 0 },
+    visible: {
+      y: 0,
+      transition: { duration: 0.5, staggerChildren: 0.4 },
+    },
+  };
+
+  const item = {
+    hidden: { y: 50, opacity: 0 },
+    visible: { y: 0, opacity: 1 },
+  };
 
   return (
     <div className="w-full min-h-screen flex bg-gradient-to-b from-white to-tertiary/40 items-start justify-center p-36 ">
@@ -41,15 +55,22 @@ const ProfilePage = () => {
             <p className="text-3xl font-bold mb-4">
               Bookings ({user?.currentBooking?.length})
             </p>
-            <div className="w-full grid grid-cols-1 gap-4">
+            <motion.div
+              className="w-full grid grid-cols-1 gap-4"
+              initial="hidden"
+              animate="visible"
+              variants={container}
+            >
               {user?.currentBooking?.map((booking) => (
-                <DateDialog
-                  booking={booking}
-                  changed={dateChange}
-                  setChanged={setDateChange}
-                />
+                <motion.div variants={item}>
+                  <DateDialog
+                    booking={booking}
+                    changed={dateChange}
+                    setChanged={setDateChange}
+                  />
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </div>
       ) : (
