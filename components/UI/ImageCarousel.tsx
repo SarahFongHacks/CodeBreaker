@@ -22,7 +22,7 @@ const ImageCarousel = ({ images }) => {
   };
 
   return (
-    <div className="h-[32rem] w-[32rem] square rounded-md aspect-square overflow-hidden relative bg-white/50 backdrop-blur-xl">
+    <div className="h-[32rem] w-[32rem] square rounded-md aspect-square overflow-hidden relative bg-white/70 backdrop-blur-xl">
       <AnimatePresence exitBeforeEnter>
         {images && (
           <motion.img
