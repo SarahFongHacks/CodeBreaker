@@ -4,7 +4,6 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     try {
       // Create Checkout Sessions from body params.
-      console.log(req.body);
       const session = await stripe.checkout.sessions.create({
         line_items: [
           {
@@ -13,6 +12,11 @@ export default async function handler(req, res) {
             quantity: 1,
           },
         ],
+        metadata: {
+          reservation: req.body.reservation,
+          user: req.body.user,
+          type: "cancel",
+        },
         mode: "payment",
         success_url: `${req.headers.origin}/profile`,
         cancel_url: `${req.headers.origin}/hotels`,

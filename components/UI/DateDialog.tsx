@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { motion } from "framer-motion";
 import { changeReservationDate } from "../../db_func/reservations";
 import { getHotelRoom } from "../../db_func/hotelRoom";
 import { HotelRoom } from "../../types/types";
 import { useRouter } from "next/router";
+import { LoginContext } from "../../context";
 
 const DateDialog = ({ booking, changed, setChanged }) => {
   const [checkin, setCheckin] = useState("");
@@ -12,6 +13,7 @@ const DateDialog = ({ booking, changed, setChanged }) => {
   const [hotel, setHotel] = useState<HotelRoom | null>(null);
 
   const router = useRouter();
+  const { user } = useContext(LoginContext);
 
   const dateHandler = (date) => {
     const dateObj = new Date(date);
@@ -40,8 +42,13 @@ const DateDialog = ({ booking, changed, setChanged }) => {
   const cancelHandler = async () => {
     const data = await fetch("/api/cancel_sessions", {
       method: "POST",
+      body: JSON.stringify({
+        reservation: booking,
+        user: user,
+      }),
     });
     const stripeData = await data.json();
+    console.log(stripeData);
     router.push(stripeData.url);
   };
 
