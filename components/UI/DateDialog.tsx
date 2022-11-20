@@ -4,11 +4,14 @@ import { motion } from "framer-motion";
 import { changeReservationDate } from "../../db_func/reservations";
 import { getHotelRoom } from "../../db_func/hotelRoom";
 import { HotelRoom } from "../../types/types";
+import { useRouter } from "next/router";
 
 const DateDialog = ({ booking, changed, setChanged }) => {
   const [checkin, setCheckin] = useState("");
   const [checkout, setCheckout] = useState("");
   const [hotel, setHotel] = useState<HotelRoom | null>(null);
+
+  const router = useRouter();
 
   const dateHandler = (date) => {
     const dateObj = new Date(date);
@@ -32,6 +35,14 @@ const DateDialog = ({ booking, changed, setChanged }) => {
   const getHotel = async () => {
     const hotel = await getHotelRoom(booking.hotelRoomId);
     setHotel(hotel);
+  };
+
+  const cancelHandler = async () => {
+    const data = await fetch("/api/cancel_sessions", {
+      method: "POST",
+    });
+    const stripeData = await data.json();
+    router.push(stripeData.url);
   };
 
   useEffect(() => {
@@ -114,7 +125,10 @@ const DateDialog = ({ booking, changed, setChanged }) => {
               </Dialog.Content>
             </Dialog.Portal>
           </Dialog.Root>
-          <div className="w-full flex flex-row hover:shadow-xl hover:scale-[1.02] transition duration-200 ease-linear  cursor-pointer space-x-2 mt-4 items-center justify-center bg-red-500 text-white p-2 rounded-lg font-bold">
+          <div
+            className="w-full flex flex-row hover:shadow-xl hover:scale-[1.02] transition duration-200 ease-linear  cursor-pointer space-x-2 mt-4 items-center justify-center bg-red-500 text-white p-2 rounded-lg font-bold"
+            onClick={() => cancelHandler()}
+          >
             <p>Cancel booking</p>
           </div>
         </div>
