@@ -13,11 +13,19 @@ const ProfilePage = () => {
     setUser(user);
   }, [dateChange]);
 
+  const profileInfo = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 0.5 },
+    },
+  };
+
   const container = {
     hidden: { y: 0 },
     visible: {
       y: 0,
-      transition: { duration: 0.5, staggerChildren: 0.4 },
+      transition: { duration: 0.5, staggerChildren: 0.5, delay: 0.5 },
     },
   };
 
@@ -37,7 +45,12 @@ const ProfilePage = () => {
         <LoginButton color="black" />
       </div>
       {user ? (
-        <div className="flex flex-col items-center justify-center w-full">
+        <motion.div
+          className="flex flex-col items-center justify-center w-full"
+          initial="hidden"
+          animate="visible"
+          variants={profileInfo}
+        >
           <p className="text-5xl font-bold mb-12">Your Profile</p>
           <div className="grid grid-cols-2 w-full gap-4">
             <div className="shadow-xl ring-1 bg-white/70 backdrop-blur-xl ring-black/20 rounded-lg p-8 py-16 flex items-center justify-center w-full flex-col">
@@ -72,7 +85,7 @@ const ProfilePage = () => {
               ))}
             </motion.div>
           </div>
-        </div>
+        </motion.div>
       ) : (
         <p className="text-3xl font-bold mb-12">
           Please login to view your profile
