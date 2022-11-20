@@ -1,4 +1,4 @@
-import { collection, deleteDoc, doc, setDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 
 import { dbConverter } from "../db_conversion/db_converter";
 import { db } from "../pages/index";
@@ -31,6 +31,27 @@ export async function changeReservationRoom(
 
 async function writeReservation(reservation: Reservation) {
   await setDoc(doc(db, "Reservation" ,reservation.id), dbConverter.reservationToJson(reservation));
+}
+
+export async function cancelReservation(reservation: Reservation) {
+
+  const user : User = await dbConverter.jsonToUser(await getDoc(doc(db, "User", reservation.userId)), doc(db, "User", reservation.userId))
+  const hotelRoom : HotelRoom = await dbConverter.jsonToHotelRoom(await getDoc(doc(db, "HotelRoom", reservation.hotelRoomId)), doc(db, "HotelRoom", reservation.hotelRoomId))
+  
+  for(let i = 0; i < hotelRoom.reservations.length; i++) {
+    if(hotelRoom.reservations[i].id == reservation.id)
+      hotelRoom.reservations.splice(i, i)
+  }
+  
+  for(let i = 0; i < user.currentBooking.length; i++) {
+    if(user.currentBooking[i].id == reservation.id)
+      user.currentBooking.splice(i, i)
+  }
+ 
+  updateUser(user)
+  updateHotelRoom(hotelRoom)
+  await deleteDoc(doc(db, "Reservation", reservation.id));
+
 }
 
 export async function createReservation(
@@ -100,5 +121,5 @@ export async function createReservation(
   await updateUser(user);
   await updateHotelRoom(hotelRoom);
 
-       return fireBaseError;
+  return fireBaseError;
 }
