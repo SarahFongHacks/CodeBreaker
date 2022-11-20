@@ -14,18 +14,15 @@ const ProfilePage = () => {
   }, [dateChange]);
 
   const profileInfo = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.5 },
-    },
+    hidden: { y: 50, opacity: 0 },
+    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
   };
 
   const container = {
     hidden: { y: 0 },
     visible: {
       y: 0,
-      transition: { duration: 0.5, staggerChildren: 0.5, delay: 0.5 },
+      transition: { duration: 0.5, staggerChildren: 0.5, delayChildren: 1 },
     },
   };
 
@@ -45,14 +42,15 @@ const ProfilePage = () => {
         <LoginButton color="black" />
       </div>
       {user ? (
-        <motion.div
-          className="flex flex-col items-center justify-center w-full"
-          initial="hidden"
-          animate="visible"
-          variants={profileInfo}
-        >
+        <div className="flex flex-col items-center justify-center w-full">
           <p className="text-5xl font-bold mb-12">Your Profile</p>
-          <div className="grid grid-cols-2 w-full gap-4">
+          <motion.div
+            className="grid grid-cols-2 w-full gap-4"
+            initial="hidden"
+            animate="visible"
+            variants={profileInfo}
+            exit={{ opacity: 0 }}
+          >
             <div className="shadow-xl ring-1 bg-white/70 backdrop-blur-xl ring-black/20 rounded-lg p-8 py-16 flex items-center justify-center w-full flex-col">
               <p className="text-xl mb-2 text-center">email</p>
               <p className="text-2xl font-bold text-center">{user?.email}</p>
@@ -63,7 +61,7 @@ const ProfilePage = () => {
                 {user?.rewardPoints}
               </p>
             </div>
-          </div>
+          </motion.div>
           <div className="w-full flex-col mt-12">
             <p className="text-3xl font-bold mb-4">
               Bookings ({user?.currentBooking?.length})
@@ -73,6 +71,7 @@ const ProfilePage = () => {
               initial="hidden"
               animate="visible"
               variants={container}
+              exit={{ opacity: 0 }}
             >
               {user?.currentBooking?.map((booking) => (
                 <motion.div variants={item}>
@@ -85,7 +84,7 @@ const ProfilePage = () => {
               ))}
             </motion.div>
           </div>
-        </motion.div>
+        </div>
       ) : (
         <p className="text-3xl font-bold mb-12">
           Please login to view your profile
