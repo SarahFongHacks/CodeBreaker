@@ -14,8 +14,8 @@ const ProfilePage = () => {
   }, [dateChange]);
 
   const profileInfo = {
-    hidden: { y: 50, opacity: 0 },
-    visible: { y: 0, opacity: 1, transition: { duration: 0.5 } },
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: { scale: 1, opacity: 1 },
   };
 
   const container = {
