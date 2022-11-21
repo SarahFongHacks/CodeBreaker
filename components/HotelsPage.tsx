@@ -37,7 +37,7 @@ const Hotels = () => {
         <div className="absolute top-0 flex w-full items-center justify-end p-8">
           <LoginButton color="black" />
         </div>
-        <h1 className="font-bold text-4xl mb-8">Hotels</h1>
+        <h1 className="font-bold text-4xl mb-12"></h1>
         <Filter />
         <div className="w-full h-full grid md:grid-cols-3 lg:grid-cols-4 gap-6 items-start justify-center mt-8">
           {searchEnabled ? (

@@ -42,10 +42,6 @@ const ReservationPage = ({ hotel }) => {
       //console.log(stripeData);
       router.push(stripeData.url);
     }
-    createReservation(hotel, user, startDate, endDate).then((res) => {
-      // res.error === false && setRegistered(true);
-      res.error === false && alert("Hotel was successfully booked!");
-    });
   };
 
   const totalHandler = () => {
