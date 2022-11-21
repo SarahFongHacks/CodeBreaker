@@ -42,10 +42,7 @@ const DateDialog = ({ booking, changed, setChanged }) => {
   const cancelHandler = async () => {
     const data = await fetch("/api/cancel_sessions", {
       method: "POST",
-      body: JSON.stringify({
-        reservation: booking,
-        user: user,
-      }),
+      body: JSON.stringify(booking),
     });
     const stripeData = await data.json();
     console.log(stripeData);

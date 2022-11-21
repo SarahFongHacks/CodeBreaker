@@ -1,6 +1,7 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
+  console.log(req.body);
   if (req.method === "POST") {
     try {
       // Create Checkout Sessions from body params.
@@ -13,8 +14,7 @@ export default async function handler(req, res) {
           },
         ],
         metadata: {
-          reservation: req.body.reservation,
-          user: req.body.user,
+          reservation: req.body,
           type: "cancel",
         },
         mode: "payment",
