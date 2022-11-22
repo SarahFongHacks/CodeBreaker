@@ -40,12 +40,12 @@ export async function cancelReservation(reservation: Reservation) {
   
   for(let i = 0; i < hotelRoom.reservations.length; i++) {
     if(hotelRoom.reservations[i].id == reservation.id)
-      hotelRoom.reservations.splice(i, i)
+      hotelRoom.reservations.splice(i, 1)
   }
   
   for(let i = 0; i < user.currentBooking.length; i++) {
     if(user.currentBooking[i].id == reservation.id)
-      user.currentBooking.splice(i, i)
+      user.currentBooking.splice(i, 1)
   }
  
   updateUser(user)
@@ -71,6 +71,7 @@ export async function createReservation(
     hotelRoomId: hotelRoom.id,
     startDate: startDate.getTime(),
     userId: user.id,
+    paymentIntent : "RewardPoints",
   };
 
   const fireBaseError: FireBaseError = {

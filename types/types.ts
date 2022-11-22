@@ -20,6 +20,7 @@ export type Reservation = {
   hotelRoomId: string;
   startDate: number;
   userId: string;
+  paymentIntent: string;
 };
 
 export type User = {

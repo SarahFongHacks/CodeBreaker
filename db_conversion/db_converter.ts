@@ -48,6 +48,7 @@ export const dbConverter = {
       hotelRoomId: json.hotelRoomId,
       startDate: json.startDate,
       userId: json.userId,
+      paymentIntent : json.paymentIntent,
     };
     return reservation;
   },
@@ -59,6 +60,7 @@ export const dbConverter = {
       hotelRoomId: reservation.hotelRoomId,
       startDate: reservation.startDate,
       userId: reservation.userId,
+      paymentIntent: reservation.paymentIntent,
     };
   },
 
