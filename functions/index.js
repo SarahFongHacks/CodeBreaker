@@ -29,8 +29,6 @@ async function editResponse(request) {
 
   const data = request.body.data.object.metadata 
 
-  console.log(data)
-
   const reservation = JSON.parse(data.prevBooking)
 
   await refund(reservation.paymentIntent)
@@ -38,17 +36,12 @@ async function editResponse(request) {
   const newStart = Date.parse(JSON.parse(data.startDate))
   const newEnd = Date.parse(JSON.parse(data.endDate))
 
-  console.log(newStart)
-  console.log(newEnd)
-
   reservation.startDate = newStart;
   reservation.endDate = newEnd;
   reservation.paymentIntent = request.body.data.object.payment_intent
 
   const docRef = db.collection("Reservation").doc(reservation.id)
   
-  console.log(data)
-  console.log(reservation)
 
   docRef.set(reservation) 
 
@@ -104,9 +97,6 @@ exports.checkoutComplete =
 
         const hotelRoom = (await hotelDocRef.get()).data()
 
-        console.log(user)
-      	console.log(hotelRoom)
-
         for (let i = 0; i < hotelRoom.reservations.length; i++) {
           if (hotelRoom.reservations[i].id == reservation.id)
             hotelRoom.reservations.splice(i, 1)
@@ -157,7 +147,6 @@ exports.checkoutComplete =
         userDocRef.set(user)
         hotelDocRef.set(hotel)
       }
-      console.log("Hellofdfdsafdsaf");
 
       return response.status(200).end();
     });
