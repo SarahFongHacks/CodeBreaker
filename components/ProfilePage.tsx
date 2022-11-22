@@ -8,11 +8,6 @@ import { getUser } from "../db_func/user";
 
 const ProfilePage = () => {
   const { user, setUser, loading } = useContext(LoginContext);
-  const [dateChange, setDateChange] = useState(false);
-
-  // useEffect(() => {
-  //   setUser(user);
-  // }, [dateChange]);
 
   const getUserUpdated = async () => {
     if (user) {
@@ -89,12 +84,7 @@ const ProfilePage = () => {
             >
               {user?.currentBooking?.map((booking) => (
                 <motion.div variants={item}>
-                  <DateDialog
-                    key={booking.id}
-                    booking={booking}
-                    changed={dateChange}
-                    setChanged={setDateChange}
-                  />
+                  <DateDialog key={booking.id} booking={booking} />
                 </motion.div>
               ))}
             </motion.div>

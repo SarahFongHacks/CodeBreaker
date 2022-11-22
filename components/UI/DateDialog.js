@@ -11,7 +11,7 @@ import { createProduct } from "../../stripe/stripe_product";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const DateDialog = ({ booking, changed, setChanged }) => {
+const DateDialog = ({ booking }) => {
   var today = new Date();
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(false);
@@ -88,18 +88,15 @@ const DateDialog = ({ booking, changed, setChanged }) => {
   const editHandler = async ({ hotel, user, startDate, endDate, total }) => {
     const data = await createProduct(hotel, startDate, endDate, total * 100);
     if (data) {
-      const data2 = await fetch("/api/checkout_sessions", {
+      const data2 = await fetch("/api/edit_sessions", {
         method: "POST",
         body: JSON.stringify({
           priceId: data.data.price.id,
-          userId: user.id,
-          hotelId: hotel.id,
-          startDate: startDate,
-          endDate: endDate,
+          prevBooking: booking,
         }),
       });
       const stripeData = await data2.json();
-      console.log(stripeData);
+      // console.log(stripeData);
       router.push(stripeData.url);
     }
   };
