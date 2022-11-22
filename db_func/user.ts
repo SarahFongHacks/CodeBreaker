@@ -1,16 +1,20 @@
-import {User} from "../types/types"
-import {db} from "../pages/index"
-import {dbConverter} from "../db_conversion/db_converter"
-import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore"; 
+import { User } from "../types/types";
+import { db } from "../pages/index";
+import { dbConverter } from "../db_conversion/db_converter";
+import { doc, setDoc, updateDoc, getDoc } from "firebase/firestore";
 
-export async function updateUser(user : User) {
+export async function updateUser(user: User) {
+  const docRef = doc(db, "User", user.id);
 
-  const docRef = doc(db, 'User', user.id)
-
-  await updateDoc(docRef, await dbConverter.userToJson(user)) 
+  await updateDoc(docRef, await dbConverter.userToJson(user));
 }
 
-export async function getUser(userId : string) : Promise<User> {
+// export async function getUser(userId: string) {
+//   return (await getDoc(doc(db, "User", userId))).data();
+// }
 
-  return await dbConverter.jsonToUser(await getDoc(doc(db, 'User', userId)), doc(db, 'User', userId))
+export async function getUser(userId: string): Promise<User> {
+  const docRef = doc(db, "User", userId);
+
+  return await dbConverter.jsonToUser((await getDoc(docRef)).data(), docRef);
 }

@@ -1,20 +1,34 @@
 import React, { useContext, useEffect, useState } from "react";
 import { LoginContext } from "../context";
 import BackButton from "./UI/BackButton";
-import DateDialog from "./UI/DateDialog";
 import LoginButton from "./UI/LoginButton";
 import { motion } from "framer-motion";
+import DateDialog from "./UI/DateDialog";
+import { getUser } from "../db_func/user";
 
 const ProfilePage = () => {
-  const { user, setUser } = useContext(LoginContext);
+  const { user, setUser, loading } = useContext(LoginContext);
   const [dateChange, setDateChange] = useState(false);
 
+  // useEffect(() => {
+  //   setUser(user);
+  // }, [dateChange]);
+
+  const getUserUpdated = async () => {
+    if (user) {
+      const updated = await getUser(user.id);
+      console.log(updated);
+      setUser(updated);
+    }
+  };
+
   useEffect(() => {
-    setUser(user);
-  }, [dateChange]);
+    // console.log("test");
+    getUserUpdated();
+  }, [loading]);
 
   const profileInfo = {
-    hidden: { scale: 0.8, opacity: 0 },
+    hidden: { scale: 0.9, opacity: 0 },
     visible: { scale: 1, opacity: 1 },
   };
 
@@ -76,6 +90,7 @@ const ProfilePage = () => {
               {user?.currentBooking?.map((booking) => (
                 <motion.div variants={item}>
                   <DateDialog
+                    key={booking.id}
                     booking={booking}
                     changed={dateChange}
                     setChanged={setDateChange}
