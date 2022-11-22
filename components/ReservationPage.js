@@ -26,7 +26,12 @@ const ReservationPage = ({ hotel }) => {
   const router = useRouter();
 
   const reservationHandler = async ({ hotel, user, startDate, endDate }) => {
-    const data = await createProduct(hotel, startDate, endDate, total * 100);
+    const data = await createProduct(
+      hotel,
+      new Date(startDate.setMonth(startDate.getMonth() + 1)),
+      new Date(endDate.setMonth(endDate.getMonth() + 1)),
+      total * 100
+    );
     if (data) {
       const data2 = await fetch("/api/checkout_sessions", {
         method: "POST",
