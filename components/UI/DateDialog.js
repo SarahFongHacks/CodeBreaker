@@ -86,7 +86,12 @@ const DateDialog = ({ booking }) => {
   };
 
   const editHandler = async ({ hotel, user, startDate, endDate, total }) => {
-    const data = await createProduct(hotel, startDate, endDate, total * 100);
+    const data = await createProduct(
+      hotel,
+      new Date(startDate.setMonth(startDate.getMonth() + 1)),
+      new Date(endDate.setMonth(endDate.getMonth() + 1)),
+      total * 100
+    );
     if (data) {
       const data2 = await fetch("/api/edit_sessions", {
         method: "POST",
