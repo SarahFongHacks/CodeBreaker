@@ -11,14 +11,14 @@ export async function createProduct(
   const product_create_function = httpsCallable(functions, "helloWorld");
 
   const startDateString =
-    startDate.getMonth() +
+    (startDate.getMonth()+1) +
     "/" +
     startDate.getDate() +
     "/" +
     startDate.getFullYear();
 
   const endDateString =
-    endDate.getMonth() + "/" + endDate.getDate() + "/" + endDate.getFullYear();
+    (endDate.getMonth() + 1) + "/" + endDate.getDate() + "/" + endDate.getFullYear();
 
   const name = hotelRoom.hotel + " " + startDateString + "-" + endDateString;
 
