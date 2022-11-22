@@ -20,6 +20,40 @@ admin.initializeApp();
 
 const db = admin.firestore();
 
+
+async function refund(paymentIntent) {
+  await stripe.refunds.create({payment_intent : paymentIntent});
+}
+
+async function editResponse(request) {
+
+  const data = request.body.data.object.metadata 
+
+  console.log(data)
+
+  const reservation = JSON.parse(data.prevBooking)
+
+  await refund(reservation.paymentIntent)
+
+  const newStart = Date.parse(JSON.parse(data.startDate))
+  const newEnd = Date.parse(JSON.parse(data.endDate))
+
+  console.log(newStart)
+  console.log(newEnd)
+
+  reservation.startDate = newStart;
+  reservation.endDate = newEnd;
+  reservation.paymentIntent = request.body.data.object.payment_intent
+
+  const docRef = db.collection("Reservation").doc(reservation.id)
+  
+  console.log(data)
+  console.log(reservation)
+
+  docRef.set(reservation) 
+
+}
+
 exports.helloWorld = functions.https.onCall(async (request, response) => {
   const product = await stripe.products.create({
     name : request.productName,
@@ -40,20 +74,6 @@ exports.helloWorld = functions.https.onCall(async (request, response) => {
   return ret;
 });
 
-exports.refund = functions.https.onCall(async (request, response) => {
-  const reservation = JSON.parse(request.body.reservation)
-
-  try {
-    const refund = await stripe.refunds.create(
-        {payment_intent : reservation.paymentIntent});
-
-  } catch (error) {
-    return false;
-  }
-
-  return true;
-});
-
 exports.checkoutComplete =
     functions.https.onRequest(async (request, response) => {
       // console.log(request.body.data.object.metadata)
@@ -66,7 +86,11 @@ exports.checkoutComplete =
       const endDate = request.body.data.object.metadata.end
       const type = request.body.data.object.metadata.type
 
-      if (type == "cancel") {
+      if(type == "edit") {
+
+        await editResponse(request)
+
+      } else if (type == "cancel") {
 
         const reservation =
             JSON.parse(request.body.data.object.metadata.reservation)
@@ -82,7 +106,6 @@ exports.checkoutComplete =
 
         console.log(user)
       	console.log(hotelRoom)
-        //
 
         for (let i = 0; i < hotelRoom.reservations.length; i++) {
           if (hotelRoom.reservations[i].id == reservation.id)
@@ -115,6 +138,8 @@ exports.checkoutComplete =
         const resCollectionRef = db.collection("Reservation");
         const resDocRef = resCollectionRef.doc();
         const id = resDocRef.id;
+      
+        const paymentIntent = request.body.data.object.payment_intent
 
         const reservation = {
           id : id,
@@ -122,6 +147,7 @@ exports.checkoutComplete =
           hotelRoomId : hotelId,
           startDate : Date.parse(startDate),
           userId : userId,
+          paymentIntent : paymentIntent
         }
 
         resDocRef.set(reservation)
@@ -133,5 +159,5 @@ exports.checkoutComplete =
       }
       console.log("Hellofdfdsafdsaf");
 
-      return response;
+      return response.status(200).end();
     });
