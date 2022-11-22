@@ -1,7 +1,7 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
-  const { priceId, prevBooking, hotel } = JSON.parse(req.body);
+  const { priceId, prevBooking, endDate, startDate } = JSON.parse(req.body);
   if (req.method === "POST") {
     try {
       // Create Checkout Sessions from body params.
@@ -15,6 +15,8 @@ export default async function handler(req, res) {
         ],
         metadata: {
           prevBooking: JSON.stringify(prevBooking),
+          endDate: JSON.stringify(endDate),
+          startDate: JSON.stringify(startDate),
           type: "edit",
         },
         mode: "payment",

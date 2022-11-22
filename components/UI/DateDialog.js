@@ -93,6 +93,8 @@ const DateDialog = ({ booking }) => {
         body: JSON.stringify({
           priceId: data.data.price.id,
           prevBooking: booking,
+          endDate: endDate,
+          startDate: startDate,
         }),
       });
       const stripeData = await data2.json();
@@ -191,7 +193,7 @@ const DateDialog = ({ booking }) => {
                 onChange={(e) => setCheckout(e.target.value)}
               /> */}
                     </div>
-                    <div className="w-full h-[2px] bg-black/20 my-4 " />
+                    <div className="w-full h-[2px] bg-black/20 my-4 mt-16 " />
                     <div className="mb-4 w-full text-xl font-bold flex justify-between items-center">
                       <h4>Total </h4>
                       <h4>${total} </h4>
