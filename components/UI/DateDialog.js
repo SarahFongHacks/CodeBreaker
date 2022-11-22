@@ -39,20 +39,6 @@ const DateDialog = ({ booking }) => {
     totalHandler();
   }, [startDate, endDate]);
 
-  const excludedDates = [];
-  for (let i = 0; i < hotel?.reservations.length; i++) {
-    excludedDates.push({
-      start: new Date(hotel.reservations[i].startDate),
-      end: new Date(hotel.reservations[i].endDate),
-    });
-    //console.log(new Date(hotel.reservations[i].startDate) + ", " + new Date(hotel.reservations[i].endDate));
-  }
-
-  const disableDateRange = excludedDates.map((range) => ({
-    start: range.start,
-    end: range.end,
-  }));
-
   const router = useRouter();
   const { user } = useContext(LoginContext);
 
@@ -86,12 +72,7 @@ const DateDialog = ({ booking }) => {
   };
 
   const editHandler = async ({ hotel, user, startDate, endDate, total }) => {
-    const data = await createProduct(
-      hotel,
-      new Date(startDate.setMonth(startDate.getMonth() + 1)),
-      new Date(endDate.setMonth(endDate.getMonth() + 1)),
-      total * 100
-    );
+    const data = await createProduct(hotel, startDate, endDate, total * 100);
     if (data) {
       const data2 = await fetch("/api/edit_sessions", {
         method: "POST",
@@ -111,6 +92,24 @@ const DateDialog = ({ booking }) => {
   useEffect(() => {
     getHotel();
   }, []);
+
+  const excludedDates = [];
+  for (let i = 0; i < hotel?.reservations.length; i++) {
+    excludedDates.push({
+      start: new Date(hotel.reservations[i].startDate),
+      end: new Date(hotel.reservations[i].endDate),
+    });
+    console.log(
+      new Date(hotel.reservations[i].startDate) +
+        ", " +
+        new Date(hotel.reservations[i].endDate)
+    );
+  }
+
+  const disableDateRange = excludedDates.map((range) => ({
+    start: range.start,
+    end: range.end,
+  }));
 
   return (
     <div className=" bg-white/70 backdrop-blur-xl  w-full grid grid-cols-3 gap-8 p-8 justify-between rounded-lg h-64 shadow-lg ring-1 ring-black/20">
