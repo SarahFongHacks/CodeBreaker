@@ -13,6 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { MdHotel } from "react-icons/md";
 import { MdMeetingRoom } from "react-icons/md";
 import { HiLocationMarker } from "react-icons/hi";
+import { BsCalendarWeekFill } from "react-icons/bs";
 
 const DateDialog = ({ booking }) => {
   var today = new Date();
@@ -119,32 +120,33 @@ const DateDialog = ({ booking }) => {
       <div className="h-full w-full square overflow-hidden rounded-md object-cover">
         <img src={hotel?.image[0]} className="object-cover w-full h-full " />
       </div>
-      <div className="col-span-2 flex flex-col h-full justify-between pt-2">
+      <div className="col-span-2 flex flex-col h-full justify-between pt-4">
         <div className="grid grid-cols-3 w-full gap-8">
-          <div className="w-full flex flex-col justify-start items-start ">
-            <div className="flex flex-row w-full items-center justify-between mb-1">
+          <div className="w-full flex flex-row justify-center items-center ">
+            <div className="flex flex-col w-full items-center justify-between mb-1">
               <h1 className="">Hotel</h1>
-              <MdHotel className="" />
+              <h1 className="font-bold">{hotel?.hotel}</h1>
             </div>
-            <h1 className="font-bold">{hotel?.hotel}</h1>
+            <MdHotel className="" />
           </div>
-          <div className="w-full flex flex-col justify-start items-start ">
-            <div className="flex flex-row w-full items-center justify-between mb-1">
+          <div className="w-full flex flex-row justify-center items-center ">
+            <div className="flex flex-col w-full items-center justify-between mb-1">
               <h1 className="">Location</h1>
-              <HiLocationMarker className="" />
+              <h1 className="font-bold">{hotel?.location}</h1>
             </div>
-            <h1 className="font-bold">{hotel?.location}</h1>
+            <HiLocationMarker className="" />
           </div>
-          <div className="w-full flex flex-col justify-start items-start ">
-            <div className="flex flex-row w-full items-center justify-between mb-1">
+          <div className="w-full flex flex-row justify-center items-center ">
+            <div className="flex flex-col w-full items-center justify-between mb-1">
               <h1 className=" ">Room </h1>
-              <MdMeetingRoom className="" />
+              <h1 className="font-bold ">{hotel?.roomNumber}</h1>
             </div>
-            <h1 className="font-bold ">{hotel?.roomNumber}</h1>
+            <MdMeetingRoom className="" />
           </div>
         </div>
         <div>
-          <div className="w-full flex flex-row space-x-2 mt-4 items-center justify-center text-tertiary ring-tertiary ring-1 p-2 rounded-lg font-bold">
+          <div className="w-full flex flex-row relative space-x-2 mt-4 items-center justify-center text-white bg-tertiary ring-tertiary ring-1 p-2 rounded-lg font-bold">
+            <BsCalendarWeekFill className="absolute right-4" />
             <p>{booking?.startDate && dateHandler(booking?.startDate)}</p>
             <p>-</p>
             <p>{booking?.endDate && dateHandler(booking?.endDate)}</p>
