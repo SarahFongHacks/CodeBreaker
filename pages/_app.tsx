@@ -5,6 +5,12 @@ import { useEffect, useState } from "react";
 import { User } from "../types/types";
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
+import { Inter } from "@next/font/google";
+
+const font = Inter({
+  subsets: ["latin"],
+  weight: ["400", "700", "800", "900"],
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [user, setUser] = useState<User | undefined>(undefined);
@@ -31,7 +37,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <LoginContext.Provider value={{ user, setUser, loading }}>
       <AnimatePresence exitBeforeEnter>
-        <Component {...pageProps} key={router.asPath} />
+        <main className={font.className}>
+          <Component {...pageProps} key={router.asPath} />
+        </main>
       </AnimatePresence>
     </LoginContext.Provider>
   );

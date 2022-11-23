@@ -20,8 +20,6 @@ const Main = () => {
       <Image
         src="/assets/home.jpg"
         layout="fill"
-        width="100vw"
-        height="100vh"
         className="object-cover w-full h-full fixed blur-sm opacity-60"
       />
       <div className="w-full p-8 overflow-hidden relative flex justify-end">
@@ -31,7 +29,7 @@ const Main = () => {
       <div className="w-full relative flex flex-col items-center justify-center mt-64">
         <div className="overflow-hidden">
           <motion.h1
-            className="text-8xl font-bold tracking-tighter text-white pb-2"
+            className="text-8xl font-bold px-2 tracking-tighter text-white pb-2"
             initial={{ y: 50, opacity: 0 }}
             animate={{
               y: 0,

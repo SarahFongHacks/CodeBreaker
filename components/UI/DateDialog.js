@@ -10,6 +10,9 @@ import { createProduct } from "../../stripe/stripe_product";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { MdHotel } from "react-icons/md";
+import { MdMeetingRoom } from "react-icons/md";
+import { HiLocationMarker } from "react-icons/hi";
 
 const DateDialog = ({ booking }) => {
   var today = new Date();
@@ -112,122 +115,133 @@ const DateDialog = ({ booking }) => {
   }));
 
   return (
-    <div className=" bg-white/70 backdrop-blur-xl  w-full grid grid-cols-3 gap-8 p-8 justify-between rounded-lg h-64 shadow-lg ring-1 ring-black/20">
-      <div className="h-full w-full square overflow-hidden rounded-lg object-cover">
+    <div className=" bg-white  w-full grid grid-cols-3 gap-8 p-8 justify-between rounded-lg h-64 shadow-lg ring-1 ring-black/20">
+      <div className="h-full w-full square overflow-hidden rounded-md object-cover">
         <img src={hotel?.image[0]} className="object-cover w-full h-full " />
       </div>
-      <div className="col-span-2 flex flex-col ">
-        <div className="w-full flex justify-between items-center ">
-          <h1 className="text-lg ">Hotel name</h1>
-          <h1 className="font-bold text-lg">{hotel?.hotel}</h1>
+      <div className="col-span-2 flex flex-col h-full justify-between pt-2">
+        <div className="grid grid-cols-3 w-full gap-8">
+          <div className="w-full flex flex-col justify-start items-start ">
+            <div className="flex flex-row w-full items-center justify-between mb-1">
+              <h1 className="">Hotel</h1>
+              <MdHotel className="" />
+            </div>
+            <h1 className="font-bold">{hotel?.hotel}</h1>
+          </div>
+          <div className="w-full flex flex-col justify-start items-start ">
+            <div className="flex flex-row w-full items-center justify-between mb-1">
+              <h1 className="">Location</h1>
+              <HiLocationMarker className="" />
+            </div>
+            <h1 className="font-bold">{hotel?.location}</h1>
+          </div>
+          <div className="w-full flex flex-col justify-start items-start ">
+            <div className="flex flex-row w-full items-center justify-between mb-1">
+              <h1 className=" ">Room </h1>
+              <MdMeetingRoom className="" />
+            </div>
+            <h1 className="font-bold ">{hotel?.roomNumber}</h1>
+          </div>
         </div>
-        <div className="w-full flex justify-between items-center ">
-          <h1 className="text-lg ">Location</h1>
-          <h1 className="font-bold text-lg">{hotel?.location}</h1>
-        </div>
-        <div className="w-full flex justify-between items-center ">
-          <h1 className="text-lg ">Room number</h1>
-          <h1 className="font-bold text-lg">{hotel?.roomNumber}</h1>
-        </div>
+        <div>
+          <div className="w-full flex flex-row space-x-2 mt-4 items-center justify-center text-tertiary ring-tertiary ring-1 p-2 rounded-lg font-bold">
+            <p>{booking?.startDate && dateHandler(booking?.startDate)}</p>
+            <p>-</p>
+            <p>{booking?.endDate && dateHandler(booking?.endDate)}</p>
+          </div>
+          <div className="w-full grid grid-cols-2 gap-2">
+            <Dialog.Root>
+              <Dialog.Trigger>
+                <div className="w-full hover:shadow-xl hover:scale-[1.02] transition duration-200 ease-linear flex flex-row space-x-2 mt-4 items-center justify-center bg-black text-white p-2 rounded-lg font-bold">
+                  <p>Edit booking</p>
+                </div>
+              </Dialog.Trigger>
+              <Dialog.Portal className="flex h-screen w-full items-center justify-center">
+                <Dialog.Overlay className="fixed inset-0 bg-black/80" />
+                <Dialog.Content>
+                  <motion.div
+                    className="flex flex-col p-16 items-center justify-center overflow-y-scroll fixed left-1/2 top-1/2 w-8/12 max-w-[54rem] bg-white rounded-lg"
+                    initial="hidden"
+                    animate="visible"
+                    variants={container}
+                  >
+                    <p className="font-bold text-xl mb-8">
+                      Edit your reservation
+                    </p>
 
-        <div className="w-full flex flex-row space-x-2 mt-4 items-center justify-center text-tertiary ring-tertiary ring-1 p-2 rounded-lg font-bold">
-          <p>{booking?.startDate && dateHandler(booking?.startDate)}</p>
-          <p>-</p>
-          <p>{booking?.endDate && dateHandler(booking?.endDate)}</p>
-        </div>
-
-        <div className="w-full grid grid-cols-2 gap-2">
-          <Dialog.Root>
-            <Dialog.Trigger>
-              <div className="w-full hover:shadow-xl hover:scale-[1.02] transition duration-200 ease-linear flex flex-row space-x-2 mt-4 items-center justify-center bg-black text-white p-2 rounded-lg font-bold">
-                <p>Edit booking</p>
-              </div>
-            </Dialog.Trigger>
-            <Dialog.Portal className="flex h-screen w-full items-center justify-center">
-              <Dialog.Overlay className="fixed inset-0 bg-black/80" />
-              <Dialog.Content>
-                <motion.div
-                  className="flex flex-col p-16 items-center justify-center overflow-y-scroll fixed left-1/2 top-1/2 w-8/12 max-w-[54rem] bg-white rounded-lg"
-                  initial="hidden"
-                  animate="visible"
-                  variants={container}
-                >
-                  <p className="font-bold text-xl mb-8">
-                    Edit your reservation
-                  </p>
-
-                  <form className="flex flex-col w-80">
-                    {error && (
-                      <div className="w-full items-center justify-center flex mb-2 bg-red-500 p-2 rounded-md text-white">
-                        Invalid dates please try different dates.
-                      </div>
-                    )}
-                    <div className="check-in">
-                      <label>Check in: </label>
-                      <DatePicker
-                        className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
-                        //excludeDates={excludedDates}
-                        excludeDateIntervals={disableDateRange}
-                        minDate={new Date()}
-                      />
-                      {/* <input
+                    <form className="flex flex-col w-80">
+                      {error && (
+                        <div className="w-full items-center justify-center flex mb-2 bg-red-500 p-2 rounded-md text-white">
+                          Invalid dates please try different dates.
+                        </div>
+                      )}
+                      <div className="check-in">
+                        <label>Check in: </label>
+                        <DatePicker
+                          className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
+                          selected={startDate}
+                          onChange={(date) => setStartDate(date)}
+                          //excludeDates={excludedDates}
+                          excludeDateIntervals={disableDateRange}
+                          minDate={new Date()}
+                        />
+                        {/* <input
                 type="date"
                 name="checkin-date"
                 value={checkin}
                 className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
                 onChange={(e) => setCheckin(e.target.value)}
               /> */}
-                    </div>
-                    <div className="check-out">
-                      <label>Check out: </label>
-                      <DatePicker
-                        className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
-                        selected={endDate}
-                        excludeDateIntervals={disableDateRange}
-                        onChange={(date) => setEndDate(date)}
-                        minDate={minCheckout}
-                      />
-                      {/* <input
+                      </div>
+                      <div className="check-out">
+                        <label>Check out: </label>
+                        <DatePicker
+                          className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
+                          selected={endDate}
+                          excludeDateIntervals={disableDateRange}
+                          onChange={(date) => setEndDate(date)}
+                          minDate={minCheckout}
+                        />
+                        {/* <input
                 type="date"
                 name="checkout-date"
                 value={checkout}
                 className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
                 onChange={(e) => setCheckout(e.target.value)}
               /> */}
-                    </div>
-                    <div className="w-full h-[2px] bg-black/20 my-4 mt-16 " />
-                    <div className="mb-4 w-full text-xl font-bold flex justify-between items-center">
-                      <h4>Total </h4>
-                      <h4>${total} </h4>
-                    </div>
-                  </form>
-                  <Dialog.Close>
-                    <div
-                      onClick={() =>
-                        editHandler({
-                          hotel,
-                          user,
-                          startDate,
-                          endDate,
-                          total,
-                        })
-                      }
-                      className="mt-8 px-4 py-2 rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] cursor-pointer bg-gradient-to-r from-tertiary to-[#79A1F7] select-none text-white  space-x-2"
-                    >
-                      Edit reservation
-                    </div>
-                  </Dialog.Close>
-                </motion.div>
-              </Dialog.Content>
-            </Dialog.Portal>
-          </Dialog.Root>
-          <div
-            className="w-full flex flex-row hover:shadow-xl hover:scale-[1.02] transition duration-200 ease-linear  cursor-pointer space-x-2 mt-4 items-center justify-center bg-red-500 text-white p-2 rounded-lg font-bold"
-            onClick={() => cancelHandler()}
-          >
-            <p>Cancel booking</p>
+                      </div>
+                      <div className="w-full h-[2px] bg-black/20 my-4 mt-16 " />
+                      <div className="mb-4 w-full text-xl font-bold flex justify-between items-center">
+                        <h4>Total </h4>
+                        <h4>${total} </h4>
+                      </div>
+                    </form>
+                    <Dialog.Close>
+                      <div
+                        onClick={() =>
+                          editHandler({
+                            hotel,
+                            user,
+                            startDate,
+                            endDate,
+                            total,
+                          })
+                        }
+                        className="mt-8 px-4 py-2 rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] cursor-pointer bg-gradient-to-r from-tertiary to-[#79A1F7] select-none text-white  space-x-2"
+                      >
+                        Edit reservation
+                      </div>
+                    </Dialog.Close>
+                  </motion.div>
+                </Dialog.Content>
+              </Dialog.Portal>
+            </Dialog.Root>
+            <div
+              className="w-full flex flex-row hover:shadow-xl hover:scale-[1.02] transition duration-200 ease-linear  cursor-pointer space-x-2 mt-4 items-center justify-center bg-red-500 text-white p-2 rounded-lg font-bold"
+              onClick={() => cancelHandler()}
+            >
+              <p>Cancel booking</p>
+            </div>
           </div>
         </div>
       </div>

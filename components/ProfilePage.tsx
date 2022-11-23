@@ -5,6 +5,8 @@ import LoginButton from "./UI/LoginButton";
 import { motion } from "framer-motion";
 import DateDialog from "./UI/DateDialog";
 import { getUser } from "../db_func/user";
+import { MdAccountCircle } from "react-icons/md";
+import { IoTicketSharp } from "react-icons/io5";
 
 const ProfilePage = () => {
   const { user, setUser, loading } = useContext(LoginContext);
@@ -60,11 +62,13 @@ const ProfilePage = () => {
             variants={profileInfo}
             exit={{ opacity: 0 }}
           >
-            <div className="shadow-xl ring-1 bg-white/70 backdrop-blur-xl ring-black/20 rounded-lg p-8 py-16 flex items-center justify-center w-full flex-col">
+            <div className="shadow-xl ring-1 relative bg-white ring-black/20 rounded-lg p-8 py-16 flex items-center justify-center w-full flex-col">
+              <MdAccountCircle className="absolute top-8 right-8 text-xl" />
               <p className="text-xl mb-2 text-center">email</p>
               <p className="text-2xl font-bold text-center">{user?.email}</p>
             </div>
-            <div className="shadow-xl ring-1 bg-white/70 backdrop-blur-xl ring-black/20 rounded-lg p-8 py-16 flex items-center justify-center w-full flex-col">
+            <div className="shadow-xl ring-1 relative bg-white ring-black/20 rounded-lg p-8 py-16 flex items-center justify-center w-full flex-col">
+              <IoTicketSharp className="absolute top-8 right-8 text-xl " />
               <p className="text-xl mb-2 text-center">reward points</p>
               <p className="text-2xl font-bold text-center">
                 {user?.rewardPoints}
