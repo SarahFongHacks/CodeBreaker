@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { signout } from "../auth/auth";
 import { LoginContext } from "../context";
 import useHotels from "../hooks/useHotels";
@@ -11,8 +11,9 @@ import Filter from "./UI/Filter";
 import useStore from "../lib/store";
 
 const Hotels = () => {
-  const { data: hotels } = useHotels();
+  const { data: hotels, setData } = useHotels();
   const { user, setUser } = useContext(LoginContext);
+  const [sort, setSort] = useState(false);
 
   const search = useStore((state) => state.search);
   const searchEnabled = useStore((state) => state.searchEnabled);
@@ -22,6 +23,8 @@ const Hotels = () => {
     signout(auth);
     setUser(undefined);
   };
+
+  useEffect(() => {}, [sort]);
 
   return (
     <div className="w-full min-h-screen ">
@@ -38,7 +41,12 @@ const Hotels = () => {
           <LoginButton color="black" />
         </div>
         <h1 className="font-bold text-4xl mb-12"></h1>
-        <Filter />
+        <Filter
+          hotels={hotels}
+          setHotels={setData}
+          sort={sort}
+          setSort={setSort}
+        />
         <div className="w-full h-full grid md:grid-cols-3 lg:grid-cols-4 gap-6 items-start justify-center mt-8">
           {searchEnabled ? (
             search.length > 0 ? (

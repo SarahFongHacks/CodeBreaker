@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import { BiDollar, BiSlider } from "react-icons/bi";
+import { BiDollar, BiFilter, BiSlider } from "react-icons/bi";
 import { GrFormClose } from "react-icons/gr";
 import { motion } from "framer-motion";
 
@@ -44,8 +44,8 @@ const FilterDialog = ({
     <Dialog.Root>
       <Dialog.Trigger>
         <div className="justify-center hover:ring-tertiary cursor-pointer flex flex-row space-x-2 items-center w-full text-center focus:ring-tertiary text-xl py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-lg placeholder-black/20">
-          <BiSlider />
-          <p>Filters</p>
+          <BiFilter />
+          <p>Filter</p>
         </div>
       </Dialog.Trigger>
       <Dialog.Portal className="flex h-screen w-full items-center justify-center">

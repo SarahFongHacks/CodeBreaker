@@ -6,7 +6,7 @@ import { SearchFilter } from "../../types/types";
 import { searchHotel } from "../../db_func/hotelRoom";
 import useStore from "../../lib/store";
 
-const Filter = () => {
+const Filter = ({ hotels, setHotels, sort, setSort }) => {
   const [location, setLocation] = useState("");
   const [enableLocation, setEnableLocation] = useState(false);
   const [city, setCity] = useState("");
@@ -22,6 +22,8 @@ const Filter = () => {
   const [enableBaths, setEnableBaths] = useState(false);
   const [hotel, setHotel] = useState("");
   const [enableHotel, setEnableHotel] = useState(false);
+
+  const [sortPrice, setSortPrice] = useState(true);
 
   const search = useStore((state) => state.search);
   const setSearch = useStore((state) => state.setSearch);
@@ -193,10 +195,24 @@ const Filter = () => {
     setSearchEnabled(true);
   }
 
+  const ascendingHandler = () => {
+    setHotels(hotels.sort((a, b) => a.price - b.price));
+    setSort(!sort);
+    setSortPrice(!sortPrice);
+    console.log(hotels);
+  };
+
+  const descendingHandler = () => {
+    setHotels(hotels.sort((a, b) => b.price - a.price));
+    setSort(!sort);
+    setSortPrice(!sortPrice);
+    console.log(hotels);
+  };
+
   return (
-    <div className="bg-white/70 backdrop-blur-lg w-full grid grid-cols-5 rounded-lg ring-1 ring-black/20 shadow-lg overflow-hidden gap-8 p-8">
-      <div className="w-full flex flex-col space-y-4 items-start justify-center col-span-5">
-        <div className="w-full flex-row space-x-2">
+    <div className="bg-white/70 backdrop-blur-lg w-full grid grid-cols-5 rounded-lg ring-1 ring-black/20 shadow-lg overflow-hidden gap-4 p-8">
+      <div className=" w-full items-start justify-center col-span-5 gap-4 grid grid-cols-5 ">
+        <div className="flex-row space-x-2 col-span-4">
           <input
             className="w-full focus:ring-tertiary text-xl py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-sm placeholder-black/20"
             placeholder="Enter Hotel Name..."
@@ -204,6 +220,21 @@ const Filter = () => {
             onChange={(e) => setHotel(e.target.value)}
           ></input>
         </div>
+        {sortPrice ? (
+          <div
+            className="justify-center col-span-1 select-none hover:ring-tertiary cursor-pointer flex flex-row space-x-2 items-center w-full text-center focus:ring-tertiary text-base py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-lg placeholder-black/20"
+            onClick={() => descendingHandler()}
+          >
+            <p>Price high to low</p>
+          </div>
+        ) : (
+          <div
+            className="justify-center hover:ring-tertiary col-span-1 select-none overflow-hidden whitespace-nowrap cursor-pointer text-truncate flex flex-row space-x-2 items-center w-full text-center focus:ring-tertiary text-base py-4 px-4 ring-1 ring-black/20 focus:outline-none rounded-lg placeholder-black/20"
+            onClick={() => ascendingHandler()}
+          >
+            <p>Price low to high</p>
+          </div>
+        )}
       </div>
 
       <div className="w-full flex flex-col space-y-4 items-start justify-center col-span-3">
@@ -262,6 +293,7 @@ const Filter = () => {
           setUnitedStates={setUnitedStates}
         />
       </div>
+
       <div
         className="w-full rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] h-full  cursor-pointer bg-gradient-to-r from-tertiary to-[#79A1F7] select-none text-white font-bold space-x-2"
         onClick={() => searchHandler()}
