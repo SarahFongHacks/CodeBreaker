@@ -39,8 +39,10 @@ const ReservationPage = ({ hotel }) => {
         }),
       });
       const stripeData = await data2.json();
-      //console.log(stripeData);
+      // console.log(stripeData);
       router.push(stripeData.url);
+      updateRewardPoints(user, total);
+      // console.log('total: ' + total);
     }
   };
 

@@ -1,8 +1,7 @@
-import {HotelRoom, Reservation, User} from "../types/types"
+import {User} from "../types/types"
 import {db} from "../pages/index"
 import {dbConverter} from "../db_conversion/db_converter"
-import { doc, setDoc, updateDoc, getDoc, query, collection, where } from "firebase/firestore"; 
-import { analytics } from "firebase-functions/v1";
+import { doc, updateDoc, getDoc } from "firebase/firestore"; 
 
 export async function updateUser(user : User) {
 
@@ -17,13 +16,12 @@ export async function getUser(userId : string) : Promise<User> {
 }
 
 export async function updateRewardPoints(
-  userID : string,
+  user : User,
   points: number
   ){
-      //1 point for every 10 dollars spent
+      /* person gets 1 point for every 10 dollars spent */
       const rewards = points / 10;
-      const user = await getUser(userID);
-      const docRef = doc(db, 'User', userID);
+      const docRef = doc(db, 'User', user.id);
       await updateDoc(docRef, {rewardPoints: (await user).rewardPoints + rewards});
   }
 
