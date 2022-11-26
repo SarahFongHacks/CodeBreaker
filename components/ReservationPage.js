@@ -36,6 +36,7 @@ const ReservationPage = ({ hotel }) => {
           hotelId: hotel.id,
           startDate: startDate,
           endDate: endDate,
+          price: hotel.price,
         }),
       });
       const stripeData = await data2.json();
@@ -71,13 +72,17 @@ const ReservationPage = ({ hotel }) => {
     //console.log(new Date(hotel.reservations[i].startDate) + ", " + new Date(hotel.reservations[i].endDate));
   }
 
-  for ( let i = 0; i < user?.currentBooking.length; i ++) {
+  for (let i = 0; i < user?.currentBooking.length; i++) {
     excludedDates.push({
-          start: new Date(user.currentBooking[i].startDate),
-          end: new Date(user.currentBooking[i].endDate),
-        });
-      
-        console.log(new Date(user.currentBooking[i].startDate) + ", " + new Date(user.currentBooking[i].endDate));
+      start: new Date(user.currentBooking[i].startDate),
+      end: new Date(user.currentBooking[i].endDate),
+    });
+
+    console.log(
+      new Date(user.currentBooking[i].startDate) +
+        ", " +
+        new Date(user.currentBooking[i].endDate)
+    );
   }
 
   const disableDateRange = excludedDates.map((range) => ({
