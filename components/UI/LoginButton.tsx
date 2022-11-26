@@ -1,5 +1,5 @@
 import Link from "next/link";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { signout } from "../../auth/auth";
 import { LoginContext } from "../../context";
 import { auth } from "../../pages";
@@ -7,10 +7,22 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { BiGift, BiLogOut } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { IoTicketSharp } from "react-icons/io5";
+import { getUser } from "../../db_func/user";
 
 const LoginButton = ({ color }) => {
-  const { user, setUser } = useContext(LoginContext);
+  const { user, setUser, loading } = useContext(LoginContext);
 
+  const getUserUpdated = async () => {
+    if (user) {
+      const updated = await getUser(user.id);
+      console.log(updated);
+      setUser(updated);
+    }
+  };
+
+  useEffect(() => {
+    getUserUpdated();
+  }, [loading]);
   const signOutHandler = (auth) => {
     signout(auth);
     setUser(undefined);

@@ -20,7 +20,6 @@ const ProfilePage = () => {
   };
 
   useEffect(() => {
-    // console.log("test");
     getUserUpdated();
   }, [loading]);
 
