@@ -130,6 +130,8 @@ exports.checkoutComplete =
         const id = resDocRef.id;
       
         const paymentIntent = request.body.data.object.payment_intent
+				const price = request.body.data.object.metadata.price
+
 
         const reservation = {
           id : id,
@@ -139,6 +141,12 @@ exports.checkoutComplete =
           userId : userId,
           paymentIntent : paymentIntent
         }
+
+				user.rewardPoints = user.rewardPoints + Math.trunc((price / 1000));
+
+				console.log(price)
+				console.log(user.rewardPoints)
+
 
         resDocRef.set(reservation)
         user.currentBooking.push(resDocRef)
