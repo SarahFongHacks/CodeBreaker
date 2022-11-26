@@ -20,6 +20,7 @@ const ReservationPage = ({ hotel }) => {
   var minCheckout = new Date(startDate);
   minCheckout.setDate(minCheckout.getDate() + 1);
   const [endDate, setEndDate] = useState(minCheckout);
+  const [disabled, setDisabled] = useState(true);
 
   const { user } = useContext(LoginContext);
 
@@ -164,6 +165,18 @@ const ReservationPage = ({ hotel }) => {
               }
             >
               Reserve
+            </div>
+            <div
+              className={`${
+                disabled
+                  ? "cursor-not-allowed bg-black text-gray-400"
+                  : "bg-gradient-to-r from-gray-800 to-gray-500 hover:scale-[1.01] hover:shadow-xl text-white "
+              } w-full  mt-4 select-none shadow-lg  cursor-pointer  font-bold   py-3 px-5 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary`}
+              // onClick={() =>
+              //   reservationHandler({ hotel, user, startDate, endDate })
+              // }
+            >
+              Reserve with Rewards Points
             </div>
           </form>
         </div>

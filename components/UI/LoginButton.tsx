@@ -6,6 +6,7 @@ import { auth } from "../../pages";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { BiGift, BiLogOut } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
+import { IoTicketSharp } from "react-icons/io5";
 
 const LoginButton = ({ color }) => {
   const { user, setUser } = useContext(LoginContext);
@@ -18,7 +19,11 @@ const LoginButton = ({ color }) => {
   return (
     <div className="select-none ">
       {user ? (
-        <div className="h-12">
+        <div className="h-12 flex space-x-4 ">
+          <div className=" flex flex-row items-center justify-center space-x-2 rounded-lg bg-white/70 backdrop-blur-xl ring-1 truncate overflow-hidden py-3 px-5 ring-black/30 transition duration-200 ease-linear ">
+            <IoTicketSharp />
+            <p>{user.rewardPoints}</p>
+          </div>
           <DropdownMenu.Root>
             <DropdownMenu.Trigger className="select-none focus:outline-none">
               <div className="w-36 rounded-lg bg-white/70 backdrop-blur-xl  ring-1 truncate overflow-hidden py-3 px-5 ring-black/30 transition duration-200 ease-linear hover:ring-black cursor-pointer">
