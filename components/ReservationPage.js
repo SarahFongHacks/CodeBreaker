@@ -10,6 +10,7 @@ import { createProduct } from "../stripe/stripe_product";
 import { useRouter } from "next/router";
 import BackButton from "./UI/BackButton";
 import LoginButton from "./UI/LoginButton";
+import PuffLoader from "react-spinners/PuffLoader";
 
 const ReservationPage = ({ hotel }) => {
   var today = new Date();
@@ -21,12 +22,14 @@ const ReservationPage = ({ hotel }) => {
   minCheckout.setDate(minCheckout.getDate() + 1);
   const [endDate, setEndDate] = useState(minCheckout);
   const [disabled, setDisabled] = useState(true);
+  const [loader, setLoader] = useState(false);
 
   const { user } = useContext(LoginContext);
 
   const router = useRouter();
 
   const reservationHandler = async ({ hotel, user, startDate, endDate }) => {
+    setLoader(true);
     const data = await createProduct(hotel, startDate, endDate, total * 100);
     if (data) {
       const data2 = await fetch("/api/checkout_sessions", {
@@ -41,9 +44,8 @@ const ReservationPage = ({ hotel }) => {
         }),
       });
       const stripeData = await data2.json();
-      // console.log(stripeData);
+      setLoader(false);
       router.push(stripeData.url);
-      // console.log('total: ' + total);
     }
   };
 
@@ -167,12 +169,23 @@ const ReservationPage = ({ hotel }) => {
             </div>
 
             <div
-              className="w-full shadow-lg hover:shadow-xl cursor-pointer hover:scale-[1.01] bg-gradient-to-r from-tertiary to-[#79A1F7] font-bold text-white   py-3 px-5 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary"
+              className="relative w-full shadow-lg hover:shadow-xl cursor-pointer hover:scale-[1.01] bg-gradient-to-r from-tertiary to-[#79A1F7] font-bold text-white   py-3 px-5 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary"
               onClick={() =>
                 reservationHandler({ hotel, user, startDate, endDate })
               }
             >
-              Reserve
+              <p>Reserve</p>
+              {loader && (
+                <div className="absolute right-4">
+                  <PuffLoader
+                    color={"#ffffff"}
+                    loading={loader}
+                    size={30}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+                </div>
+              )}
             </div>
             <div
               className={`${
