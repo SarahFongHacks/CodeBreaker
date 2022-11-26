@@ -12,7 +12,7 @@ export async function updateUser(user : User) {
 
 export async function getUser(userId : string) : Promise<User> {
 
-  return await dbConverter.jsonToUser(await getDoc(doc(db, 'User', userId)), doc(db, 'User', userId))
+  return await dbConverter.jsonToUser((await getDoc(doc(db, 'User', userId))).data(), doc(db, 'User', userId))
 }
 
 export async function updateRewardPoints(
