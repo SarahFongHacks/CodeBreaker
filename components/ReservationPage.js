@@ -64,6 +64,14 @@ const ReservationPage = ({ hotel }) => {
     totalHandler();
   }, [startDate, endDate]);
 
+  useEffect(() => {
+    if (user.rewardPoints / 40 >= total) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+    }
+  }, [total]);
+
   const excludedDates = [];
   for (let i = 0; i < hotel?.reservations.length; i++) {
     excludedDates.push({
@@ -169,7 +177,7 @@ const ReservationPage = ({ hotel }) => {
             <div
               className={`${
                 disabled
-                  ? "cursor-not-allowed bg-black text-gray-400"
+                  ? "cursor-not-allowed bg-black text-white/50"
                   : "bg-gradient-to-r from-gray-800 to-gray-500 hover:scale-[1.01] hover:shadow-xl text-white "
               } w-full  mt-4 select-none shadow-lg  cursor-pointer  font-bold   py-3 px-5 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary`}
               // onClick={() =>
