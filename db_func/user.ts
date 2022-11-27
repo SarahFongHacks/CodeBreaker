@@ -20,8 +20,8 @@ export async function updateRewardPoints(
   points: number
   ){
       /* person gets 1 point for every 10 dollars spent */
-      const rewards = points / 10;
+      const rewards = points;
       const docRef = doc(db, 'User', user.id);
-      await updateDoc(docRef, {rewardPoints: (await user).rewardPoints + rewards});
+      await updateDoc(docRef, {rewardPoints: user.rewardPoints + rewards});
   }
 
