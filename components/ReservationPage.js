@@ -76,18 +76,20 @@ const ReservationPage = ({ hotel }) => {
 
   const excludedDates = [];
   for (let i = 0; i < hotel?.reservations.length; i++) {
-    excludedDates.push({
-      start: new Date(hotel.reservations[i].startDate),
-      end: new Date(hotel.reservations[i].endDate),
-    });
+    
+    // excludedDates.push({
+    //   start: new Date(hotel.reservations[i].startDate),
+    //   end: new Date(hotel.reservations[i].endDate),
+    // });
     //console.log(new Date(hotel.reservations[i].startDate) + ", " + new Date(hotel.reservations[i].endDate));
   }
 
   for (let i = 0; i < user?.currentBooking.length; i++) {
-    excludedDates.push({
-      start: new Date(user.currentBooking[i].startDate),
-      end: new Date(user.currentBooking[i].endDate),
-    });
+    const dateToAdd = new Date(user.currentBooking[i].startDate);
+    while (dateToAdd <= user.currentBooking[i].endDate) {
+      excludedDates.push(new Date(dateToAdd));
+      dateToAdd.setDate(dateToAdd.getDate() + 1);
+    }
 
     console.log(
       new Date(user.currentBooking[i].startDate) +
@@ -96,10 +98,26 @@ const ReservationPage = ({ hotel }) => {
     );
   }
 
-  const disableDateRange = excludedDates.map((range) => ({
-    start: range.start,
-    end: range.end,
-  }));
+  excludedDates.sort(function (a, b) {
+    const d1 = new Date(a);
+    const d2 = new Date(b);
+    return d1 - d2;
+  });
+
+  for (let i = 0; i < excludedDates.length; i++) {
+    console.log(excludedDates[i]);
+  }
+
+  var maxCheckout = null;
+  for (let i = 0; i < excludedDates.length; i++) {
+    if (minCheckout < excludedDates[i]) {
+      maxCheckout = new Date(excludedDates[i]);
+      break;
+    }
+  }
+
+  console.log("Max: " + maxCheckout);
+  
 
   return (
     <div className="relative w-full h-screen flex items-center justify-center flex-col p-16 bg-gradient-to-b from-white to-tertiary/40">
@@ -133,8 +151,8 @@ const ReservationPage = ({ hotel }) => {
                 className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
                 selected={startDate}
                 onChange={(date) => setStartDate(date)}
-                //excludeDates={excludedDates}
-                excludeDateIntervals={disableDateRange}
+                excludeDates={excludedDates}
+                //excludeDateIntervals={disableDateRange}
                 minDate={new Date()}
               />
               {/* <input
@@ -150,9 +168,11 @@ const ReservationPage = ({ hotel }) => {
               <DatePicker
                 className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
                 selected={endDate}
-                excludeDateIntervals={disableDateRange}
+                excludeDates={excludedDates}
+                //excludeDateIntervals={disableDateRange}
                 onChange={(date) => setEndDate(date)}
                 minDate={minCheckout}
+                maxDate={maxCheckout}
               />
               {/* <input
                 type="date"
