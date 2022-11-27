@@ -80,9 +80,9 @@ const Register = () => {
             placeholder="Enter your password..."
             onChange={(e) => setPassword(e.target.value)}
           ></input>
-          <div className="w-full flex space-x-2 items-center justify-center ">
+          <div className="w-full grid grid-cols-2 gap-2 items-center justify-center ">
             <Link href="/">
-              <div className="cursor-pointer hover:bg-tertiary hover:ring-1  hover:ring-tertiary hover:text-white transition ease-linear ring-1 duration-200 rounded-md w-full bg-white text-tertiary ring-tertiary p-2 flex items-center justify-center shadow-md">
+              <div className=" cursor-pointer hover:bg-tertiary hover:ring-1  hover:ring-tertiary hover:text-white transition ease-linear ring-1 duration-200 rounded-md bg-white text-tertiary ring-tertiary p-2 flex items-center justify-center shadow-md">
                 Back
               </div>
             </Link>
