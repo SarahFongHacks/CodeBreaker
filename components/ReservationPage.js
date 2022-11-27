@@ -108,23 +108,27 @@ const ReservationPage = ({ hotel }) => {
     return d1 - d2;
   });
 
-  for (let i = 0; i < excludedDates.length; i++) {
-    console.log(excludedDates[i]);
+  for (let i = 0; i < hotel?.reservations.length; i ++) {
+    // console.log("Reservation " + i + ": " + new Date(hotel.reservations[i].startDate) 
+    // + " - " + new Date(hotel.reservations[i].endDate));
   }
 
-  var maxCheckout = null;
-  for (let i = 0; i < excludedDates.length; i++) {
-    if (minCheckout < excludedDates[i]) {
-      const maxDate = new Date(excludedDates[i]);
-      maxDate.setDate(maxDate.getDate() - 1);
-      maxCheckout = new Date(maxDate);
-      break;
+  // for (let i = 0; i < excludedDates.length; i++) {
+  //   console.log(i + ": " + excludedDates[i]);
+  // }
+
+  const maxCheckout = () => {
+    var maxC = null;
+    for (let i = 0; i < excludedDates.length; i++) {
+      if (minCheckout < excludedDates[i]) {
+        const maxDate = new Date(excludedDates[i]);
+        maxDate.setDate(maxDate.getDate() - 1);
+        maxC = new Date(maxDate);
+        break;
+      }
     }
-  }
-
-  console.log("Max: " + maxCheckout);
-  console.log("Min: " + minCheckout);
-  
+    return maxC;
+  };
 
   return (
     <div className="relative w-full h-screen flex items-center justify-center flex-col p-16 bg-gradient-to-b from-white to-tertiary/40">
@@ -159,7 +163,7 @@ const ReservationPage = ({ hotel }) => {
                 selected={startDate}
                 onChange={(date) => {
                   setStartDate(date);
-                  setEndDate(maxCheckout);
+                  setEndDate(date);
                 }}
                 excludeDates={excludedDates}
                 //excludeDateIntervals={disableDateRange}
@@ -182,7 +186,7 @@ const ReservationPage = ({ hotel }) => {
                 //excludeDateIntervals={disableDateRange}
                 onChange={(date) => setEndDate(date)}
                 minDate={minCheckout}
-                maxDate={maxCheckout}
+                maxDate={maxCheckout()}
               />
               {/* <input
                 type="date"
