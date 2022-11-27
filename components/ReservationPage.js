@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import ImageCarousel from "./UI/ImageCarousel";
 import { createReservation, createRewardPointsReservation } from "../db_func/reservations";
 import { LoginContext } from "../context";
+import Link from "next/link";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -50,10 +51,8 @@ const ReservationPage = ({ hotel }) => {
     }
   };
 
-
   const rewardsReservationHandler = async() => {
     createRewardPointsReservation(hotel, user, startDate, endDate, total);
-    
   }
 
   const totalHandler = () => {
@@ -143,7 +142,7 @@ const ReservationPage = ({ hotel }) => {
           <div className="w-full flex flex-row justify-between my-4">
             <h3 className="text-xl font-bold">Rate</h3>
             <h3 className="text-xl font-bold">
-              ${hotel?.price / 100} <span className="font-medium">night</span>
+              ${hotel?.price / 100} <span className="font-medium">per night</span>
             </h3>
           </div>
           {error && (
@@ -214,7 +213,7 @@ const ReservationPage = ({ hotel }) => {
                 </div>
               )}
             </div>
-            <div
+                <div
               className={`${
                 disabled
                   ? "cursor-not-allowed bg-black text-white/50"
@@ -224,8 +223,8 @@ const ReservationPage = ({ hotel }) => {
                 rewardsReservationHandler(hotel, user, startDate, endDate, total)
               }
             >
-              Reserve with Rewards Points
-            </div>
+                 <Link href="/profile"> Reserve with Rewards Points </Link>
+                </div>
           </form>
         </div>
       </div>
