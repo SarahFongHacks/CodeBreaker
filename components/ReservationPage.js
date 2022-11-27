@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import ImageCarousel from "./UI/ImageCarousel";
-import { createReservation } from "../db_func/reservations";
+import { createReservation, createRewardPointsReservation } from "../db_func/reservations";
 import { LoginContext } from "../context";
 
 import DatePicker from "react-datepicker";
@@ -30,7 +30,8 @@ const ReservationPage = ({ hotel }) => {
 
   const reservationHandler = async ({ hotel, user, startDate, endDate }) => {
     setLoader(true);
-    const data = await createProduct(hotel, startDate, endDate, Math.floor(total * 100));
+    const data = await createProduct(hotel, startDate, endDate, total * 100);
+    // console.log(total + ', ' + total * 100);
     if (data) {
       const data2 = await fetch("/api/checkout_sessions", {
         method: "POST",
@@ -40,7 +41,7 @@ const ReservationPage = ({ hotel }) => {
           hotelId: hotel.id,
           startDate: startDate,
           endDate: endDate,
-          price: Math.floor(total * 100),
+          price: hotel.price,
         }),
       });
       const stripeData = await data2.json();
@@ -48,6 +49,12 @@ const ReservationPage = ({ hotel }) => {
       router.push(stripeData.url);
     }
   };
+
+
+  const rewardsReservationHandler = async() => {
+    createRewardPointsReservation(hotel, user, startDate, endDate, total);
+    
+  }
 
   const totalHandler = () => {
     if (startDate && endDate && endDate > startDate) {
@@ -213,9 +220,9 @@ const ReservationPage = ({ hotel }) => {
                   ? "cursor-not-allowed bg-black text-white/50"
                   : "bg-gradient-to-r from-gray-800 to-gray-500 hover:scale-[1.01] hover:shadow-xl text-white "
               } w-full  mt-4 select-none shadow-lg  cursor-pointer  font-bold   py-3 px-5 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary`}
-              // onClick={() =>
-              //   reservationHandler({ hotel, user, startDate, endDate })
-              // }
+              onClick={() =>
+                rewardsReservationHandler(hotel, user, startDate, endDate, total)
+              }
             >
               Reserve with Rewards Points
             </div>
