@@ -83,6 +83,18 @@ const DateDialog = ({ booking }) => {
   };
 
   const cancelHandler = async () => {
+    // if(booking.paymentIntent === "RewardPoints"){
+    //   console.log("Cancel reward booking");
+    //   cancelReservation(booking);
+    // } else {
+    //   const data = await fetch("/api/cancel_sessions", {
+    //     method: "POST",
+    //     body: JSON.stringify(booking),
+    //   });
+    //   const stripeData = await data.json();
+    //   // console.log(stripeData);
+    //   router.push(stripeData.url);
+    // }
     const data = await fetch("/api/cancel_sessions", {
       method: "POST",
       body: JSON.stringify(booking),

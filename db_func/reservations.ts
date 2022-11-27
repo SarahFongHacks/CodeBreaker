@@ -3,8 +3,8 @@ import { collection, deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import { dbConverter } from "../db_conversion/db_converter";
 import { db } from "../pages/index";
 import { FireBaseError, HotelRoom, Reservation, User } from "../types/types";
-import { updateUser } from "./user";
-import { updateHotelRoom } from "./hotelRoom";
+import { getUser, updateUser } from "./user";
+import { getHotelRoom, updateHotelRoom } from "./hotelRoom";
 import { FirebaseError } from "firebase/app";
 
 export async function changeReservationDate(
@@ -34,7 +34,6 @@ async function writeReservation(reservation: Reservation) {
 }
 
 export async function cancelReservation(reservation: Reservation) {
-
   const user : User = await dbConverter.jsonToUser(await getDoc(doc(db, "User", reservation.userId)), doc(db, "User", reservation.userId))
   const hotelRoom : HotelRoom = await dbConverter.jsonToHotelRoom(await getDoc(doc(db, "HotelRoom", reservation.hotelRoomId)), doc(db, "HotelRoom", reservation.hotelRoomId))
   
@@ -52,6 +51,55 @@ export async function cancelReservation(reservation: Reservation) {
   updateHotelRoom(hotelRoom)
   await deleteDoc(doc(db, "Reservation", reservation.id));
 
+}
+
+export async function createRewardPointsReservation(
+  hotelRoom: HotelRoom,
+  user: User,
+  startDate: Date,
+  endDate: Date,
+  totalPrice: number
+): Promise<FireBaseError>{ 
+
+  const collectionRef = collection(db, "Reservation");
+  const docRef = doc(collectionRef);
+  const id = docRef.id;
+
+  const fireBaseError: FireBaseError = {
+    error: false,
+    errorCode: "",
+    errorMessage: ""
+  };
+
+  const requiredPoints = totalPrice * 40;
+
+  const reservation: Reservation = {
+    id: id,
+    endDate: endDate.getTime(),
+    hotelRoomId: hotelRoom.id,
+    startDate: startDate.getTime(),
+    userId: user.id,
+    paymentIntent : requiredPoints + ''
+  };
+
+  if(user.rewardPoints >= requiredPoints){
+      user.rewardPoints = user.rewardPoints - requiredPoints;
+      // console.log('User has enough points (needs ' + requiredPoints + ')');
+      try {
+          await writeReservation(reservation);
+      } catch (error) {
+          fireBaseError.error = true;
+          fireBaseError.errorCode = error.code;
+          fireBaseError.errorMessage = error.message;
+    }
+      user.currentBooking.push(reservation);
+      hotelRoom.reservations.push(reservation);
+
+      await updateUser(user);
+      await updateHotelRoom(hotelRoom);
+  }
+
+  return fireBaseError;
 }
 
 export async function createReservation(
