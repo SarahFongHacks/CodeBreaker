@@ -7,7 +7,7 @@ import {
 } from "../../db_func/reservations";
 import { getHotelRoom } from "../../db_func/hotelRoom";
 import { HotelRoom } from "../../types/types";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import { LoginContext } from "../../context";
 import { createProduct } from "../../stripe/stripe_product";
 

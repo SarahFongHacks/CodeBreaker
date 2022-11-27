@@ -154,6 +154,7 @@ const RewardsDialog = ({ booking }) => {
   const cancelRewardsHandler = () => {
     cancelReservation(booking);
     setCanceled(true);
+    router.reload();
   };
 
   return (
@@ -212,7 +213,7 @@ const RewardsDialog = ({ booking }) => {
             </div>
           ) : enableRewards == 1 ? (
             <div className="w-full grid grid-cols-1">
-              <div className="w-full flex flex-row hover:shadow-xl hover:scale-[1.02] transition duration-200 ease-linear  cursor-pointer space-x-2 mt-4 items-center justify-center bg-green-500 text-white p-2 rounded-lg font-bold">
+              <div className="w-full flex flex-row relative space-x-2 mt-4 items-center justify-center text-white bg-black p-2 rounded-sm font-bold">
                 <p>Booking has ended</p>
               </div>
             </div>
