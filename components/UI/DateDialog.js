@@ -20,6 +20,7 @@ import { BsCalendarWeekFill } from "react-icons/bs";
 import { GrFormClose } from "react-icons/gr";
 import { getUser, updateRewardPoints } from "../../db_func/user";
 import { IoTicketSharp } from "react-icons/io5";
+import RewardsDialog from "./RewardsDialog";
 
 const DateDialog = ({ booking }) => {
   var today = new Date();
@@ -157,186 +158,195 @@ const DateDialog = ({ booking }) => {
     setRedeemed(true);
   };
 
+  const cancelRewardsHandler = () => {
+    cancelReservation(booking);
+  };
+
   return (
-    <div
-      className={`${
-        redeemed && "hidden"
-      } bg-white  w-full grid relative transition duration-200 ease-linear grid-cols-5 gap-8 p-8 justify-between rounded-lg h-64 shadow-lg ring-1 ring-black/20`}
-    >
-      <div className="col-span-2 h-full w-full square overflow-hidden rounded-md object-cover">
-        <img src={hotel?.image[0]} className="object-cover w-full h-full " />
-      </div>
-      {booking.paymentIntent == "RewardPoints" && (
-        <div className="absolute top-4 right-4  flex items-center justify-center bg-green-500 text-white p-2 rounded-full">
-          <IoTicketSharp />
+    <div>
+      {booking.paymentIntent == "RewardPoints" ? (
+        <RewardsDialog booking={booking} />
+      ) : (
+        <div
+          className={`${
+            redeemed && "hidden"
+          } bg-white  w-full grid relative transition duration-200 ease-linear grid-cols-5 gap-8 p-8 justify-between rounded-lg h-64 shadow-lg ring-1 ring-black/20`}
+        >
+          <div className="col-span-2 h-full w-full square overflow-hidden rounded-md object-cover">
+            <img
+              src={hotel?.image[0]}
+              className="object-cover w-full h-full "
+            />
+          </div>
+
+          <div className="col-span-3 flex flex-col h-full justify-between pt-4">
+            <div className="grid grid-cols-3 w-full gap-4">
+              <div className="w-full flex flex-row justify-center items-center ">
+                <div className="flex flex-col w-full items-center justify-between mb-1">
+                  <h1 className="">Hotel</h1>
+                  <h1 className="font-bold">{hotel?.hotel}</h1>
+                </div>
+                <MdHotel className="" />
+              </div>
+              <div className="w-full flex flex-row justify-center items-center ">
+                <div className="flex flex-col w-full items-center justify-between mb-1">
+                  <h1 className="">Location</h1>
+                  <h1 className="font-bold">{hotel?.location}</h1>
+                </div>
+                <HiLocationMarker className="" />
+              </div>
+              <div className="w-full flex flex-row justify-center items-center ">
+                <div className="flex flex-col w-full items-center justify-between mb-1">
+                  <h1 className=" ">Room </h1>
+                  <h1 className="font-bold ">{hotel?.roomNumber}</h1>
+                </div>
+                <MdMeetingRoom className="" />
+              </div>
+            </div>
+            <div>
+              <div className="w-full flex flex-row relative space-x-2 mt-4 items-center justify-center text-white bg-black ring-black ring-1 p-2 rounded-sm font-bold">
+                <BsCalendarWeekFill className="absolute right-4" />
+                <p>{booking?.startDate && dateHandler(booking?.startDate)}</p>
+                <p>-</p>
+                <p>{booking?.endDate && dateHandler(booking?.endDate)}</p>
+              </div>
+              {enableRewards == 0 ? (
+                <div className="w-full grid grid-cols-2 gap-2">
+                  <Dialog.Root>
+                    <Dialog.Trigger>
+                      <div className="w-full hover:shadow-xl hover:scale-[1.02] transition duration-200 ease-linear flex flex-row space-x-2 mt-4 items-center justify-center bg-tertiary text-white p-2 rounded-lg font-bold">
+                        <p>Edit booking</p>
+                      </div>
+                    </Dialog.Trigger>
+                    <Dialog.Portal className="flex h-screen w-full items-center justify-center">
+                      <Dialog.Overlay className="fixed inset-0 bg-black/80" />
+                      <Dialog.Content>
+                        <motion.div
+                          className="flex flex-col p-16 items-center justify-center overflow-y-scroll fixed left-1/2 top-1/2 w-8/12 max-w-[54rem] bg-white rounded-lg"
+                          initial="hidden"
+                          animate="visible"
+                          variants={container}
+                        >
+                          <p className="font-bold text-xl mb-8">
+                            Edit your reservation
+                          </p>
+
+                          <form className="flex flex-col w-80">
+                            {error && (
+                              <div className="w-full items-center justify-center flex mb-2 bg-red-500 p-2 rounded-md text-white">
+                                Invalid dates please try different dates.
+                              </div>
+                            )}
+                            <div className="check-in">
+                              <label>Check in: </label>
+                              <DatePicker
+                                className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
+                                selected={startDate}
+                                onChange={(date) => setStartDate(date)}
+                                //excludeDates={excludedDates}
+                                excludeDateIntervals={disableDateRange}
+                                minDate={new Date()}
+                              />
+                            </div>
+                            <div className="check-out">
+                              <label>Check out: </label>
+                              <DatePicker
+                                className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
+                                selected={endDate}
+                                excludeDateIntervals={disableDateRange}
+                                onChange={(date) => setEndDate(date)}
+                                minDate={minCheckout}
+                              />
+                            </div>
+                            <div className="w-full h-[2px] bg-black/20 my-4 mt-16 " />
+                            <div className="mb-4 w-full text-xl font-bold flex justify-between items-center">
+                              <h4>Total </h4>
+                              <h4>${total} </h4>
+                            </div>
+                          </form>
+                          <Dialog.Close className="absolute top-6 left-6">
+                            <GrFormClose className="text-xl" />
+                          </Dialog.Close>
+                          <Dialog.Close>
+                            <div
+                              onClick={() =>
+                                editHandler({
+                                  hotel,
+                                  user,
+                                  startDate,
+                                  endDate,
+                                  total,
+                                })
+                              }
+                              className="mt-8 px-4 py-2 rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] cursor-pointer bg-gradient-to-r from-tertiary to-[#79A1F7] select-none text-white  space-x-2"
+                            >
+                              Edit reservation
+                            </div>
+                          </Dialog.Close>
+                        </motion.div>
+                      </Dialog.Content>
+                    </Dialog.Portal>
+                  </Dialog.Root>
+                  <Dialog.Root>
+                    <Dialog.Trigger>
+                      <div className="w-full flex flex-row hover:shadow-xl hover:scale-[1.02] transition duration-200 ease-linear  cursor-pointer space-x-2 mt-4 items-center justify-center bg-red-500 text-white p-2 rounded-lg font-bold">
+                        <p>Cancel booking</p>
+                      </div>
+                    </Dialog.Trigger>
+                    <Dialog.Portal className="flex h-screen w-full items-center justify-center">
+                      <Dialog.Overlay className="fixed inset-0 bg-black/80" />
+                      <Dialog.Content>
+                        <motion.div
+                          className="flex flex-col p-16 items-center justify-center overflow-y-scroll fixed left-1/2 top-1/2 w-8/12 max-w-[54rem] bg-white rounded-lg"
+                          initial="hidden"
+                          animate="visible"
+                          variants={container}
+                        >
+                          <p className="font-bold text-xl mb-8">
+                            Are you sure you want to cancel your reservation?
+                          </p>
+                          <p>
+                            Confirming this action will cancel your reservation
+                            and refund your initial payment. You will be charged
+                            a fee of $10.00 for this cancellation. Please note
+                            that this action cannot be undone.
+                          </p>
+                          <Dialog.Close className="absolute top-6 left-6">
+                            <GrFormClose className="text-xl" />
+                          </Dialog.Close>
+                          <Dialog.Close>
+                            <div
+                              onClick={() => cancelHandler()}
+                              className="mt-8 px-4 py-2 rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] cursor-pointer bg-gradient-to-r from-red-500 to-red-400 select-none text-white  space-x-2"
+                            >
+                              Cancel booking
+                            </div>
+                          </Dialog.Close>
+                        </motion.div>
+                      </Dialog.Content>
+                    </Dialog.Portal>
+                  </Dialog.Root>
+                </div>
+              ) : enableRewards == 1 ? (
+                <div className="w-full grid grid-cols-1">
+                  <div
+                    className="w-full flex flex-row hover:shadow-xl hover:scale-[1.02] transition duration-200 ease-linear  cursor-pointer space-x-2 mt-4 items-center justify-center bg-green-500 text-white p-2 rounded-lg font-bold"
+                    onClick={() => rewardsHandler()}
+                  >
+                    <p>Redeem rewards points</p>
+                  </div>
+                </div>
+              ) : (
+                <div className="w-full grid grid-cols-1 ">
+                  <div className="w-full flex flex-row relative space-x-2 mt-4 items-center justify-center text-white bg-black/60 p-2 rounded-sm font-bold">
+                    Booking is in progress
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       )}
-      <div className="col-span-3 flex flex-col h-full justify-between pt-4">
-        <div className="grid grid-cols-3 w-full gap-4">
-          <div className="w-full flex flex-row justify-center items-center ">
-            <div className="flex flex-col w-full items-center justify-between mb-1">
-              <h1 className="">Hotel</h1>
-              <h1 className="font-bold">{hotel?.hotel}</h1>
-            </div>
-            <MdHotel className="" />
-          </div>
-          <div className="w-full flex flex-row justify-center items-center ">
-            <div className="flex flex-col w-full items-center justify-between mb-1">
-              <h1 className="">Location</h1>
-              <h1 className="font-bold">{hotel?.location}</h1>
-            </div>
-            <HiLocationMarker className="" />
-          </div>
-          <div className="w-full flex flex-row justify-center items-center ">
-            <div className="flex flex-col w-full items-center justify-between mb-1">
-              <h1 className=" ">Room </h1>
-              <h1 className="font-bold ">{hotel?.roomNumber}</h1>
-            </div>
-            <MdMeetingRoom className="" />
-          </div>
-        </div>
-        <div>
-          <div className="w-full flex flex-row relative space-x-2 mt-4 items-center justify-center text-white bg-black ring-black ring-1 p-2 rounded-sm font-bold">
-            <BsCalendarWeekFill className="absolute right-4" />
-            <p>{booking?.startDate && dateHandler(booking?.startDate)}</p>
-            <p>-</p>
-            <p>{booking?.endDate && dateHandler(booking?.endDate)}</p>
-          </div>
-          {enableRewards == 0 ? (
-            <div className="w-full grid grid-cols-2 gap-2">
-              <Dialog.Root>
-                <Dialog.Trigger>
-                  <div className="w-full hover:shadow-xl hover:scale-[1.02] transition duration-200 ease-linear flex flex-row space-x-2 mt-4 items-center justify-center bg-tertiary text-white p-2 rounded-lg font-bold">
-                    <p>Edit booking</p>
-                  </div>
-                </Dialog.Trigger>
-                <Dialog.Portal className="flex h-screen w-full items-center justify-center">
-                  <Dialog.Overlay className="fixed inset-0 bg-black/80" />
-                  <Dialog.Content>
-                    <motion.div
-                      className="flex flex-col p-16 items-center justify-center overflow-y-scroll fixed left-1/2 top-1/2 w-8/12 max-w-[54rem] bg-white rounded-lg"
-                      initial="hidden"
-                      animate="visible"
-                      variants={container}
-                    >
-                      <p className="font-bold text-xl mb-8">
-                        Edit your reservation
-                      </p>
-
-                      <form className="flex flex-col w-80">
-                        {error && (
-                          <div className="w-full items-center justify-center flex mb-2 bg-red-500 p-2 rounded-md text-white">
-                            Invalid dates please try different dates.
-                          </div>
-                        )}
-                        <div className="check-in">
-                          <label>Check in: </label>
-                          <DatePicker
-                            className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
-                            selected={startDate}
-                            onChange={(date) => setStartDate(date)}
-                            //excludeDates={excludedDates}
-                            excludeDateIntervals={disableDateRange}
-                            minDate={new Date()}
-                          />
-                        </div>
-                        <div className="check-out">
-                          <label>Check out: </label>
-                          <DatePicker
-                            className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
-                            selected={endDate}
-                            excludeDateIntervals={disableDateRange}
-                            onChange={(date) => setEndDate(date)}
-                            minDate={minCheckout}
-                          />
-                        </div>
-                        <div className="w-full h-[2px] bg-black/20 my-4 mt-16 " />
-                        <div className="mb-4 w-full text-xl font-bold flex justify-between items-center">
-                          <h4>Total </h4>
-                          <h4>${total} </h4>
-                        </div>
-                      </form>
-                      <Dialog.Close className="absolute top-6 left-6">
-                        <GrFormClose className="text-xl" />
-                      </Dialog.Close>
-                      <Dialog.Close>
-                        <div
-                          onClick={() =>
-                            editHandler({
-                              hotel,
-                              user,
-                              startDate,
-                              endDate,
-                              total,
-                            })
-                          }
-                          className="mt-8 px-4 py-2 rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] cursor-pointer bg-gradient-to-r from-tertiary to-[#79A1F7] select-none text-white  space-x-2"
-                        >
-                          Edit reservation
-                        </div>
-                      </Dialog.Close>
-                    </motion.div>
-                  </Dialog.Content>
-                </Dialog.Portal>
-              </Dialog.Root>
-              <Dialog.Root>
-                <Dialog.Trigger>
-                  <div className="w-full flex flex-row hover:shadow-xl hover:scale-[1.02] transition duration-200 ease-linear  cursor-pointer space-x-2 mt-4 items-center justify-center bg-red-500 text-white p-2 rounded-lg font-bold">
-                    <p>Cancel booking</p>
-                  </div>
-                </Dialog.Trigger>
-                <Dialog.Portal className="flex h-screen w-full items-center justify-center">
-                  <Dialog.Overlay className="fixed inset-0 bg-black/80" />
-                  <Dialog.Content>
-                    <motion.div
-                      className="flex flex-col p-16 items-center justify-center overflow-y-scroll fixed left-1/2 top-1/2 w-8/12 max-w-[54rem] bg-white rounded-lg"
-                      initial="hidden"
-                      animate="visible"
-                      variants={container}
-                    >
-                      <p className="font-bold text-xl mb-8">
-                        Are you sure you want to cancel your reservation?
-                      </p>
-                      <p>
-                        Confirming this action will cancel your reservation and
-                        refund your initial payment. You will be charged a fee
-                        of $10.00 for this cancellation. Please note that this
-                        action cannot be undone.
-                      </p>
-                      <Dialog.Close className="absolute top-6 left-6">
-                        <GrFormClose className="text-xl" />
-                      </Dialog.Close>
-                      <Dialog.Close>
-                        <div
-                          onClick={() => cancelHandler()}
-                          className="mt-8 px-4 py-2 rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] cursor-pointer bg-gradient-to-r from-red-500 to-red-400 select-none text-white  space-x-2"
-                        >
-                          Cancel booking
-                        </div>
-                      </Dialog.Close>
-                    </motion.div>
-                  </Dialog.Content>
-                </Dialog.Portal>
-              </Dialog.Root>
-            </div>
-          ) : enableRewards == 1 ? (
-            <div className="w-full grid grid-cols-1">
-              <div
-                className="w-full flex flex-row hover:shadow-xl hover:scale-[1.02] transition duration-200 ease-linear  cursor-pointer space-x-2 mt-4 items-center justify-center bg-green-500 text-white p-2 rounded-lg font-bold"
-                onClick={() => rewardsHandler()}
-              >
-                <p>Redeem rewards points</p>
-              </div>
-            </div>
-          ) : (
-            <div className="w-full grid grid-cols-1 ">
-              <div className="w-full flex flex-row relative space-x-2 mt-4 items-center justify-center text-white bg-black/60 p-2 rounded-sm font-bold">
-                Booking is in progress
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
     </div>
   );
 };
