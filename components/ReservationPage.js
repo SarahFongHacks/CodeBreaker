@@ -30,7 +30,7 @@ const ReservationPage = ({ hotel }) => {
 
   const reservationHandler = async ({ hotel, user, startDate, endDate }) => {
     setLoader(true);
-    const data = await createProduct(hotel, startDate, endDate, total * 100);
+    const data = await createProduct(hotel, startDate, endDate, Math.floor(total * 100));
     if (data) {
       const data2 = await fetch("/api/checkout_sessions", {
         method: "POST",
@@ -40,7 +40,7 @@ const ReservationPage = ({ hotel }) => {
           hotelId: hotel.id,
           startDate: startDate,
           endDate: endDate,
-          price: hotel.price,
+          price: Math.floor(total * 100),
         }),
       });
       const stripeData = await data2.json();
