@@ -19,6 +19,7 @@ import { HiLocationMarker } from "react-icons/hi";
 import { BsCalendarWeekFill } from "react-icons/bs";
 import { GrFormClose } from "react-icons/gr";
 import { getUser, updateRewardPoints } from "../../db_func/user";
+import { IoTicketSharp } from "react-icons/io5";
 
 const DateDialog = ({ booking }) => {
   var today = new Date();
@@ -151,22 +152,25 @@ const DateDialog = ({ booking }) => {
   }));
 
   const rewardsHandler = () => {
-    updateRewardPoints(user, parseInt(booking.paymentIntent));
+    updateRewardPoints(user, booking.rewardPoints);
     cancelReservation(booking);
     setRedeemed(true);
   };
-
-  console.log(parseInt("1000"));
 
   return (
     <div
       className={`${
         redeemed && "hidden"
-      } bg-white  w-full grid transition duration-200 ease-linear grid-cols-5 gap-8 p-8 justify-between rounded-lg h-64 shadow-lg ring-1 ring-black/20`}
+      } bg-white  w-full grid relative transition duration-200 ease-linear grid-cols-5 gap-8 p-8 justify-between rounded-lg h-64 shadow-lg ring-1 ring-black/20`}
     >
       <div className="col-span-2 h-full w-full square overflow-hidden rounded-md object-cover">
         <img src={hotel?.image[0]} className="object-cover w-full h-full " />
       </div>
+      {booking.paymentIntent == "RewardPoints" && (
+        <div className="absolute top-4 right-4  flex items-center justify-center bg-green-500 text-white p-2 rounded-full">
+          <IoTicketSharp />
+        </div>
+      )}
       <div className="col-span-3 flex flex-col h-full justify-between pt-4">
         <div className="grid grid-cols-3 w-full gap-4">
           <div className="w-full flex flex-row justify-center items-center ">
