@@ -34,8 +34,8 @@ async function writeReservation(reservation: Reservation) {
 }
 
 export async function cancelReservation(reservation: Reservation) {
-  const user : User = await dbConverter.jsonToUser(await getDoc(doc(db, "User", reservation.userId)), doc(db, "User", reservation.userId))
-  const hotelRoom : HotelRoom = await dbConverter.jsonToHotelRoom(await getDoc(doc(db, "HotelRoom", reservation.hotelRoomId)), doc(db, "HotelRoom", reservation.hotelRoomId))
+  const user : User = await dbConverter.jsonToUser((await getDoc(doc(db, "User", reservation.userId))).data(), doc(db, "User", reservation.userId))
+  const hotelRoom : HotelRoom = await dbConverter.jsonToHotelRoom((await getDoc(doc(db, "HotelRoom", reservation.hotelRoomId))).data(), doc(db, "HotelRoom", reservation.hotelRoomId))
   
   for(let i = 0; i < hotelRoom.reservations.length; i++) {
     if(hotelRoom.reservations[i].id == reservation.id)
