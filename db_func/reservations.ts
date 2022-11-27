@@ -79,7 +79,8 @@ export async function createRewardPointsReservation(
     hotelRoomId: hotelRoom.id,
     startDate: startDate.getTime(),
     userId: user.id,
-    paymentIntent : requiredPoints + ''
+    paymentIntent : "RewardPoints",
+    rewardPoints : requiredPoints,
   };
 
   if(user.rewardPoints >= requiredPoints){
@@ -120,6 +121,7 @@ export async function createReservation(
     startDate: startDate.getTime(),
     userId: user.id,
     paymentIntent : "RewardPoints",
+    rewardPoints : 3,
   };
 
   const fireBaseError: FireBaseError = {

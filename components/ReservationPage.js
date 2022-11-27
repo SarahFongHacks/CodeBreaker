@@ -42,7 +42,7 @@ const ReservationPage = ({ hotel }) => {
           hotelId: hotel.id,
           startDate: startDate,
           endDate: endDate,
-          price: Math.floor(hotel.price * 100),
+          price: Math.floor(total * 100),
         }),
       });
       const stripeData = await data2.json();

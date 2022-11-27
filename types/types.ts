@@ -21,6 +21,7 @@ export type Reservation = {
   startDate: number;
   userId: string;
   paymentIntent: string;
+  rewardPoints: number;
 };
 
 export type User = {
