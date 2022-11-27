@@ -1,17 +1,17 @@
-import { HotelRoom, SearchFilter } from "../types/types";
-import { db } from "../pages/index";
-import { dbConverter } from "../db_conversion/db_converter";
 import {
+  collection,
   doc,
+  getDoc,
   getDocs,
+  query,
   setDoc,
   updateDoc,
-  collection,
-  query,
-  where,
-  getDoc
+  where
 } from "firebase/firestore";
 
+import {dbConverter} from "../db_conversion/db_converter";
+import {db} from "../pages/index";
+import {HotelRoom, SearchFilter} from "../types/types";
 
 export async function updateHotelRoom(hotelRoom: HotelRoom) {
   const docRef = doc(db, "HotelRoom", hotelRoom.id);
@@ -19,18 +19,30 @@ export async function updateHotelRoom(hotelRoom: HotelRoom) {
   await updateDoc(docRef, await dbConverter.hotelRoomToJson(hotelRoom));
 }
 
-export async function getHotelRoom(id : string) : Promise<HotelRoom> {
+export async function getHotelRoom(id: string): Promise<HotelRoom> {
 
   const docRef = doc(db, "HotelRoom", id);
-  
-  return (await dbConverter.jsonToHotelRoom((await getDoc(docRef)).data(), docRef));
+
+  return (
+      await dbConverter.jsonToHotelRoom((await getDoc(docRef)).data(), docRef));
 }
 
 export async function searchHotel(filter: SearchFilter): Promise<HotelRoom[]> {
+
   const userRef = collection(db, "HotelRoom");
   let q = query(userRef);
 
   if (filter.enableLocation) {
+   
+    const city = filter.location.split(",")
+
+    city[0] = city[0].toLowerCase()
+    .split(' ')
+    .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+    .join(' ');
+
+    filter.location = city.join(',')
+
     q = query(q, where("location", "==", filter.location));
   }
   if (filter.enableNumberOfBeds) {
@@ -43,6 +55,12 @@ export async function searchHotel(filter: SearchFilter): Promise<HotelRoom[]> {
     q = query(q, where("capacity", "==", filter.capacity));
   }
   if (filter.enableHotel) {
+
+    filter.hotel = filter.hotel.toLowerCase()
+                       .split(' ')
+                       .map((s) => s.charAt(0).toUpperCase() + s.substring(1))
+                       .join(' ');
+
     q = query(q, where("hotel", "==", filter.hotel));
   }
   if (filter.enablePriceRange) {
