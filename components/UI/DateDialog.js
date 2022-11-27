@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { motion } from "framer-motion";
-import { changeReservationDate } from "../../db_func/reservations";
+import { cancelReservation, changeReservationDate } from "../../db_func/reservations";
 import { getHotelRoom } from "../../db_func/hotelRoom";
 import { HotelRoom } from "../../types/types";
 import { useRouter } from "next/router";
@@ -67,6 +67,18 @@ const DateDialog = ({ booking }) => {
   };
 
   const cancelHandler = async () => {
+    // if(booking.paymentIntent === "RewardPoints"){
+    //   console.log("Cancel reward booking");
+    //   cancelReservation(booking);
+    // } else {
+    //   const data = await fetch("/api/cancel_sessions", {
+    //     method: "POST",
+    //     body: JSON.stringify(booking),
+    //   });
+    //   const stripeData = await data.json();
+    //   // console.log(stripeData);
+    //   router.push(stripeData.url);
+    // }
     const data = await fetch("/api/cancel_sessions", {
       method: "POST",
       body: JSON.stringify(booking),
