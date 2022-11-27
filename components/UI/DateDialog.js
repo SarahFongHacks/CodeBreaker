@@ -141,39 +141,16 @@ const DateDialog = ({ booking }) => {
 
   const excludedDates = [];
   for (let i = 0; i < hotel?.reservations.length; i++) {
-    const dateToAdd = new Date(hotel.reservations[i].startDate);
-    while (dateToAdd <= hotel.reservations[i].endDate) {
-      excludedDates.push(new Date(dateToAdd));
-      dateToAdd.setDate(dateToAdd.getDate() + 1);
-    }
+    excludedDates.push({
+      start: new Date(hotel.reservations[i].startDate),
+      end: new Date(hotel.reservations[i].endDate),
+    });
   }
 
-  for (let i = 0; i < user?.currentBooking.length; i++) {
-    const dateToAdd = new Date(user.currentBooking[i].startDate);
-    while (dateToAdd <= user.currentBooking[i].endDate) {
-      excludedDates.push(new Date(dateToAdd));
-      dateToAdd.setDate(dateToAdd.getDate() + 1);
-    }
-  }
-
-  excludedDates.sort(function (a, b) {
-    const d1 = new Date(a);
-    const d2 = new Date(b);
-    return d1 - d2;
-  });
-
-  const maxCheckout = () => {
-    var maxC = null;
-    for (let i = 0; i < excludedDates.length; i++) {
-      if (minCheckout < excludedDates[i]) {
-        const maxDate = new Date(excludedDates[i]);
-        maxDate.setDate(maxDate.getDate() - 1);
-        maxC = new Date(maxDate);
-        break;
-      }
-    }
-    return maxC;
-  };
+  const disableDateRange = excludedDates.map((range) => ({
+    start: range.start,
+    end: range.end,
+  }));
 
   const rewardsHandler = () => {
     updateRewardPoints(user, booking.rewardPoints);
