@@ -14,7 +14,6 @@ const ProfilePage = () => {
   const getUserUpdated = async () => {
     if (user) {
       const updated = await getUser(user.id);
-      console.log(updated);
       setUser(updated);
     }
   };
@@ -63,14 +62,14 @@ const ProfilePage = () => {
           >
             <div className="shadow-xl ring-1 relative bg-white ring-black/20 rounded-lg p-8 py-16 flex items-center justify-center w-full flex-col">
               <MdAccountCircle className="absolute top-8 right-8 text-xl" />
-              <p className="text-xl mb-2 text-center">email</p>
+              <p className="text-xl mb-2 text-center">Email</p>
               <p className="text-2xl font-bold text-center">{user?.email}</p>
             </div>
             <div className="shadow-xl ring-1 relative bg-white ring-black/20 rounded-lg p-8 py-16 flex items-center justify-center w-full flex-col">
               <IoTicketSharp className="absolute top-8 right-8 text-xl " />
-              <p className="text-xl mb-2 text-center">reward points</p>
+              <p className="text-xl mb-2 text-center">Reward Points</p>
               <p className="text-2xl font-bold text-center">
-                {user?.rewardPoints}
+                {user?.rewardPoints.toFixed(0)}
               </p>
             </div>
           </motion.div>

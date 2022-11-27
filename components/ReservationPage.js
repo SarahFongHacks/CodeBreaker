@@ -1,7 +1,11 @@
 import { useContext, useEffect, useState } from "react";
 import ImageCarousel from "./UI/ImageCarousel";
-import { createReservation } from "../db_func/reservations";
+import {
+  createReservation,
+  createRewardPointsReservation,
+} from "../db_func/reservations";
 import { LoginContext } from "../context";
+import Link from "next/link";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -23,6 +27,7 @@ const ReservationPage = ({ hotel }) => {
   const [endDate, setEndDate] = useState(minCheckout);
   const [disabled, setDisabled] = useState(true);
   const [loader, setLoader] = useState(false);
+  const [rewardsLoader, setRewardsLoader] = useState(false);
 
   const { user } = useContext(LoginContext);
 
@@ -30,7 +35,13 @@ const ReservationPage = ({ hotel }) => {
 
   const reservationHandler = async ({ hotel, user, startDate, endDate }) => {
     setLoader(true);
-    const data = await createProduct(hotel, startDate, endDate, Math.floor(total * 100));
+    const data = await createProduct(
+      hotel,
+      startDate,
+      endDate,
+      Math.floor(total * 100)
+    );
+    // console.log(total + ', ' + total * 100);
     if (data) {
       const data2 = await fetch("/api/checkout_sessions", {
         method: "POST",
@@ -47,6 +58,13 @@ const ReservationPage = ({ hotel }) => {
       setLoader(false);
       router.push(stripeData.url);
     }
+  };
+
+  const rewardsReservationHandler = () => {
+    createRewardPointsReservation(hotel, user, startDate, endDate, total);
+    setRewardsLoader(true);
+    setTimeout(3);
+    router.push("/profile");
   };
 
   const totalHandler = () => {
@@ -108,8 +126,8 @@ const ReservationPage = ({ hotel }) => {
     return d1 - d2;
   });
 
-  for (let i = 0; i < hotel?.reservations.length; i ++) {
-    // console.log("Reservation " + i + ": " + new Date(hotel.reservations[i].startDate) 
+  for (let i = 0; i < hotel?.reservations.length; i++) {
+    // console.log("Reservation " + i + ": " + new Date(hotel.reservations[i].startDate)
     // + " - " + new Date(hotel.reservations[i].endDate));
   }
 
@@ -147,7 +165,8 @@ const ReservationPage = ({ hotel }) => {
           <div className="w-full flex flex-row justify-between my-4">
             <h3 className="text-xl font-bold">Rate</h3>
             <h3 className="text-xl font-bold">
-              ${hotel?.price / 100} <span className="font-medium">night</span>
+              ${hotel?.price / 100}{" "}
+              <span className="font-medium">per night</span>
             </h3>
           </div>
           {error && (
@@ -225,12 +244,29 @@ const ReservationPage = ({ hotel }) => {
                 disabled
                   ? "cursor-not-allowed bg-black text-white/50"
                   : "bg-gradient-to-r from-gray-800 to-gray-500 hover:scale-[1.01] hover:shadow-xl text-white "
-              } w-full  mt-4 select-none shadow-lg  cursor-pointer  font-bold   py-3 px-5 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary`}
-              // onClick={() =>
-              //   reservationHandler({ hotel, user, startDate, endDate })
-              // }
+              } w-full  mt-4 select-none shadow-lg relative text-sm cursor-pointer  font-bold   py-3 px-5 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary`}
+              onClick={() =>
+                rewardsReservationHandler(
+                  hotel,
+                  user,
+                  startDate,
+                  endDate,
+                  total
+                )
+              }
             >
-              Reserve with Rewards Points
+              <p>Reserve with Rewards Points</p>
+              {rewardsLoader && (
+                <div className="absolute right-4">
+                  <PuffLoader
+                    color={"#ffffff"}
+                    loading={rewardsLoader}
+                    size={30}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                  />
+                </div>
+              )}
             </div>
           </form>
         </div>

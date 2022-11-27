@@ -9,6 +9,7 @@ export const dbConverter = {
   async jsonToHotelRoom(json: any, ref: DocumentReference): Promise<HotelRoom> {
 
 
+    console.log(json)
     const hotelRoom: HotelRoom = {
       id: ref.id,
       roomNumber: json.roomNumber,
@@ -27,6 +28,9 @@ export const dbConverter = {
   },
 
   async hotelRoomToJson(hotelRoom: HotelRoom) {
+
+
+
     return {
       id: hotelRoom.id,
       roomNumber: hotelRoom.roomNumber,
@@ -42,6 +46,8 @@ export const dbConverter = {
   },
 
   jsonToReservation(json: any, ref: DocumentReference): Reservation {
+
+
     const reservation: Reservation = {
       id: ref.id,
       endDate: json.endDate,
@@ -49,6 +55,7 @@ export const dbConverter = {
       startDate: json.startDate,
       userId: json.userId,
       paymentIntent : json.paymentIntent,
+      rewardPoints : json.rewardPoints ? json.rewardPoints : 100,
     };
     return reservation;
   },
@@ -61,6 +68,7 @@ export const dbConverter = {
       startDate: reservation.startDate,
       userId: reservation.userId,
       paymentIntent: reservation.paymentIntent,
+      rewardPoints : reservation.rewardPoints,
     };
   },
 

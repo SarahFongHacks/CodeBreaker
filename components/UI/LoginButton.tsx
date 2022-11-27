@@ -15,7 +15,6 @@ const LoginButton = ({ color }) => {
   const getUserUpdated = async () => {
     if (user) {
       const updated = await getUser(user.id);
-      console.log(updated);
       setUser(updated);
     }
   };
@@ -34,7 +33,7 @@ const LoginButton = ({ color }) => {
         <div className="h-12 flex space-x-4 ">
           <div className=" flex flex-row items-center justify-center space-x-2 rounded-lg bg-white/70 backdrop-blur-xl ring-1 truncate overflow-hidden py-3 px-5 ring-black/30 transition duration-200 ease-linear ">
             <IoTicketSharp />
-            <p>{user.rewardPoints}</p>
+            <p>{user.rewardPoints.toFixed(0)}</p>
           </div>
           <DropdownMenu.Root>
             <DropdownMenu.Trigger className="select-none focus:outline-none">

@@ -139,14 +139,18 @@ exports.checkoutComplete =
           hotelRoomId : hotelId,
           startDate : Date.parse(startDate),
           userId : userId,
-          paymentIntent : paymentIntent
+          paymentIntent : paymentIntent,
+          rewardPoints : Math.floor(Math.floor((price / 1000)) * 100)
         }
-
-				user.rewardPoints = user.rewardPoints + Math.trunc((price / 1000));
+        
+        console.log(reservation.rewardPoints)
 
 				console.log(price)
-				console.log(user.rewardPoints)
 
+				console.log(Math.floor(price / 1000))
+        console.log(Math.floor((Math.floor(price / 1000) * 100)))
+
+				console.log(user.rewardPoints)
 
         resDocRef.set(reservation)
         user.currentBooking.push(resDocRef)
