@@ -60,10 +60,12 @@ const ReservationPage = ({ hotel }) => {
     }
   };
 
-  const rewardsReservationHandler = () => {
+  const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+
+  const rewardsReservationHandler = async () => {
     createRewardPointsReservation(hotel, user, startDate, endDate, total);
     setRewardsLoader(true);
-    setTimeout(3);
+    await delay(3000);
     router.push("/profile");
   };
 
@@ -99,11 +101,6 @@ const ReservationPage = ({ hotel }) => {
       excludedDates.push(new Date(dateToAdd));
       dateToAdd.setDate(dateToAdd.getDate() + 1);
     }
-    // excludedDates.push({
-    //   start: new Date(hotel.reservations[i].startDate),
-    //   end: new Date(hotel.reservations[i].endDate),
-    // });
-    //console.log(new Date(hotel.reservations[i].startDate) + ", " + new Date(hotel.reservations[i].endDate));
   }
 
   for (let i = 0; i < user?.currentBooking.length; i++) {
@@ -112,12 +109,6 @@ const ReservationPage = ({ hotel }) => {
       excludedDates.push(new Date(dateToAdd));
       dateToAdd.setDate(dateToAdd.getDate() + 1);
     }
-
-    console.log(
-      new Date(user.currentBooking[i].startDate) +
-        ", " +
-        new Date(user.currentBooking[i].endDate)
-    );
   }
 
   excludedDates.sort(function (a, b) {
@@ -125,15 +116,6 @@ const ReservationPage = ({ hotel }) => {
     const d2 = new Date(b);
     return d1 - d2;
   });
-
-  for (let i = 0; i < hotel?.reservations.length; i++) {
-    // console.log("Reservation " + i + ": " + new Date(hotel.reservations[i].startDate)
-    // + " - " + new Date(hotel.reservations[i].endDate));
-  }
-
-  // for (let i = 0; i < excludedDates.length; i++) {
-  //   console.log(i + ": " + excludedDates[i]);
-  // }
 
   const maxCheckout = () => {
     var maxC = null;
