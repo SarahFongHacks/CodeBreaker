@@ -76,7 +76,11 @@ const ReservationPage = ({ hotel }) => {
 
   const excludedDates = [];
   for (let i = 0; i < hotel?.reservations.length; i++) {
-    
+    const dateToAdd = new Date(hotel.reservations[i].startDate);
+    while (dateToAdd <= hotel.reservations[i].endDate) {
+      excludedDates.push(new Date(dateToAdd));
+      dateToAdd.setDate(dateToAdd.getDate() + 1);
+    }
     // excludedDates.push({
     //   start: new Date(hotel.reservations[i].startDate),
     //   end: new Date(hotel.reservations[i].endDate),
@@ -111,12 +115,15 @@ const ReservationPage = ({ hotel }) => {
   var maxCheckout = null;
   for (let i = 0; i < excludedDates.length; i++) {
     if (minCheckout < excludedDates[i]) {
-      maxCheckout = new Date(excludedDates[i]);
+      const maxDate = new Date(excludedDates[i]);
+      maxDate.setDate(maxDate.getDate() - 1);
+      maxCheckout = new Date(maxDate);
       break;
     }
   }
 
   console.log("Max: " + maxCheckout);
+  console.log("Min: " + minCheckout);
   
 
   return (
@@ -150,7 +157,10 @@ const ReservationPage = ({ hotel }) => {
               <DatePicker
                 className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
                 selected={startDate}
-                onChange={(date) => setStartDate(date)}
+                onChange={(date) => {
+                  setStartDate(date);
+                  setEndDate(maxCheckout);
+                }}
                 excludeDates={excludedDates}
                 //excludeDateIntervals={disableDateRange}
                 minDate={new Date()}
@@ -187,7 +197,6 @@ const ReservationPage = ({ hotel }) => {
               <h4>Total </h4>
               <h4>${total} </h4>
             </div>
-
             <div
               className="relative w-full shadow-lg hover:shadow-xl cursor-pointer hover:scale-[1.01] bg-gradient-to-r from-tertiary to-[#79A1F7] font-bold text-white   py-3 px-5 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary"
               onClick={() =>
