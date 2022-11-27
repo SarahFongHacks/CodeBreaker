@@ -54,6 +54,48 @@ export async function cancelReservation(reservation: Reservation) {
 
 }
 
+export async function createRewardPointsReservation(
+  hotelRoom: HotelRoom,
+  user: User,
+  startDate: Date,
+  endDate: Date,
+  requiredPoints: number
+): Promise<FireBaseError>{ 
+
+  const fireBaseError: FireBaseError = {
+    error: false,
+    errorCode: "",
+    errorMessage: ""
+  };
+
+  const reservation: Reservation = {
+    id: user.id,
+    endDate: endDate.getTime(),
+    hotelRoomId: hotelRoom.id,
+    startDate: startDate.getTime(),
+    userId: user.id,
+    paymentIntent : "RewardPoints"
+  };
+
+  if(user.rewardPoints - requiredPoints >= 0){
+      user.rewardPoints = user.rewardPoints - requiredPoints;
+      try {
+          await writeReservation(reservation);
+      } catch (error) {
+          fireBaseError.error = true;
+          fireBaseError.errorCode = error.code;
+          fireBaseError.errorMessage = error.message;
+    }
+  }
+  user.currentBooking.push(reservation);
+  hotelRoom.reservations.push(reservation);
+
+  await updateUser(user);
+  await updateHotelRoom(hotelRoom);
+  
+  return fireBaseError;
+}
+
 export async function createReservation(
   hotelRoom: HotelRoom,
   user: User,

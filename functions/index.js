@@ -142,7 +142,8 @@ exports.checkoutComplete =
           paymentIntent : paymentIntent
         }
 
-				user.rewardPoints = user.rewardPoints + Math.trunc((price / 1000));
+				// user.rewardPoints = user.rewardPoints + (Math.trunc(price / 1000) * (endDate - startDate));
+        user.rewardPoints = user.rewardPoints + (Math.trunc(price / 1000));
 
 				console.log(price)
 				console.log(user.rewardPoints)
