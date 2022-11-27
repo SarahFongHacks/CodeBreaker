@@ -15,7 +15,6 @@ const LoginButton = ({ color }) => {
   const getUserUpdated = async () => {
     if (user) {
       const updated = await getUser(user.id);
-      console.log(updated);
       setUser(updated);
     }
   };

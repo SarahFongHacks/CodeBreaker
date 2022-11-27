@@ -18,7 +18,7 @@ import { MdMeetingRoom } from "react-icons/md";
 import { HiLocationMarker } from "react-icons/hi";
 import { BsCalendarWeekFill } from "react-icons/bs";
 import { GrFormClose } from "react-icons/gr";
-import { updateRewardPoints } from "../../db_func/user";
+import { getUser, updateRewardPoints } from "../../db_func/user";
 
 const DateDialog = ({ booking }) => {
   var today = new Date();
@@ -61,7 +61,18 @@ const DateDialog = ({ booking }) => {
   }, [startDate, endDate]);
 
   const router = useRouter();
-  const { user } = useContext(LoginContext);
+  const { user, setUser, loading } = useContext(LoginContext);
+
+  const getUserUpdated = async () => {
+    if (user) {
+      const updated = await getUser(user.id);
+      setUser(updated);
+    }
+  };
+
+  useEffect(() => {
+    getUserUpdated();
+  }, [redeemed]);
 
   const dateHandler = (date) => {
     const dateObj = new Date(date);
@@ -132,11 +143,6 @@ const DateDialog = ({ booking }) => {
       start: new Date(hotel.reservations[i].startDate),
       end: new Date(hotel.reservations[i].endDate),
     });
-    console.log(
-      new Date(hotel.reservations[i].startDate) +
-        ", " +
-        new Date(hotel.reservations[i].endDate)
-    );
   }
 
   const disableDateRange = excludedDates.map((range) => ({
@@ -150,11 +156,13 @@ const DateDialog = ({ booking }) => {
     setRedeemed(true);
   };
 
+  console.log(parseInt("1000"));
+
   return (
     <div
       className={`${
-        redeemed && "grayscale-100"
-      } bg-white  w-full grid grid-cols-5 gap-8 p-8 justify-between rounded-lg h-64 shadow-lg ring-1 ring-black/20`}
+        redeemed && "hidden"
+      } bg-white  w-full grid transition duration-200 ease-linear grid-cols-5 gap-8 p-8 justify-between rounded-lg h-64 shadow-lg ring-1 ring-black/20`}
     >
       <div className="col-span-2 h-full w-full square overflow-hidden rounded-md object-cover">
         <img src={hotel?.image[0]} className="object-cover w-full h-full " />
