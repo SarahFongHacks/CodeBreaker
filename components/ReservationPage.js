@@ -17,19 +17,65 @@ import LoginButton from "./UI/LoginButton";
 import PuffLoader from "react-spinners/PuffLoader";
 
 const ReservationPage = ({ hotel }) => {
-  var today = new Date();
+
+  const { user } = useContext(LoginContext);
+
+  const excludedDates = [];
+  for (let i = 0; i < hotel?.reservations.length; i++) {
+    const dateToAdd = new Date(hotel.reservations[i].startDate);
+    while (dateToAdd <= hotel.reservations[i].endDate) {
+      excludedDates.push(new Date(dateToAdd));
+      dateToAdd.setDate(dateToAdd.getDate() + 1);
+    }
+  }
+
+  for (let i = 0; i < user?.currentBooking.length; i++) {
+    const dateToAdd = new Date(user.currentBooking[i].startDate);
+    while (dateToAdd <= user.currentBooking[i].endDate) {
+      excludedDates.push(new Date(dateToAdd));
+      dateToAdd.setDate(dateToAdd.getDate() + 1);
+    }
+  }
+
+  excludedDates.sort(function (a, b) {
+    const d1 = new Date(a);
+    const d2 = new Date(b);
+    return d1 - d2;
+  });
+
+  for (let i = 0; i < excludedDates.length; i ++) {
+    console.log(excludedDates[i]);
+  }
+
+  // const minStartDate = () => {
+  //   var minD = new Date();
+  //   var i = 0;
+  //   while (i < excludedDates.length) {
+  //     if (minD > excludedDates[i]) {
+  //       i ++;
+  //     } else if (minD == excludedDates[i]) {
+  //       minD.setDate(minD.getDate() + 1);
+  //     } else {
+        
+  //       console.log("Test: " + excludedDates[i]);
+        
+  //       minD = excludedDates[i];
+  //       console.log("Test min: " + minD);
+  //       break;
+  //     }
+  //   }
+  //   return minD;
+  // };
 
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(false);
-  const [startDate, setStartDate] = useState(today);
+  const [startDate, setStartDate] = useState(null);
   var minCheckout = new Date(startDate);
   minCheckout.setDate(minCheckout.getDate() + 1);
-  const [endDate, setEndDate] = useState(minCheckout);
+  const [endDate, setEndDate] = useState(null);
   const [disabled, setDisabled] = useState(true);
   const [loader, setLoader] = useState(false);
   const [rewardsLoader, setRewardsLoader] = useState(false);
-
-  const { user } = useContext(LoginContext);
 
   const router = useRouter();
 
@@ -94,28 +140,28 @@ const ReservationPage = ({ hotel }) => {
     }
   }, [total]);
 
-  const excludedDates = [];
-  for (let i = 0; i < hotel?.reservations.length; i++) {
-    const dateToAdd = new Date(hotel.reservations[i].startDate);
-    while (dateToAdd <= hotel.reservations[i].endDate) {
-      excludedDates.push(new Date(dateToAdd));
-      dateToAdd.setDate(dateToAdd.getDate() + 1);
-    }
-  }
+  // const excludedDates = [];
+  // for (let i = 0; i < hotel?.reservations.length; i++) {
+  //   const dateToAdd = new Date(hotel.reservations[i].startDate);
+  //   while (dateToAdd <= hotel.reservations[i].endDate) {
+  //     excludedDates.push(new Date(dateToAdd));
+  //     dateToAdd.setDate(dateToAdd.getDate() + 1);
+  //   }
+  // }
 
-  for (let i = 0; i < user?.currentBooking.length; i++) {
-    const dateToAdd = new Date(user.currentBooking[i].startDate);
-    while (dateToAdd <= user.currentBooking[i].endDate) {
-      excludedDates.push(new Date(dateToAdd));
-      dateToAdd.setDate(dateToAdd.getDate() + 1);
-    }
-  }
+  // for (let i = 0; i < user?.currentBooking.length; i++) {
+  //   const dateToAdd = new Date(user.currentBooking[i].startDate);
+  //   while (dateToAdd <= user.currentBooking[i].endDate) {
+  //     excludedDates.push(new Date(dateToAdd));
+  //     dateToAdd.setDate(dateToAdd.getDate() + 1);
+  //   }
+  // }
 
-  excludedDates.sort(function (a, b) {
-    const d1 = new Date(a);
-    const d2 = new Date(b);
-    return d1 - d2;
-  });
+  // excludedDates.sort(function (a, b) {
+  //   const d1 = new Date(a);
+  //   const d2 = new Date(b);
+  //   return d1 - d2;
+  // });
 
   const maxCheckout = () => {
     var maxC = null;
