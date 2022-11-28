@@ -151,8 +151,9 @@ const RewardsDialog = ({ booking }) => {
     end: range.end,
   }));
 
-  const cancelRewardsHandler = () => {
-    cancelReservation(booking);
+  const cancelRewardsHandler = async () => {
+    
+    await cancelReservation(booking);
     setCanceled(true);
     router.reload();
   };
