@@ -69,7 +69,7 @@ const ProfilePage = () => {
               <IoTicketSharp className="absolute top-8 right-8 text-xl " />
               <p className="text-xl mb-2 text-center">Reward Points</p>
               <p className="text-2xl font-bold text-center">
-                {user?.rewardPoints.toFixed(0)}
+                {Math.floor(user?.rewardPoints)}
               </p>
             </div>
           </motion.div>
