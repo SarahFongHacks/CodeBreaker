@@ -114,13 +114,12 @@ const ReservationPage = ({ hotel }) => {
   const rewardsReservationHandler = async () => {
     createRewardPointsReservation(hotel, user, startDate, endDate, total);
     setRewardsLoader(true);
-    // await delay(3000);
-    // router.push("/profile");
   };
 
   const nextPage = async () => {
+    await delay(3000);
     router.push("/profile");
-  }
+  };
 
   const totalHandler = () => {
     if (startDate && endDate && endDate > startDate) {
@@ -344,15 +343,11 @@ const ReservationPage = ({ hotel }) => {
                     </Dialog.Close>
                     <Dialog.Close>
                       <div
-                      className="mt-8 px-4 py-2 rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] cursor-pointer bg-gradient-to-r from-green-500 to-green-400 select-none text-white  space-x-2"
-                      onClick={() => 
-                          nextPage()
-                        }   
+                        className="mt-8 px-4 py-2 rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] cursor-pointer bg-gradient-to-r from-green-500 to-green-400 select-none text-white  space-x-2"
+                        onClick={() => nextPage()}
                       >
                         Click here to continue
                       </div>
-                      
-                      
                     </Dialog.Close>
                   </motion.div>
                 </Dialog.Content>
