@@ -183,20 +183,21 @@ const ReservationPage = ({ hotel }) => {
   };
 
   return (
-    <div className="relative w-full h-screen flex items-center justify-center flex-col p-16 bg-gradient-to-b from-white to-tertiary/40">
-      <div className="text-primary px-8 rounded-lg text-center my-8">
-        <h1 className="text-3xl font-bold">{hotel?.hotel}</h1>
+    <div className="relative w-full h-screen flex items-center justify-center flex-col p-24  bg-gradient-to-b from-white to-tertiary/40">
+      <div className="text-black px-8 rounded-lg text-center my-8 ">
+        <h1 className="text-4xl font-bold">{hotel?.hotel}</h1>
       </div>
       <div className="absolute left-0 top-0 flex w-full items-center justify-between p-8">
         <BackButton href="/hotels" />
         <LoginButton color="black" />
       </div>
-      <div className="flex space-x-8 w-full items-center justify-center ">
-        <div className="border-2 border-dashed rounded-lg w-fit shadow-lg">
+
+      <div className="h-full w-full grid grid-cols-2 gap-8">
+        <div className="ring-1 drop-shadow-lg ring-black/20 rounded-lg shadow-lg h-full w-full">
           <ImageCarousel images={hotel?.image} />
         </div>
-        <div className="border-2 border-dashed bg-white/50 backdrop-blur-xl shadow-lg rounded-lg px-32 h-full flex items-start justify-center flex-col">
-          <div className="w-full flex flex-row justify-between my-4">
+        <div className="ring-1 drop-shadow-lg ring-black/20 bg-white/50 backdrop-blur-xl shadow-lg rounded-lg w-full px-20 flex items-center justify-center flex-col">
+          <div className=" flex flex-row justify-between my-4 w-full">
             <h3 className="text-xl font-bold">Rate</h3>
             <h3 className="text-xl font-bold">
               ${hotel?.price / 100}{" "}
@@ -208,7 +209,7 @@ const ReservationPage = ({ hotel }) => {
               Invalid dates please try different dates.
             </div>
           )}
-          <form className="flex flex-col w-80">
+          <form className="flex flex-col w-full">
             <div className="check-in">
               <label>Check in: </label>
               <DatePicker
@@ -307,7 +308,7 @@ const ReservationPage = ({ hotel }) => {
                 </div>
               )}
             </div>
-            <div className="mt-2 w-full text-sm font-bold flex justify-center items-center">
+            <div className="mt-4 w-full text-sm font-bold flex justify-center items-center">
               <h4>{points} points</h4>
             </div>
           </form>

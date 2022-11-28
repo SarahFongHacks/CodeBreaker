@@ -66,7 +66,7 @@ const Hotel = ({ hotels }) => {
         <ReservationPage hotel={hotel} />
       ) : (
         <motion.div
-          className="w-full h-screen flex flex-col items-center bg-gradient-to-b from-white to-tertiary/40 justify-center p-36 relative overflow-hidden"
+          className="w-full h-screen flex flex-col items-center bg-gradient-to-b from-white to-tertiary/40 justify-center p-24 relative overflow-hidden"
           key="main"
           initial="hidden"
           animate="visible"
@@ -87,10 +87,10 @@ const Hotel = ({ hotels }) => {
           </div>
           <motion.div
             variants={item}
-            className="flex flex-row items-start justify-center space-x-8"
+            className="grid grid-cols-2 gap-8 w-full h-full"
           >
             <ImageCarousel images={hotel?.image} />
-            <div className="w-1/2 h-full flex flex-col justify-between items-start">
+            <div className="w-full h-full flex flex-col justify-between items-start">
               <div className="w-full grid grid-cols-2 gap-4 items-start">
                 <div className="flex flex-row bg-white/50 backdrop-blur-xl  w-full items-center justify-between ring-1 ring-black/20 p-6 rounded-md">
                   <div className="flex flex-col ">
