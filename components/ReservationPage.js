@@ -183,7 +183,7 @@ const ReservationPage = ({ hotel }) => {
   };
 
   return (
-    <div className="relative w-full h-screen flex items-center justify-center flex-col p-24  bg-gradient-to-b from-white to-tertiary/40">
+    <div className="relative w-full h-screen flex items-center justify-center flex-col p-36  bg-gradient-to-b from-white to-tertiary/40">
       <div className="text-black px-8 rounded-lg text-center my-8 ">
         <h1 className="text-4xl font-bold">{hotel?.hotel}</h1>
       </div>

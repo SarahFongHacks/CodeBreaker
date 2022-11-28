@@ -66,7 +66,7 @@ const Hotel = ({ hotels }) => {
         <ReservationPage hotel={hotel} />
       ) : (
         <motion.div
-          className="w-full h-screen flex flex-col items-center bg-gradient-to-b from-white to-tertiary/40 justify-center p-24 relative overflow-hidden"
+          className="w-full h-screen flex flex-col items-center bg-gradient-to-b from-white to-tertiary/40 justify-center p-36 relative overflow-hidden"
           key="main"
           initial="hidden"
           animate="visible"
