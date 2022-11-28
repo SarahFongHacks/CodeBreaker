@@ -26,10 +26,10 @@ const DateDialog = ({ booking }) => {
   var today = new Date();
   const [total, setTotal] = useState(0);
   const [error, setError] = useState(false);
-  const [startDate, setStartDate] = useState(today);
+  const [startDate, setStartDate] = useState(null);
   var minCheckout = new Date(startDate);
   minCheckout.setDate(minCheckout.getDate() + 1);
-  const [endDate, setEndDate] = useState(minCheckout);
+  const [endDate, setEndDate] = useState(null);
   const [hotel, setHotel] = useState(null);
   const [enableRewards, setEnableRewards] = useState(0);
   const [redeemed, setRedeemed] = useState(false);
@@ -139,18 +139,55 @@ const DateDialog = ({ booking }) => {
     getHotel();
   }, []);
 
+  // const excludedDates = [];
+  // for (let i = 0; i < hotel?.reservations.length; i++) {
+  //   excludedDates.push({
+  //     start: new Date(hotel.reservations[i].startDate),
+  //     end: new Date(hotel.reservations[i].endDate),
+  //   });
+  // }
+
+  // const disableDateRange = excludedDates.map((range) => ({
+  //   start: range.start,
+  //   end: range.end,
+  // }));
+
   const excludedDates = [];
   for (let i = 0; i < hotel?.reservations.length; i++) {
-    excludedDates.push({
-      start: new Date(hotel.reservations[i].startDate),
-      end: new Date(hotel.reservations[i].endDate),
-    });
+    const dateToAdd = new Date(hotel.reservations[i].startDate);
+    while (dateToAdd <= hotel.reservations[i].endDate) {
+      excludedDates.push(new Date(dateToAdd));
+      dateToAdd.setDate(dateToAdd.getDate() + 1);
+    }
   }
 
-  const disableDateRange = excludedDates.map((range) => ({
-    start: range.start,
-    end: range.end,
-  }));
+  for (let i = 0; i < user?.currentBooking.length; i++) {
+    const dateToAdd = new Date(user.currentBooking[i].startDate);
+    while (dateToAdd <= user.currentBooking[i].endDate) {
+      excludedDates.push(new Date(dateToAdd));
+      dateToAdd.setDate(dateToAdd.getDate() + 1);
+    }
+  }
+
+  excludedDates.sort(function (a, b) {
+    const d1 = new Date(a);
+    const d2 = new Date(b);
+    return d1 - d2;
+  });
+
+  const maxCheckout = () => {
+    var maxC = null;
+    for (let i = 0; i < excludedDates.length; i++) {
+      if (minCheckout < excludedDates[i]) {
+        const maxDate = new Date(excludedDates[i]);
+        maxDate.setDate(maxDate.getDate() - 1);
+        maxC = new Date(maxDate);
+        break;
+      }
+    }
+    return maxC;
+  };
+
 
   const rewardsHandler = () => {
     updateRewardPoints(user, booking.rewardPoints);
@@ -242,9 +279,12 @@ const DateDialog = ({ booking }) => {
                               <DatePicker
                                 className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
                                 selected={startDate}
-                                onChange={(date) => setStartDate(date)}
-                                //excludeDates={excludedDates}
-                                excludeDateIntervals={disableDateRange}
+                                onChange={(date) => {
+                                  setStartDate(date);
+                                  setEndDate(date);
+                                }}
+                                excludeDates={excludedDates}
+                                //excludeDateIntervals={disableDateRange}
                                 minDate={new Date()}
                               />
                             </div>
@@ -253,9 +293,11 @@ const DateDialog = ({ booking }) => {
                               <DatePicker
                                 className="w-full rounded-md px-3 mb-4 py-2 placeholder-black/50 focus:outline-none ring-1 ring-black focus:ring-tertiary text-black"
                                 selected={endDate}
-                                excludeDateIntervals={disableDateRange}
+                                excludeDates={excludedDates}
+                               //excludeDateIntervals={disableDateRange}
                                 onChange={(date) => setEndDate(date)}
                                 minDate={minCheckout}
+                                maxDate={maxCheckout()}
                               />
                             </div>
                             <div className="w-full h-[2px] bg-black/20 my-4 mt-16 " />
