@@ -234,7 +234,7 @@ const DateDialog = ({ booking }) => {
                           <form className="flex flex-col w-80">
                             {error && (
                               <div className="w-full items-center justify-center flex mb-2 bg-red-500 p-2 rounded-md text-white">
-                                Invalid dates please try different dates.
+                                Invalid dates: Please try different dates.
                               </div>
                             )}
                             <div className="check-in">
