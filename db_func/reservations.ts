@@ -71,7 +71,7 @@ export async function createRewardPointsReservation(
     errorMessage: ""
   };
 
-  const requiredPoints = totalPrice * 40;
+  const requiredPoints = Math.floor(totalPrice * 40);
 
   const reservation: Reservation = {
     id: id,
