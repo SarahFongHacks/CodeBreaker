@@ -17,7 +17,6 @@ import LoginButton from "./UI/LoginButton";
 import PuffLoader from "react-spinners/PuffLoader";
 
 const ReservationPage = ({ hotel }) => {
-
   const { user } = useContext(LoginContext);
 
   const excludedDates = [];
@@ -43,7 +42,7 @@ const ReservationPage = ({ hotel }) => {
     return d1 - d2;
   });
 
-  for (let i = 0; i < excludedDates.length; i ++) {
+  for (let i = 0; i < excludedDates.length; i++) {
     console.log(excludedDates[i]);
   }
 
@@ -56,9 +55,9 @@ const ReservationPage = ({ hotel }) => {
   //     } else if (minD == excludedDates[i]) {
   //       minD.setDate(minD.getDate() + 1);
   //     } else {
-        
+
   //       console.log("Test: " + excludedDates[i]);
-        
+
   //       minD = excludedDates[i];
   //       console.log("Test min: " + minD);
   //       break;
@@ -76,6 +75,7 @@ const ReservationPage = ({ hotel }) => {
   const [disabled, setDisabled] = useState(true);
   const [loader, setLoader] = useState(false);
   const [rewardsLoader, setRewardsLoader] = useState(false);
+  const [points, setPoints] = useState(0);
 
   const router = useRouter();
 
@@ -133,12 +133,18 @@ const ReservationPage = ({ hotel }) => {
   }, [startDate, endDate]);
 
   useEffect(() => {
-    if (user.rewardPoints / 40 >= total) {
+    if (Math.ceil(total * 40) >= 0) {
+      setPoints(Math.ceil(total * 40));
+    }
+  }, [total]);
+
+  useEffect(() => {
+    if (user.rewardPoints >= points && points > 0) {
       setDisabled(false);
     } else {
       setDisabled(true);
     }
-  }, [total]);
+  }, [points]);
 
   // const excludedDates = [];
   // for (let i = 0; i < hotel?.reservations.length; i++) {
@@ -248,8 +254,13 @@ const ReservationPage = ({ hotel }) => {
               <h4>Total </h4>
               <h4>${total} </h4>
             </div>
+
             <div
-              className="relative w-full shadow-lg hover:shadow-xl cursor-pointer hover:scale-[1.01] bg-gradient-to-r from-tertiary to-[#79A1F7] font-bold text-white   py-3 px-5 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary"
+              className={`${
+                error
+                  ? "cursor-not-allowed hover:none text-white/50"
+                  : "bg-gradient-to-r from-tertiary to-[#79A1F7] hover:scale-[1.01] hover:shadow-xl"
+              } relative w-full shadow-lg  cursor-pointer  font-bold text-white   py-3 px-5 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary`}
               onClick={() =>
                 reservationHandler({ hotel, user, startDate, endDate })
               }
@@ -295,6 +306,9 @@ const ReservationPage = ({ hotel }) => {
                   />
                 </div>
               )}
+            </div>
+            <div className="mt-2 w-full text-sm font-bold flex justify-center items-center">
+              <h4>{points} points</h4>
             </div>
           </form>
         </div>
