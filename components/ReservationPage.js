@@ -184,8 +184,8 @@ const ReservationPage = ({ hotel }) => {
 
   return (
     <div className="relative w-full h-screen flex items-center justify-center flex-col p-36  bg-gradient-to-b from-white to-tertiary/40">
-      <div className="text-black px-8 rounded-lg text-center my-8 ">
-        <h1 className="text-4xl font-bold">{hotel?.hotel}</h1>
+      <div className="text-black text-center mb-12 ">
+        <h1 className="text-5xl font-bold">{hotel?.hotel}</h1>
       </div>
       <div className="absolute left-0 top-0 flex w-full items-center justify-between p-8">
         <BackButton href="/hotels" />

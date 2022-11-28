@@ -80,7 +80,7 @@ const Hotel = ({ hotels }) => {
           <div className="overflow-hidden ">
             <motion.h1
               variants={item}
-              className="font-bold text-4xl mb-8 self-start"
+              className="font-bold text-5xl mb-12 self-start"
             >
               {hotel?.hotel}
             </motion.h1>
