@@ -1,5 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import ImageCarousel from "./UI/ImageCarousel";
+import * as Dialog from "@radix-ui/react-dialog";
+import { GrFormClose } from "react-icons/gr";
+import { motion } from "framer-motion";
 import {
   createReservation,
   createRewardPointsReservation,
@@ -111,9 +114,13 @@ const ReservationPage = ({ hotel }) => {
   const rewardsReservationHandler = async () => {
     createRewardPointsReservation(hotel, user, startDate, endDate, total);
     setRewardsLoader(true);
-    await delay(3000);
-    router.push("/profile");
+    // await delay(3000);
+    // router.push("/profile");
   };
+
+  const nextPage = async () => {
+    router.push("/profile");
+  }
 
   const totalHandler = () => {
     if (startDate && endDate && endDate > startDate) {
@@ -180,6 +187,15 @@ const ReservationPage = ({ hotel }) => {
       }
     }
     return maxC;
+  };
+
+  const container = {
+    hidden: { y: "-10%", x: "-50%" },
+    visible: {
+      y: "-50%",
+      x: "-50%",
+      transition: { duration: 0.6, type: "spring", bounce: 0.3 },
+    },
   };
 
   return (
@@ -279,7 +295,70 @@ const ReservationPage = ({ hotel }) => {
                 </div>
               )}
             </div>
-            <div
+            <Dialog.Root>
+              <Dialog.Trigger>
+                <div
+                  className={`${
+                    disabled
+                      ? "cursor-not-allowed bg-black text-white/50"
+                      : "bg-gradient-to-r from-gray-800 to-gray-500 hover:scale-[1.01] hover:shadow-xl text-white "
+                  } w-full  mt-4 select-none shadow-lg relative text-sm cursor-pointer  font-bold   py-3 px-5 transition ease-linear duration-200 rounded-md  whitespace-nowrap flex items-center justify-center bg-tertiary`}
+                  onClick={() =>
+                    rewardsReservationHandler(
+                      hotel,
+                      user,
+                      startDate,
+                      endDate,
+                      total
+                    )
+                  }
+                >
+                  <p>Reserve with Rewards Points</p>
+                  {rewardsLoader && (
+                    <div className="absolute right-4">
+                      <PuffLoader
+                        color={"#ffffff"}
+                        loading={rewardsLoader}
+                        size={30}
+                        aria-label="Loading Spinner"
+                        data-testid="loader"
+                      />
+                    </div>
+                  )}
+                </div>
+              </Dialog.Trigger>
+              <Dialog.Portal className="flex h-screen w-full items-center justify-center">
+                <Dialog.Overlay className="fixed inset-0 bg-black/80" />
+                <Dialog.Content>
+                  <motion.div
+                    className="flex flex-col p-16 items-center justify-center overflow-y-scroll fixed left-1/2 top-1/2 w-8/12 max-w-[54rem] bg-white rounded-lg"
+                    initial="hidden"
+                    animate="visible"
+                    variants={container}
+                  >
+                    <p className="font-bold text-xl mb-8">
+                      Congrats! Your booking is successful.
+                    </p>
+                    <Dialog.Close className="absolute top-6 left-6">
+                      <GrFormClose className="text-xl" />
+                    </Dialog.Close>
+                    <Dialog.Close>
+                      <div
+                      className="mt-8 px-4 py-2 rounded-lg shadow-lg text-lg flex items-center justify-center hover:shadow-xl transition duration-200 ease-linear hover:scale-[1.02] cursor-pointer bg-gradient-to-r from-green-500 to-green-400 select-none text-white  space-x-2"
+                      onClick={() => 
+                          nextPage()
+                        }   
+                      >
+                        Click here to continue
+                      </div>
+                      
+                      
+                    </Dialog.Close>
+                  </motion.div>
+                </Dialog.Content>
+              </Dialog.Portal>
+            </Dialog.Root>
+            {/* <div
               className={`${
                 disabled
                   ? "cursor-not-allowed bg-black text-white/50"
@@ -307,7 +386,7 @@ const ReservationPage = ({ hotel }) => {
                   />
                 </div>
               )}
-            </div>
+            </div> */}
             <div className="mt-4 w-full text-sm font-bold flex justify-center items-center">
               <h4>{points} points</h4>
             </div>
